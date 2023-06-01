@@ -1,7 +1,7 @@
-import Hello from '~/components/Hello';
+import Login from './components/Login';
 
 function App() {
-  return <Hello />;
+  return <Login />;
 }
 
 export default App;

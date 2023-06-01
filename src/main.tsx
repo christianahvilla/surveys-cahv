@@ -5,6 +5,7 @@ import App from './App';
 
 // styles
 import './index.css';
+import './tailwind.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

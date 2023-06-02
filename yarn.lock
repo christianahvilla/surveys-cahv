@@ -3351,10 +3351,14 @@ postcss-selector-parser@6.0.10:
     util-deprecate "^1.0.2"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 postcss-selector-parser@^6.0.10, postcss-selector-parser@^6.0.11:
 =======
 postcss-selector-parser@^6.0.11:
 >>>>>>> 4f9d434 (Complete UI for Login)
+=======
+postcss-selector-parser@^6.0.10, postcss-selector-parser@^6.0.11:
+>>>>>>> 808da00 (Working on Home)
   version "6.0.13"
   resolved "https://registry.yarnpkg.com/postcss-selector-parser/-/postcss-selector-parser-6.0.13.tgz#d05d8d76b1e8e173257ef9d60b706a8e5e99bf1b"
   integrity sha512-EaV1Gl4mUEV4ddhDnv/xtj7sxwrwxdetHdWUGnT4VJQf+4d05v6lHYZr8N573k5Z0BViss7BDhfWtKS3+sfAqQ==
@@ -3946,7 +3950,11 @@ tailwindcss@3.3.0:
     resolve "^1.22.1"
     sucrase "^3.29.0"
 
+<<<<<<< HEAD
 tailwindcss@^3, tailwindcss@^3.3.2:
+=======
+tailwindcss@^3.3.2:
+>>>>>>> 808da00 (Working on Home)
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.3.2.tgz#2f9e35d715fdf0bbf674d90147a0684d7054a2d3"
   integrity sha512-9jPkMiIBXvPc2KywkraqsUfbfj+dHDb+JPWtSJa9MLFdrPyazI7q6WX2sUrm7R9eVR7qqv3Pas7EvQFzxKnI6w==

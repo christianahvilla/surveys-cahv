@@ -4,10 +4,7 @@ const Header = () => {
       id='main-navbar'
       className='fixed left-0 right-0 top-0 flex w-full flex-nowrap items-center justify-between bg-white py-[0.6rem] text-gray-500 shadow-lg hover:text-gray-700 focus:text-gray-700 dark:bg-zinc-700 lg:flex-wrap lg:justify-start xl:pl-60'
       data-te-navbar-ref
-<<<<<<< HEAD
       style={{ zIndex: 1000 }}
-=======
->>>>>>> 808da00 (Working on Home)
     >
       <div className='flex w-full flex-wrap items-center justify-between px-4'>
         <button
@@ -34,7 +31,6 @@ const Header = () => {
         </button>
 
         <ul className='relative mr-4 ml-auto flex items-center'>
-<<<<<<< HEAD
           <div className='relative' data-te-dropdown-ref>
             <span
               className='hidden-arrow flex items-center whitespace-nowrap transition duration-150 ease-in-out motion-reduce:transition-none'
@@ -42,7 +38,6 @@ const Header = () => {
               role='button'
               data-te-dropdown-toggle-ref
               aria-expanded={true}
-=======
           <li className='mr-4'>
             <a href='www.google.com'>
               <span className='fill-gray-500 hover:fill-gray-700 focus:fill-gray-700 dark:fill-gray-200 [&>svg]:w-4'>
@@ -55,13 +50,13 @@ const Header = () => {
 
           <li className='relative' data-te-dropdown-ref>
             <a
+          <div className='relative' data-te-dropdown-ref>
+            <span
               className='hidden-arrow flex items-center whitespace-nowrap transition duration-150 ease-in-out motion-reduce:transition-none'
-              href='www.google.com'
               id='navbarDropdownMenuLink'
               role='button'
               data-te-dropdown-toggle-ref
               aria-expanded='false'
->>>>>>> 808da00 (Working on Home)
             >
               <img
                 src='https://tecdn.b-cdn.net/img/Photos/Avatars/img (31).webp'
@@ -70,11 +65,9 @@ const Header = () => {
                 alt='Avatar'
                 loading='lazy'
               />
-<<<<<<< HEAD
             </span>
-=======
             </a>
->>>>>>> 808da00 (Working on Home)
+            </span>
             <ul
               className='absolute left-auto right-0 z-[1000] float-left m-0 mt-1 hidden min-w-[10rem] list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-zinc-700 [&[data-te-dropdown-show]]:block'
               aria-labelledby='dropdownMenuButton2'
@@ -108,11 +101,9 @@ const Header = () => {
                 </a>
               </li>
             </ul>
-<<<<<<< HEAD
           </div>
-=======
           </li>
->>>>>>> 808da00 (Working on Home)
+          </div>
         </ul>
       </div>
     </nav>

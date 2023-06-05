@@ -56,7 +56,7 @@ const Header = () => {
               id='navbarDropdownMenuLink'
               role='button'
               data-te-dropdown-toggle-ref
-              aria-expanded='false'
+              aria-expanded={true}
             >
               <img
                 src='https://tecdn.b-cdn.net/img/Photos/Avatars/img (31).webp'

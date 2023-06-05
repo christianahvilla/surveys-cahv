@@ -4,6 +4,7 @@ const Header = () => {
       id='main-navbar'
       className='fixed left-0 right-0 top-0 flex w-full flex-nowrap items-center justify-between bg-white py-[0.6rem] text-gray-500 shadow-lg hover:text-gray-700 focus:text-gray-700 dark:bg-zinc-700 lg:flex-wrap lg:justify-start xl:pl-60'
       data-te-navbar-ref
+      style={{ zIndex: 1000 }}
     >
       <div className='flex w-full flex-wrap items-center justify-between px-4'>
         <button
@@ -36,7 +37,7 @@ const Header = () => {
               id='navbarDropdownMenuLink'
               role='button'
               data-te-dropdown-toggle-ref
-              aria-expanded='false'
+              aria-expanded={true}
             >
               <img
                 src='https://tecdn.b-cdn.net/img/Photos/Avatars/img (31).webp'

@@ -31,9 +31,9 @@ const Header = () => {
         </button>
 
         <ul className='relative mr-4 ml-auto flex items-center'>
-          <div className='relative' data-te-dropdown-ref>
+          <div className='relative dropdown' data-te-dropdown-ref>
             <span
-              className='hidden-arrow flex items-center whitespace-nowrap transition duration-150 ease-in-out motion-reduce:transition-none'
+              className='hidden-arrow flex items-center whitespace-nowrap transition duration-150 ease-in-out motion-reduce:transition-none '
               id='navbarDropdownMenuLink'
               role='button'
               data-te-dropdown-toggle-ref
@@ -69,9 +69,10 @@ const Header = () => {
             </a>
             </span>
             <ul
-              className='absolute left-auto right-0 z-[1000] float-left m-0 mt-1 hidden min-w-[10rem] list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-zinc-700 [&[data-te-dropdown-show]]:block'
+              className='absolute left-auto right-0 z-[1000] float-left m-0 mt-1 min-w-[10rem] list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-zinc-700 [&[data-te-dropdown-show]]:block dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'
               aria-labelledby='dropdownMenuButton2'
               data-te-dropdown-menu-ref
+              tabIndex={0}
             >
               <li>
                 <a

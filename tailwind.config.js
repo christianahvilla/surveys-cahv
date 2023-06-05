@@ -992,5 +992,5 @@ module.exports = {
       50: '50',
     },
   },
-  plugins: [require('tw-elements/dist/plugin.cjs')],
+  plugins: [require('tw-elements/dist/plugin.cjs'), require('daisyui')],
 };

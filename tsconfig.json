@@ -23,7 +23,8 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["src/*"]
+      "~/*": ["./src/*"],
+      "~assets/*": ["./assets/*"]
     }
   },
   "types": ["vite/client", "vite-plugin-svgr/client", "vitest/globals"],
@@ -34,7 +35,8 @@
     "src",
     "setupTest.ts",
     "src/**/*.test.ts",
-    "src/**/*.test.tsx"
+    "src/**/*.test.tsx",
+    "tailwind.config.js"
   ],
   "exclude": ["node_modules", "**/__mocks__/*", "vitest/**/*"]
 }

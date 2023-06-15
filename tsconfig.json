@@ -23,8 +23,11 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"],
-      "~assets/*": ["./assets/*"]
+      "~pages/*": ["./src/pages/*"],
+      "~components/*": ["./src/components/*"],
+      "~types/*": ["./src/types/*"],
+      "~utils/*": ["./src/utils/*"],
+      "~assets/*": ["./src/assets/*"]
     }
   },
   "types": ["vite/client", "vite-plugin-svgr/client", "vitest/globals"],

@@ -5,7 +5,7 @@ interface IOAuth {
 }
 
 export const OAuth = ({ children }: IOAuth) => {
-  const isUserAuthenticated = false; // Boolean(localStorage.getItem('user'));
+  const isUserAuthenticated = true; // Boolean(localStorage.getItem('user'));
 
   if (isUserAuthenticated) {
     return <Navigate to='/dashboard' replace />;

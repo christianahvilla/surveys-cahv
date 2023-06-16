@@ -7,7 +7,7 @@ interface IRequireAuth {
 }
 
 export const RequireAuth = ({ children }: IRequireAuth) => {
-  const isUserAuthenticated = false; // Boolean(localStorage.getItem('user'));
+  const isUserAuthenticated = true; // Boolean(localStorage.getItem('user'));
 
   if (!isUserAuthenticated) {
     return <Navigate replace to='/login' />;

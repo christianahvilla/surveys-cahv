@@ -1,3 +1,5 @@
+import { ApiMethods } from '~types/api/api-methods-object.type';
+
 const BEARER = 'Bearer';
 const LOCAL_STORAGE_JWT = import.meta.env.VITE_TOKEN_JWT;
 const BASE_URL = import.meta.env.VITE_API_HOST;
@@ -8,7 +10,7 @@ type RequestHeaders = {
 type RequestParams = {
   additionalHeaders?: RequestHeaders;
   body?: Record<string, any>;
-  method: any;
+  method: ApiMethods;
   params?: Record<string, any>;
   requireAuth?: boolean;
   url: string;
@@ -67,6 +69,7 @@ class ApiRequestProvider {
       : {
           ...commonHeaders,
           'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
         };
 
     let options = {
@@ -92,19 +95,23 @@ class ApiRequestProvider {
       .then((response) => {
         switch (response.status) {
           case 500: {
-            const serviceError = new Error('error.500');
-            return Promise.reject(serviceError);
+            return this.parseBody(response).then((jsonError) => {
+              return Promise.reject(jsonError);
+            });
           }
           case 401: {
-            const serviceError = new Error('error.401');
-            return this.parseBody(response).then((_json) => {
-              return Promise.reject(serviceError);
+            return this.parseBody(response).then((jsonError) => {
+              return Promise.reject(jsonError);
+            });
+          }
+          case 403: {
+            return this.parseBody(response).then((jsonError) => {
+              return Promise.reject(jsonError);
             });
           }
           case 404: {
-            const serviceError = new Error('error.404');
-            return this.parseBody(response).then((_json) => {
-              return Promise.reject(serviceError);
+            return this.parseBody(response).then((jsonError) => {
+              return Promise.reject(jsonError);
             });
           }
           default: {

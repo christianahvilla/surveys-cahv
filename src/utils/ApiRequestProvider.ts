@@ -1,7 +1,7 @@
+import { getFromLocalStorage } from 'src/hooks/useLocalStorage';
 import { ApiMethods } from '~types/api/api-methods-object.type';
 
 const BEARER = 'Bearer';
-const LOCAL_STORAGE_JWT = import.meta.env.VITE_TOKEN_JWT;
 const BASE_URL = import.meta.env.VITE_API_HOST;
 type RequestHeaders = {
   Accept: string;
@@ -58,9 +58,10 @@ class ApiRequestProvider {
     };
 
     if (requireAuth) {
+      const { token } = getFromLocalStorage('authData');
       commonHeaders = {
         ...commonHeaders,
-        Authorization: `${BEARER} ${localStorage.getItem(LOCAL_STORAGE_JWT)}`,
+        Authorization: `${BEARER} ${token}`,
       } as any;
     }
 

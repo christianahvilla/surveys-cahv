@@ -5,13 +5,13 @@ import { useEffect, useState } from 'react';
 
 const useGetUsers = () => {
   const url = '/auth/users';
-  const apiResquestProdiver = ApiRequestProviderInstance;
+  const apiRequestProvider = ApiRequestProviderInstance;
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState<any>();
 
   useEffect(() => {
     if (!users) {
-      apiResquestProdiver
+      apiRequestProvider
         .doRequest({
           url,
           method: ApiMethods.GET,
@@ -32,7 +32,7 @@ const useGetUsers = () => {
           });
         });
     }
-  }, [apiResquestProdiver, loading, users]);
+  }, [apiRequestProvider, loading, users]);
 
   return {
     users: users,

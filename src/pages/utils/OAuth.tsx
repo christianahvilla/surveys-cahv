@@ -7,7 +7,6 @@ interface IOAuth {
 
 export const OAuth = ({ children }: IOAuth) => {
   const authData = getFromLocalStorage('authData');
-  console.log(authData);
   const isUserAuthenticated = Boolean(authData);
 
   if (isUserAuthenticated) {

@@ -3,7 +3,7 @@
 module.exports = {
   content: [
     './index.html',
-    './src/**/*.{js,ts,jsx,tsx}',
+    './src/**/*.{js,ts,jsx,tsx,html}',
     './node_modules/tw-elements/dist/js/**/*.js',
   ],
   presets: [],

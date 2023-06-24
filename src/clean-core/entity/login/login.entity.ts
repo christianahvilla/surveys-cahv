@@ -8,7 +8,7 @@ export class LoginEntity {
   name: string;
   phone: string;
   isActive: boolean;
-  client: string;
+  client: string | null;
   token: string;
 
   constructor(dto: LoginDTO) {

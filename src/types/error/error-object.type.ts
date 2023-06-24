@@ -1,9 +1,16 @@
-import { NotificationType } from "~types/notification/notification-object.type";
+import { NotificationType } from '~types/notification/notification-object.type';
 
 const Error500Status = 500;
 const Error404Status = 404;
 const Error401Status = 401;
 const Error403Status = 403;
+const Error400Status = 400;
+
+export enum Error400 {
+  status = Error400Status,
+  title = 'Solicitud Incorrecta ',
+  type = NotificationType.ERROR,
+}
 
 export enum Error404 {
   status = Error404Status,
@@ -32,7 +39,7 @@ export enum Error500 {
 export type ErrorType = {
   status: number;
   title: string;
-  type: NotificationType.ERROR;
+  type: string;
 };
 
 enum StatusErrors {
@@ -40,6 +47,7 @@ enum StatusErrors {
   Error404Status = 404,
   Error401Status = 401,
   Error403Status = 403,
+  Error400Status = 400,
 }
 
 export type IAvailableErrors = {
@@ -51,4 +59,5 @@ export const AVAILABLE_ERRORS: IAvailableErrors = {
   [StatusErrors.Error404Status]: Error404,
   [StatusErrors.Error401Status]: Error401,
   [StatusErrors.Error403Status]: Error403,
+  [StatusErrors.Error400Status]: Error400,
 };

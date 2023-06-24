@@ -1,14 +1,14 @@
 import { useFetcher } from 'react-router-dom';
 import { NotificationElement } from '~components/app/common-notification/notification.element';
 import { OAuth } from '~pages/utils/OAuth';
-import { AVAILABLE_ERRORS, ErrorType, IAvailableErrors } from '~types/error/error-object.type';
+import { AVAILABLE_ERRORS, IAvailableErrors } from '~types/error/error-object.type';
 import { NotificationType } from '~types/notification/notification-object.type';
 
 export const LoginElement = () => {
   const fetcher = useFetcher();
 
-  const { data } = fetcher;
-  const { error } = data;
+  const { state, data } = fetcher;
+  const { error, statusCode, message } = (data || {}) as any;
 
   return (
     <div data-testid='login-element' className='h-full'>
@@ -16,11 +16,11 @@ export const LoginElement = () => {
         <section className='gradient-form h-full bg-neutral-200 dark:bg-neutral-700'>
           {error && (
             <NotificationElement
-              title={AVAILABLE_ERRORS[error.statusCode as keyof IAvailableErrors].title}
-              body={error.message}
+              title={AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors].title}
+              body={message}
               type={
-                AVAILABLE_ERRORS[error.statusCode as keyof IAvailableErrors]
-                  .type as keyof typeof NotificationType
+                AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors]
+                  .type as unknown as NotificationType.ERROR
               }
             />
           )}
@@ -52,7 +52,7 @@ export const LoginElement = () => {
 
                         <div>
                           <p className='mb-4'>Inicia Sesión</p>
-                          <fetcher.Form method='post'>
+                          <fetcher.Form method='post' action='/login'>
                             <div className='relative mb-4' data-te-input-wrapper-init>
                               <input
                                 type='text'
@@ -95,9 +95,9 @@ export const LoginElement = () => {
                                   background:
                                     'linear-gradient(to right, #cc24ee, #8c36d8, #7636dd, #4552b4)',
                                 }}
-                                disabled={fetcher.state === 'submitting'}
+                                disabled={state === 'submitting'}
                               >
-                                {fetcher.state === 'submitting' ? (
+                                {state === 'submitting' ? (
                                   <>
                                     <span className='loading loading-spinner'></span>
                                   </>
@@ -118,7 +118,7 @@ export const LoginElement = () => {
                       }}
                     >
                       <div className='px-4 py-6 text-white md:mx-6 md:p-12'>
-                        <h4 className='mb-6 text-xl font-semibold'>Somos mas que una compañia</h4>
+                        <h4 className='mb-6 text-xl font-semibold'>Somos más que una compañía</h4>
                         <p className='text-sm'>
                           Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                           tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim

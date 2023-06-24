@@ -1,4 +1,4 @@
-import { ILogin } from '~clean/api/login';
+import { ILoginData } from '~clean/api/login';
 import { ApiResponse } from '~clean/common';
 import {
   LoginByCredentialsInput,
@@ -30,7 +30,7 @@ export class RestLoginRepository implements LoginRepository {
   constructor(private readonly requestProvider: any) {}
 
   protected async validateResponse(res: Response) {
-    const data = (await res.json()) as ILogin;
+    const data = (await res.json()) as ILoginData;
 
     const validationResult = validateObject(data, validationSchema);
 
@@ -58,9 +58,9 @@ export class RestLoginRepository implements LoginRepository {
     });
   }
 
-  protected _transformToLoginData(data: ILogin) {
+  protected _transformToLoginData(data: ILoginData) {
     return {
-      ...data,
+      user: data,
     };
   }
 
@@ -68,7 +68,7 @@ export class RestLoginRepository implements LoginRepository {
     input: LoginByCredentialsInput,
   ): Promise<ApiResponse<LoginByCredentialsOutput>> {
     try {
-      const data = await this._retrieveLoginData(this.URL, {
+      const formattedData = await this._retrieveLoginData(this.URL, {
         ...input,
       })
         .then(this.validateResponse.bind(this))
@@ -82,7 +82,7 @@ export class RestLoginRepository implements LoginRepository {
 
       return {
         type: 'success',
-        data,
+        data: formattedData,
       };
     } catch (error) {
       return {

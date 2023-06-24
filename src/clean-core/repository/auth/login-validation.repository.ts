@@ -6,7 +6,7 @@ export const validationSchema: TValidationSchema[] = [
     type: 'string',
   },
   {
-    name: 'oroles',
+    name: 'roles',
     type: 'string',
   },
   {
@@ -26,16 +26,13 @@ export const validationSchema: TValidationSchema[] = [
     type: 'string',
   },
   {
-    name: 'id',
-    type: 'string',
-  },
-  {
     name: 'isActive',
     type: 'boolean',
   },
   {
     name: 'cliente',
     type: 'string',
+    isNullable: true,
   },
   {
     name: 'token',

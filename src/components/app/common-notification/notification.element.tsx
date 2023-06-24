@@ -11,7 +11,7 @@ interface INotificationElement {
 export const NotificationElement = ({ title, information, body, type }: INotificationElement) => {
   return (
     <div
-      className={`absolute m-40 ${NOTIFICATION_TYPES[type].mainClass}`}
+      className={`absolute m-12 right-12 ${NOTIFICATION_TYPES[type].mainClass}`}
       role='alert'
       aria-live='assertive'
       aria-atomic='true'

@@ -99,6 +99,11 @@ class ApiRequestProvider {
               return Promise.reject(jsonError);
             });
           }
+          case 400: {
+            return this.parseBody(response).then((jsonError) => {
+              return Promise.reject(jsonError);
+            });
+          }
           case 401: {
             return this.parseBody(response).then((jsonError) => {
               return Promise.reject(jsonError);

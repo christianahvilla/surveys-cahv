@@ -1,4 +1,10 @@
+import { Nullable } from '~clean/common/types/common';
 import { validator } from '../../common/utils/dto-validator';
+
+export enum LoginKesyInput {
+  email = 'email',
+  password = 'password',
+}
 
 // === Keys description ===
 export enum LoginKeys {
@@ -11,7 +17,6 @@ export enum LoginKeys {
   isActive = 'isActive',
   client = 'client',
   token = 'token',
-  password = 'password',
 }
 
 // === Interfaces ===
@@ -23,7 +28,7 @@ export interface LoginDTO {
   [LoginKeys.name]: string;
   [LoginKeys.phone]: string;
   [LoginKeys.isActive]: boolean;
-  [LoginKeys.client]: string;
+  [LoginKeys.client]: Nullable<string>;
   [LoginKeys.token]: string;
 }
 

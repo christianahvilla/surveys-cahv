@@ -1,4 +1,4 @@
-import { getFromLocalStorage } from 'src/hooks/useLocalStorage';
+import { getFromLocalStorage } from './LocalStorage';
 import { ApiMethods } from '~types/api/api-methods-object.type';
 
 const BEARER = 'Bearer';

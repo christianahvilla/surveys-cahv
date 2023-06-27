@@ -1,5 +1,5 @@
 export enum ServerError {
-  title = 'Oh, no! We ran into an issue.',
-  message = "A server error has occurred and we're working to fix the problem! We'll be up and running shortly.",
+  title = '¡Oh, no! Nos encontramos con un problema.',
+  message = 'Se ha producido un error en el servidor y estamos trabajando para solucionar el problema. Estaremos en funcionamiento en breve.',
   status = 500,
 }

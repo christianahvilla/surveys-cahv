@@ -4,10 +4,16 @@
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 
 import { Link } from 'react-router-dom';
+import { removeFromLocalStorage } from '~utils/LocalStorage';
 
 export function HeaderElement() {
   const handleLogout = () => {
-    localStorage.removeItem('user');
+    const isRemoved = removeFromLocalStorage('authData');
+
+    if (isRemoved) {
+      alert('Algo salió mal');
+    }
+
     window.location.reload();
   };
 

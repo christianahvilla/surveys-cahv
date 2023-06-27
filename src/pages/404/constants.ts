@@ -1,5 +1,5 @@
 export enum NotFoundError {
-  title = 'Page not found',
-  message = "Sorry, we can't find the page you are looking for. Maybe try heading back to the homepage?",
+  title = 'Página no encontrada',
+  message = 'Lo sentimos, no podemos encontrar la página que está buscando. ¿Tal vez intente regresar a la página de inicio?',
   status = 404,
 }

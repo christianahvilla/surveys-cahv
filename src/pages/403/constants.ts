@@ -1,5 +1,5 @@
 export enum NotAuthorizedError {
-  title = 'Access denied',
-  message = "You don't have permission to access this page. Please contact your manager if you think you should.",
+  title = 'Acceso Denegado',
+  message = 'No tienes permiso para acceder a esta página. Póngase en contacto con su administrador si cree que debería hacerlo.',
   status = 403,
 }

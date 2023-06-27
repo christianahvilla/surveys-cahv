@@ -7,37 +7,37 @@ const Error403Status = 403;
 const Error400Status = 400;
 
 export enum Error400 {
-  status = Error400Status,
+  statusCode = Error400Status,
   title = 'Solicitud Incorrecta ',
   type = NotificationType.ERROR,
 }
 
 export enum Error404 {
-  status = Error404Status,
+  statusCode = Error404Status,
   title = 'No Encontrado',
   type = NotificationType.ERROR,
 }
 
 export enum Error401 {
-  status = Error401Status,
+  statusCode = Error401Status,
   title = 'Credenciales Equivocadas',
   type = NotificationType.ERROR,
 }
 
 export enum Error403 {
-  status = Error403Status,
+  statusCode = Error403Status,
   title = 'No Autorizado',
   type = NotificationType.ERROR,
 }
 
 export enum Error500 {
-  status = Error500Status,
+  statusCode = Error500Status,
   title = 'Error Del Servidor',
   type = NotificationType.ERROR,
 }
 
 export type ErrorType = {
-  status: number;
+  statusCode: number;
   title: string;
   type: string;
 };

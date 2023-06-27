@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
-import { getFromLocalStorage } from 'src/hooks/useLocalStorage';
 import { HeaderElement } from '~components/app/header/app-header.component';
 import { SidenavElement } from '~components/app/sidenav/sidenav-element.component';
+import { getFromLocalStorage } from '~utils/LocalStorage';
 
 interface IRequireAuth {
   children: JSX.Element;

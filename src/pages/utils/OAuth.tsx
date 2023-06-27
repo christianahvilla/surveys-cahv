@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { getFromLocalStorage } from 'src/hooks/useLocalStorage';
+import { getFromLocalStorage } from '~utils/LocalStorage';
 
 interface IOAuth {
   children: JSX.Element;

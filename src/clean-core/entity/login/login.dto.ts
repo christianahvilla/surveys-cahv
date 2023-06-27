@@ -1,7 +1,7 @@
 import { Nullable } from '~clean/common/types/common';
 import { validator } from '../../common/utils/dto-validator';
 
-export enum LoginKesyInput {
+export enum LoginKeysInput {
   email = 'email',
   password = 'password',
 }

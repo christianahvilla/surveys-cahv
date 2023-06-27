@@ -1,13 +1,13 @@
 import { ActionFunctionArgs } from 'react-router-dom';
-import { setLocalStorage } from 'src/hooks/useLocalStorage';
-import { LoginKesyInput } from '~clean/entity';
+import { LoginKeysInput } from '~clean/entity';
 import { loginRepository } from '~clean/repository';
 import { LoginByCredentialsInteractor } from '~clean/usecase';
+import { setLocalStorage } from '~utils/LocalStorage';
 
 export const LoginAction = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
-  const email = (formData.get(LoginKesyInput.email) as string) || '';
-  const password = (formData.get(LoginKesyInput.password) as string) || '';
+  const email = (formData.get(LoginKeysInput.email) as string) || '';
+  const password = (formData.get(LoginKeysInput.password) as string) || '';
 
   try {
     const response = await new LoginByCredentialsInteractor(loginRepository).execute({

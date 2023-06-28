@@ -8,11 +8,7 @@ import { removeFromLocalStorage } from '~utils/LocalStorage';
 
 export function HeaderElement() {
   const handleLogout = () => {
-    const isRemoved = removeFromLocalStorage('authData');
-
-    if (isRemoved) {
-      alert('Algo salió mal');
-    }
+    removeFromLocalStorage('authData');
 
     window.location.reload();
   };

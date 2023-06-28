@@ -1,1 +1,1 @@
-export const TABLE_HEADER = ['Username', 'Email', 'Nombre Completo', 'Celular'];
+export const TABLE_HEADER = ['Username', 'Email', 'Nombre Completo', 'Celular', 'Acciones'];

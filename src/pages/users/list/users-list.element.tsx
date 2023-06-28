@@ -10,6 +10,7 @@ export const UsersListElement = () => {
   const data = useLoaderData() as {
     results: Awaited<Array<IUsersList>>;
   };
+
   const navigation = useNavigation();
 
   return (
@@ -37,6 +38,11 @@ export const UsersListElement = () => {
                   <th>{user.email}</th>
                   <th>{user.name}</th>
                   <th>{user.phone}</th>
+                  <th>
+                    <Link className='text-sky-500' to={`/users/${user.id}`}>
+                      Editar
+                    </Link>
+                  </th>
                 </tr>
               ));
 

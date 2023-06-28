@@ -60,7 +60,7 @@ export const ClientsListElement = () => {
                     <h3 className='my-6 text-[1.75rem] font-medium leading-[1.2] flex justify-self-start text-gray-500'>
                       Clientes
                     </h3>
-                    <Link className='flex' to='create' replace>
+                    <Link className='flex' to='/clients/create' replace>
                       <button className='self-center h-fit rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>
                         Agregar
                       </button>

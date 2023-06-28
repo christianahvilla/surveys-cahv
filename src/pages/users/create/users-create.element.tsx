@@ -1,15 +1,14 @@
-import { Form, Link, useActionData, useFetcher } from 'react-router-dom';
+import { Form, Link, useFetcher } from 'react-router-dom';
 import { NotificationElement } from '~components/app/common-notification/notification.element';
 import { AVAILABLE_ERRORS, IAvailableErrors } from '~types/error/error-object.type';
 import { NotificationType } from '~types/notification/notification-object.type';
 
 export const UsersCreateElement = () => {
   const fetcher = useFetcher();
-  const actionData = useActionData();
-  console.log(actionData);
 
   const { state, data } = fetcher;
   const { error, statusCode, message } = (data || {}) as any;
+
   return (
     <div data-testid='create-user-element'>
       <div className='min-h-screen w-full bg-gray-50 !pl-0 text-center sm:!pl-60' id='content'>

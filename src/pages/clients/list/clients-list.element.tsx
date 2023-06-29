@@ -7,15 +7,13 @@ import { LoadingElement } from '~components/app/loading/loading-element.componen
 import { NotificationElement } from '~components/app/common-notification/notification.element';
 import { NotificationType } from '~types/notification/notification-object.type';
 
-
 export const ClientsListElement = () => {
   const data = useLoaderData() as {
     results: Awaited<Array<IClientsList>>;
-  }
+  };
   const navigation = useNavigation();
 
   return (
-    
     <div data-testid='clients-list-element'>
       <Suspense fallback={<LoadingElement />}>
         <Await
@@ -47,6 +45,11 @@ export const ClientsListElement = () => {
                 <tr key={client.id}>
                   <th>{client.name}</th>
                   <th>{client.slug}</th>
+                  <th>
+                    <Link className='text-sky-500' to={`/clients/${client.id}`}>
+                      Editar
+                    </Link>
+                  </th>
                 </tr>
               ));
 

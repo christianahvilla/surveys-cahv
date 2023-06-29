@@ -3,6 +3,7 @@ import { RouteURLs } from './urls';
 import { ClientsElement } from './clients.element';
 import { routes as clientsListRoutes } from './list/routes';
 import { routes as clientsCreateRoutes } from './create/routes';
+import { routes as clientsEditRoutes } from './edit/routes';
 import { ClientsErrorElement } from './clients-error.element';
 
 export const routes: Array<NonIndexRouteObjectWithNav> = [
@@ -13,6 +14,6 @@ export const routes: Array<NonIndexRouteObjectWithNav> = [
     name: RouteURLs.ROOT,
     showInNav: false,
     order: 1,
-    children: [...clientsListRoutes, ...clientsCreateRoutes],
+    children: [...clientsListRoutes, ...clientsCreateRoutes, ...clientsEditRoutes],
   },
 ];

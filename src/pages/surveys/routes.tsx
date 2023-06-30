@@ -3,6 +3,7 @@ import { RouteURLs } from './urls';
 import { loader as surveyRouteLoader } from './loader';
 import { SurveysErrorElement } from './surveys-error.element';
 import { SurveysElement } from './surveys.element';
+import { routes as surveysCreateRoutes } from './list/routes';
 
 export const routes: Array<NonIndexRouteObjectWithNav> = [
   {
@@ -13,6 +14,6 @@ export const routes: Array<NonIndexRouteObjectWithNav> = [
     showInNav: false,
     order: 1,
     loader: surveyRouteLoader,
-    children: [],
+    children: [...surveysCreateRoutes],
   },
 ];

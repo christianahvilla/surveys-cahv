@@ -1,3 +1,3 @@
 export enum RouteURLs {
-  ROOT = '/',
+  ROOT = '/surveys',
 }

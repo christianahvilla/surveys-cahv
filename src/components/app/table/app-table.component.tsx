@@ -1,17 +1,31 @@
+import { ColDef, FirstDataRenderedEvent } from 'ag-grid-community';
+import { AgGridReact } from 'ag-grid-react';
+
 interface ITableElement {
-  head: React.JSX.Element[];
-  rows: React.JSX.Element[];
+  columnDefs: ColDef[];
+  rowData: Array<any>;
 }
 
-export const TableElement = ({ head, rows }: ITableElement) => {
+export const TableElement = ({ columnDefs, rowData }: ITableElement) => {
   return (
-    <div className='overflow-x-auto'>
-      <table className='table'>
-        <thead>
-          <tr>{head}</tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </table>
+    <div className='ag-theme-material' style={{ height: 600 }}>
+      <AgGridReact
+        rowData={rowData}
+        columnDefs={columnDefs}
+        defaultColDef={{
+          resizable: true,
+          lockPinned: true,
+          flex: 1,
+          minWidth: 180,
+        }}
+        pagination={true}
+        onFirstDataRendered={(params: FirstDataRenderedEvent) => {
+          params.api.sizeColumnsToFit();
+        }}
+        onGridSizeChanged={(event) => {
+          event.api.sizeColumnsToFit();
+        }}
+      />
     </div>
   );
 };

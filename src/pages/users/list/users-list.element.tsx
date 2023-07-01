@@ -30,22 +30,6 @@ export const UsersListElement = () => {
                 </div>
               );
 
-            const generateHead = () => TABLE_HEADER.map((header) => <th key={header}>{header}</th>);
-            const generateRows = () =>
-              users.map((user: IUsersList) => (
-                <tr key={user.id}>
-                  <th>{user.username}</th>
-                  <th>{user.email}</th>
-                  <th>{user.name}</th>
-                  <th>{user.phone}</th>
-                  <th>
-                    <Link className='text-sky-500' to={`/users/${user.id}`}>
-                      Editar
-                    </Link>
-                  </th>
-                </tr>
-              ));
-
             return (
               <div
                 className='min-h-screen w-full bg-gray-50 !pl-0 text-center sm:!pl-60'
@@ -63,7 +47,7 @@ export const UsersListElement = () => {
                     </Link>
                   </div>
                   <div className='rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
-                    <TableElement head={generateHead()} rows={generateRows()} />
+                    <TableElement rowData={users} columnDefs={TABLE_HEADER} />
                   </div>
                 </div>
               </div>

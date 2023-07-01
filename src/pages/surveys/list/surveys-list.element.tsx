@@ -39,19 +39,7 @@ export const SurveysListElement = () => {
                 </div>
               );
 
-            const generateHead = () => TABLE_HEADER.map((header) => <th key={header}>{header}</th>);
-            const generateRows = () =>
-              surveys.map((survey: ISurveyList) => (
-                <tr key={survey.id}>
-                  <th>{survey.nombre}</th>
-                  <th>{survey.slug}</th>
-                  <th>
-                    <Link className='text-sky-500' to={`/clients/${survey.id}`}>
-                      Editar
-                    </Link>
-                  </th>
-                </tr>
-              ));
+            console.log(surveys);
 
             return (
               <div
@@ -70,7 +58,7 @@ export const SurveysListElement = () => {
                     </Link>
                   </div>
                   <div className='rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
-                    <TableElement head={generateHead()} rows={generateRows()} />
+                    <TableElement rowData={surveys} columnDefs={TABLE_HEADER} />
                   </div>
                 </div>
               </div>

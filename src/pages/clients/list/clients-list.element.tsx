@@ -1,16 +1,17 @@
 import { Await, Link, useNavigation, useLoaderData } from 'react-router-dom';
-import { TableElement } from '~components/app/table/app-table.component';
-import { TABLE_HEADER } from './constants';
 import { IClientsList } from '~types/clients/clients-list-object';
 import { Suspense } from 'react';
 import { LoadingElement } from '~components/app/loading/loading-element.component';
 import { NotificationElement } from '~components/app/common-notification/notification.element';
 import { NotificationType } from '~types/notification/notification-object.type';
+import { TableElement } from '~components/app/table/app-table.component';
+import { TABLE_HEADER } from './constants';
 
 export const ClientsListElement = () => {
   const data = useLoaderData() as {
     results: Awaited<Array<IClientsList>>;
   };
+
   const navigation = useNavigation();
 
   return (
@@ -39,20 +40,6 @@ export const ClientsListElement = () => {
                 </div>
               );
 
-            const generateHead = () => TABLE_HEADER.map((header) => <th key={header}>{header}</th>);
-            const generateRows = () =>
-              clients.map((client: IClientsList) => (
-                <tr key={client.id}>
-                  <th>{client.name}</th>
-                  <th>{client.slug}</th>
-                  <th>
-                    <Link className='text-sky-500' to={`/clients/${client.id}`}>
-                      Editar
-                    </Link>
-                  </th>
-                </tr>
-              ));
-
             return (
               <div
                 className='min-h-screen w-full bg-gray-50 !pl-0 text-center sm:!pl-60'
@@ -69,8 +56,8 @@ export const ClientsListElement = () => {
                       </button>
                     </Link>
                   </div>
-                  <div className='rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
-                    <TableElement head={generateHead()} rows={generateRows()} />
+                  <div className='rounded-lg h-32 bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
+                    <TableElement columnDefs={TABLE_HEADER} rowData={clients} />
                   </div>
                 </div>
               </div>

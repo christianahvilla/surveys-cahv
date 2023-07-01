@@ -6,6 +6,8 @@ import App from './App';
 // styles
 import './index.css';
 import './tailwind.css';
+import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
+import 'ag-grid-community/styles/ag-theme-material.css'; // Optional theme CSS
 // import { AuthProvider } from './hooks/useAuth';
 // import { getFromLocalStorage } from './hooks/useLocalStorage';
 

@@ -1,4 +1,11 @@
-import { Await, Link, useLoaderData, useNavigation } from 'react-router-dom';
+import {
+  Await,
+  Link,
+  useLoaderData,
+  useNavigate,
+  useNavigation,
+  useParams,
+} from 'react-router-dom';
 import { TableElement } from '~components/app/table/app-table.component';
 import { TABLE_HEADER } from './constants';
 import { IUsersList } from '~types/users/users-list-object';
@@ -10,8 +17,18 @@ export const UsersListElement = () => {
   const data = useLoaderData() as {
     results: Awaited<Array<IUsersList>>;
   };
+  const { page = 0 } = useParams<{ page: string }>();
 
   const navigation = useNavigation();
+  const navigate = useNavigate();
+
+  const handlePagination = (newPage: number) => {
+    if (Number(page) === newPage) {
+      return;
+    }
+
+    return navigate(`/users/list/${newPage}`);
+  };
 
   return (
     <div data-testid='users-list-element'>
@@ -47,7 +64,12 @@ export const UsersListElement = () => {
                     </Link>
                   </div>
                   <div className='rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
-                    <TableElement rowData={users} columnDefs={TABLE_HEADER} />
+                    <TableElement
+                      rowData={users}
+                      columnDefs={TABLE_HEADER}
+                      handlePagination={handlePagination}
+                      currentPage={Number(page)}
+                    />
                   </div>
                 </div>
               </div>

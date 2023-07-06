@@ -1,3 +1,3 @@
 export enum RouteURLs {
-  ROOT = 'list',
+  ROOT = 'list/:page',
 }

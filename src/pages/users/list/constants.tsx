@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ColDef, ICellRendererParams } from 'ag-grid-community';
-import { IUsersList } from '~types/users/users-list-object';
+import { IUserDataTransform } from '~types/users/users-list-object';
 
 export const TABLE_HEADER: Array<ColDef> = [
   {
@@ -69,7 +69,7 @@ export const TABLE_HEADER: Array<ColDef> = [
     suppressMovable: false,
     cellRenderer: (column: ICellRendererParams) => {
       const { data } = column;
-      const { id } = data as IUsersList;
+      const { id } = data as IUserDataTransform;
 
       return (
         <div className='flex h-full space-x-4 justify-center items-center'>

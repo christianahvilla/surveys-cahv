@@ -20,7 +20,7 @@ export const getUserLoader = async ({ params }: any) => {
     id: apiResponseData.id,
     phone: apiResponseData.celular,
     email: apiResponseData.email,
-    name: apiResponseData.nombre_completo,
+    name: apiResponseData.nombreCompleto,
     roles: apiResponseData.roles,
     username: apiResponseData.username,
   };

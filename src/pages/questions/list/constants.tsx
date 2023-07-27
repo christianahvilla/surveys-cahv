@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import { ColDef, ICellRendererParams } from 'ag-grid-community';
-import { IUserDataTransform } from '~types/users/users-list-object';
+import { IQuestionDataTransform } from '~types/questions/questions-list-object';
 
 export const TABLE_HEADER: Array<ColDef> = [
   {
-    headerName: 'Username',
-    field: 'username',
+    headerName: 'Texto',
+    field: 'name',
     type: 'textColumn',
     filter: true,
     sortable: true,
@@ -16,19 +16,20 @@ export const TABLE_HEADER: Array<ColDef> = [
     },
   },
   {
-    headerName: 'Email',
-    field: 'email',
+    headerName: 'Descripción',
+    field: 'description',
     type: 'text',
+    wrapText: true,
+    autoHeight: true,
     filter: true,
     sortable: true,
     cellDataType: 'text',
     cellStyle: {
-      display: 'flex',
-      justifyContent: 'left',
+      textAlign: 'left',
     },
   },
   {
-    headerName: 'Nombre Completo',
+    headerName: 'Encuesta',
     field: 'name',
     type: 'text',
     filter: true,
@@ -38,10 +39,27 @@ export const TABLE_HEADER: Array<ColDef> = [
       display: 'flex',
       justifyContent: 'left',
     },
+    cellRenderer: (column: ICellRendererParams) => {
+      const { data } = column;
+      const { survey } = data as IQuestionDataTransform;
+
+      if (!survey) {
+        return 'N/A';
+      }
+      const { id, name } = survey;
+
+      return (
+        <div className='flex h-full space-x-4 justify-center items-center'>
+          <Link className='text-sky-500' to={`/surveys/${id}`}>
+            {name}
+          </Link>
+        </div>
+      );
+    },
   },
   {
-    headerName: 'Celular',
-    field: 'phone',
+    headerName: 'Opciones',
+    field: 'id',
     type: 'text',
     filter: true,
     sortable: true,
@@ -50,17 +68,21 @@ export const TABLE_HEADER: Array<ColDef> = [
       display: 'flex',
       justifyContent: 'left',
     },
-  },
-  {
-    headerName: 'Email',
-    field: 'email',
-    type: 'text',
-    filter: true,
-    sortable: true,
-    cellDataType: 'text',
-    cellStyle: {
-      display: 'flex',
-      justifyContent: 'left',
+    cellRenderer: (column: ICellRendererParams) => {
+      const { data } = column;
+      const { id, options } = data as IQuestionDataTransform;
+
+      if (!options.length) {
+        return 'N/A';
+      }
+
+      return (
+        <div className='flex h-full space-x-4 justify-center items-center'>
+          <Link className='text-sky-500' to={`/questions/${id}`}>
+            Ver Opciones
+          </Link>
+        </div>
+      );
     },
   },
   {
@@ -69,11 +91,11 @@ export const TABLE_HEADER: Array<ColDef> = [
     suppressMovable: false,
     cellRenderer: (column: ICellRendererParams) => {
       const { data } = column;
-      const { id } = data as IUserDataTransform;
+      const { id } = data as IQuestionDataTransform;
 
       return (
         <div className='flex h-full space-x-4 justify-center items-center'>
-          <Link className='text-sky-500' to={`/users/${id}`}>
+          <Link className='text-sky-500' to={`/questions/${id}`}>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'

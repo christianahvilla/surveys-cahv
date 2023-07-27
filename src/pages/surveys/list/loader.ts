@@ -1,6 +1,9 @@
 import { defer } from 'react-router-dom';
 import { ApiMethods } from '~types/api/api-methods-object.type';
-import { ISurveyListApiResponse } from '~types/surveys/surveys-list-object';
+import {
+  SurveyListDataTransform,
+  SurveysListApiResponse,
+} from '~types/surveys/surveys-list-object';
 import { ApiRequestProviderInstance } from '~utils/ApiRequestProvider';
 
 export const listSurveysLoader = async () => {
@@ -13,15 +16,19 @@ export const listSurveysLoader = async () => {
     requireAuth: true,
   });
 
-  const apiResponseData: Array<ISurveyListApiResponse> = await apiResponse.json();
+  const apiResponseData: SurveysListApiResponse = await apiResponse.json();
 
-  const results = apiResponseData.map((survey) => ({
+  const results: SurveyListDataTransform = apiResponseData.map((survey) => ({
     id: survey.id,
     name: survey.nombre,
     slug: survey.slug,
     description: survey.descripcion,
-    client: survey.cliente,
-    questions: survey.preguntas,
-  }));
+    client: {
+      id: survey.id,
+      name: survey.cliente.nombre,
+    },
+    questions: Boolean(survey.preguntas.length),
+  })) as SurveyListDataTransform;
+
   return defer({ results });
 };

@@ -8,7 +8,7 @@ import { UsersListErrorElement } from './users-list-error.element';
 
 export const UsersListElement = () => {
   const data = useLoaderData() as {
-    results: Awaited<Array<IUsersList>>;
+    results: Awaited<IUsersList>;
   };
 
   const navigation = useNavigation();

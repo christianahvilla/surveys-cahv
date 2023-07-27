@@ -18,12 +18,12 @@ const useGetUsers = () => {
           requireAuth: true,
         })
         .then((response) => {
-          response.json().then((jsonResponse: Array<IUsersListApiResponse>) => {
-            const formattedUsers = jsonResponse.map((user) => ({
+          response.json().then(({ data }: IUsersListApiResponse) => {
+            const formattedUsers = data.map((user) => ({
               id: user.id,
               phone: user.celular,
               email: user.email,
-              name: user.nombre_completo,
+              name: user.nombreCompleto,
               roles: user.roles,
               username: user.username,
             }));

@@ -3,7 +3,7 @@ export interface ILoginData {
   username: string;
   roles: string;
   email: string;
-  nombre_completo: string;
+  nombreCompleto: string;
   celular: string;
   isActive: boolean;
   cliente: string;

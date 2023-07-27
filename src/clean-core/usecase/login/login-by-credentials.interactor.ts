@@ -24,7 +24,7 @@ export class LoginByCredentialsInteractor extends LoginByCredentialsUseCase {
         username: user.username,
         roles: user.roles,
         email: user.email,
-        name: user.nombre_completo,
+        name: user.nombreCompleto,
         phone: user.celular,
         isActive: user.isActive,
         client: user.cliente,

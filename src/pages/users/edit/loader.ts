@@ -1,9 +1,9 @@
 import { ApiRequestProviderInstance } from '~utils/ApiRequestProvider';
 import { ApiMethods } from '~types/api/api-methods-object.type';
-import { IUsersListApiResponse } from '~types/users/users-list-object';
-import { defer } from 'react-router-dom';
+import { UserData } from '~types/users/users-list-object';
+import { LoaderFunctionArgs, defer } from 'react-router-dom';
 
-export const getUserLoader = async ({ params }: any) => {
+export const getUserLoader = async ({ params }: LoaderFunctionArgs) => {
   const url = `/auth/user/${params.id}`;
 
   const apiRequestProvider = ApiRequestProviderInstance;
@@ -14,13 +14,13 @@ export const getUserLoader = async ({ params }: any) => {
     requireAuth: true,
   });
 
-  const apiResponseData: IUsersListApiResponse = await apiResponse.json();
+  const apiResponseData: UserData = await apiResponse.json();
 
   const results = {
     id: apiResponseData.id,
     phone: apiResponseData.celular,
     email: apiResponseData.email,
-    name: apiResponseData.nombre_completo,
+    name: apiResponseData.nombreCompleto,
     roles: apiResponseData.roles,
     username: apiResponseData.username,
   };

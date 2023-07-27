@@ -4,7 +4,7 @@ import { IClientsListApiResponse } from '~types/clients/clients-list-object';
 import { defer } from 'react-router-dom';
 
 export const listClientLoader = async () => {
-  const url = '/clientes';
+  const url = `/clientes`;
   const apiRequestProvider = ApiRequestProviderInstance;
 
   const apiResponse = await apiRequestProvider.doRequest({
@@ -13,9 +13,9 @@ export const listClientLoader = async () => {
     requireAuth: true,
   });
 
-  const apiResponseData: Array<IClientsListApiResponse> = await apiResponse.json();
-  
-  const results = apiResponseData.map((client) => ({
+  const clients: IClientsListApiResponse = await apiResponse.json();
+
+  const results = clients.map((client) => ({
     id: client.id,
     name: client.nombre,
     slug: client.slug,

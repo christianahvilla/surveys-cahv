@@ -1,13 +1,16 @@
-export interface IUsersListApiResponse {
+export type IUsersListApiResponse = Array<UserData>;
+
+export interface UserData {
   celular: string;
+  cliente: null;
   email: string;
   id: string;
-  nombre_completo: string;
+  nombreCompleto: string;
   roles: string;
   username: string;
 }
 
-export interface IUsersList {
+export interface IUserDataTransform {
   id: string;
   phone: string;
   email: string;
@@ -15,3 +18,5 @@ export interface IUsersList {
   roles: string;
   username: string;
 }
+
+export type IUsersList = Array<IUserDataTransform>;

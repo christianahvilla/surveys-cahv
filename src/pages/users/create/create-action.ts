@@ -22,7 +22,7 @@ export const createUserAction = async ({ request }: ActionFunctionArgs) => {
       requireAuth: true,
       body: {
         roles,
-        nombre_completo: name,
+        nombreCompleto: name,
         username,
         password,
         celular: phone,

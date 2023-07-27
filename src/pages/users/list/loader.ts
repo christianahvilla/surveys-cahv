@@ -4,7 +4,7 @@ import { IUsersListApiResponse } from '~types/users/users-list-object';
 import { defer } from 'react-router-dom';
 
 export const listUserLoader = async () => {
-  const url = '/auth/users';
+  const url = `/auth/users`;
   const apiRequestProvider = ApiRequestProviderInstance;
 
   const apiResponse = await apiRequestProvider.doRequest({
@@ -13,13 +13,13 @@ export const listUserLoader = async () => {
     requireAuth: true,
   });
 
-  const apiResponseData: Array<IUsersListApiResponse> = await apiResponse.json();
+  const users: IUsersListApiResponse = await apiResponse.json();
 
-  const results = apiResponseData.map((user) => ({
+  const results = users.map((user) => ({
     id: user.id,
     phone: user.celular,
     email: user.email,
-    name: user.nombre_completo,
+    name: user.nombreCompleto,
     roles: user.roles,
     username: user.username,
   }));

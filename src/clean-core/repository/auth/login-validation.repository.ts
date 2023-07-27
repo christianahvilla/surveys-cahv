@@ -18,7 +18,7 @@ export const validationSchema: TValidationSchema[] = [
     type: 'string',
   },
   {
-    name: 'nombre_completo',
+    name: 'nombreCompleto',
     type: 'string',
   },
   {

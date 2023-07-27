@@ -1,1 +1,14 @@
-export const TABLE_HEADER = ['Bank Account', 'Operation Type', 'Amount', 'Concept'];
+export const AVAILABLE_QUESTION_TYPE = [
+  {
+    value: 'abierta',
+    text: 'Abierta',
+  },
+  {
+    value: 'multiple',
+    text: 'Múltiple',
+  },
+  {
+    value: 'multipleimages',
+    text: 'Imagenes Múltiples',
+  },
+];

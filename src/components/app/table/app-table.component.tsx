@@ -18,6 +18,7 @@ export const TableElement = ({ columnDefs, rowData }: ITableElement) => {
           flex: 1,
           minWidth: 180,
         }}
+        paginationPageSize={10}
         pagination={true}
         onFirstDataRendered={(params: FirstDataRenderedEvent) => {
           params.api.sizeColumnsToFit();

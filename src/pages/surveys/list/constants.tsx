@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ColDef, ICellRendererParams } from 'ag-grid-community';
-import { ISurveyList } from '~types/surveys/surveys-list-object';
+import { ISurveyDataTransform } from '~types/surveys/surveys-list-object';
 
 export const TABLE_HEADER: Array<ColDef> = [
   {
@@ -30,7 +30,7 @@ export const TABLE_HEADER: Array<ColDef> = [
   },
   {
     headerName: 'Cliente',
-    field: 'name',
+    field: 'client',
     type: 'text',
     filter: true,
     sortable: true,
@@ -41,13 +41,13 @@ export const TABLE_HEADER: Array<ColDef> = [
     },
     cellRenderer: (column: ICellRendererParams) => {
       const { data } = column;
-      const { client } = data as any;
-      const { id, nombre } = client;
+      const { client } = data as ISurveyDataTransform;
+      const { name, id } = client;
 
       return (
         <div className='flex h-full space-x-4 justify-center items-center'>
           <Link className='text-sky-500' to={`/clients/${id}`}>
-            {nombre}
+            {name}
           </Link>
         </div>
       );
@@ -66,15 +66,13 @@ export const TABLE_HEADER: Array<ColDef> = [
     },
     cellRenderer: (column: ICellRendererParams) => {
       const { data } = column;
-      const { name, id } = data as any;
+      const { questions } = data as ISurveyDataTransform;
 
-      return (
-        <div className='flex h-full space-x-4 justify-center items-center'>
-          <Link className='text-sky-500' to={`/questions/${id}`}>
-            {name}
-          </Link>
-        </div>
-      );
+      if (!questions) {
+        return 'N/A';
+      }
+
+      return 'Si tiene';
     },
   },
   {
@@ -83,7 +81,7 @@ export const TABLE_HEADER: Array<ColDef> = [
     suppressMovable: false,
     cellRenderer: (column: ICellRendererParams) => {
       const { data } = column;
-      const { id } = data as ISurveyList;
+      const { id } = data as ISurveyDataTransform;
 
       return (
         <div className='flex h-full space-x-4 justify-center items-center'>

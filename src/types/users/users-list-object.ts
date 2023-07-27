@@ -1,7 +1,4 @@
-export interface IUsersListApiResponse {
-  data: UserData[];
-  meta: Meta;
-}
+export type IUsersListApiResponse = Array<UserData>;
 
 export interface UserData {
   celular: string;
@@ -13,15 +10,6 @@ export interface UserData {
   username: string;
 }
 
-export interface Meta {
-  hasNextPage: boolean;
-  hasPreviousPage: boolean;
-  itemCount: number;
-  page: number;
-  pageCount: number;
-  take: number;
-}
-
 export interface IUserDataTransform {
   id: string;
   phone: string;
@@ -31,7 +19,4 @@ export interface IUserDataTransform {
   username: string;
 }
 
-export interface IUsersList {
-  data: IUserDataTransform[];
-  meta: Meta;
-}
+export type IUsersList = Array<IUserDataTransform>;

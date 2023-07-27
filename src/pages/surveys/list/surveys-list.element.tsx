@@ -4,12 +4,12 @@ import { NotificationElement } from '~components/app/common-notification/notific
 import { LoadingElement } from '~components/app/loading/loading-element.component';
 import { TableElement } from '~components/app/table/app-table.component';
 import { NotificationType } from '~types/notification/notification-object.type';
-import { ISurveyList } from '~types/surveys/surveys-list-object';
 import { TABLE_HEADER } from './constants';
+import { SurveyListDataTransform } from '~types/surveys/surveys-list-object';
 
 export const SurveysListElement = () => {
   const data = useLoaderData() as {
-    results: Awaited<Array<ISurveyList>>;
+    results: Awaited<SurveyListDataTransform>;
   };
   const navigation = useNavigation();
 
@@ -26,7 +26,7 @@ export const SurveysListElement = () => {
           }
           resolve={data.results}
         >
-          {(surveys: Array<ISurveyList>) => {
+          {(surveys: SurveyListDataTransform) => {
             if (navigation.state === 'loading')
               return (
                 <div
@@ -38,8 +38,6 @@ export const SurveysListElement = () => {
                   </div>
                 </div>
               );
-
-            console.log(surveys);
 
             return (
               <div

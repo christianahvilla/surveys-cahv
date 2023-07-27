@@ -4,7 +4,7 @@ export const UsersElement = () => {
   const { pathname } = useLocation();
 
   if (pathname === '/users') {
-    return <Navigate to='list/0' />;
+    return <Navigate to='list' />;
   }
 
   return (

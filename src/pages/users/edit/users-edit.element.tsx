@@ -12,11 +12,11 @@ import { NotificationElement } from '~components/app/common-notification/notific
 import { LoadingElement } from '~components/app/loading/loading-element.component';
 import { AVAILABLE_ERRORS, IAvailableErrors } from '~types/error/error-object.type';
 import { NotificationType } from '~types/notification/notification-object.type';
-import { IUsersList } from '~types/users/users-list-object';
+import { IUserDataTransform } from '~types/users/users-list-object';
 
 export const UsersEditElement = () => {
   const userById = useLoaderData() as {
-    results: Awaited<IUsersList>;
+    results: Awaited<IUserDataTransform>;
   };
 
   const navigation = useNavigation();
@@ -30,7 +30,7 @@ export const UsersEditElement = () => {
     <div data-testid='create-user-element'>
       <Suspense fallback={<LoadingElement />}>
         <Await errorElement={<UsersEditElement />} resolve={userById.results}>
-          {(user: IUsersList) => {
+          {(user: IUserDataTransform) => {
             if (navigation.state === 'loading')
               return (
                 <div
@@ -63,7 +63,7 @@ export const UsersEditElement = () => {
                       type='button'
                       className='text-lg flex items-center pr-2 font-semibold leading-6 text-gray-900'
                     >
-                      <Link to='/users/list' replace>
+                      <Link to='/users/list/0' replace>
                         <svg
                           xmlns='http://www.w3.org/2000/svg'
                           fill='none'

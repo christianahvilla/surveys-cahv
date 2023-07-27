@@ -1,11 +1,10 @@
 import { ApiRequestProviderInstance } from '~utils/ApiRequestProvider';
 import { ApiMethods } from '~types/api/api-methods-object.type';
 import { IUsersListApiResponse } from '~types/users/users-list-object';
-import { LoaderFunctionArgs, defer } from 'react-router-dom';
+import { defer } from 'react-router-dom';
 
-export const listUserLoader = async ({ params }: LoaderFunctionArgs) => {
-  const { page } = params as { page: string };
-  const url = `/auth/users?page=${Number(page) + 1}`;
+export const listUserLoader = async () => {
+  const url = `/auth/users`;
   const apiRequestProvider = ApiRequestProviderInstance;
 
   const apiResponse = await apiRequestProvider.doRequest({
@@ -14,9 +13,9 @@ export const listUserLoader = async ({ params }: LoaderFunctionArgs) => {
     requireAuth: true,
   });
 
-  const { data, meta }: IUsersListApiResponse = await apiResponse.json();
+  const users: IUsersListApiResponse = await apiResponse.json();
 
-  const results = data.map((user) => ({
+  const results = users.map((user) => ({
     id: user.id,
     phone: user.celular,
     email: user.email,
@@ -25,5 +24,5 @@ export const listUserLoader = async ({ params }: LoaderFunctionArgs) => {
     username: user.username,
   }));
 
-  return defer({ results, meta });
+  return defer({ results });
 };

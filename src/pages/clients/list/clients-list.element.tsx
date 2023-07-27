@@ -9,7 +9,7 @@ import { TABLE_HEADER } from './constants';
 
 export const ClientsListElement = () => {
   const data = useLoaderData() as {
-    results: Awaited<Array<IClientsList>>;
+    results: Awaited<IClientsList>;
   };
 
   const navigation = useNavigation();

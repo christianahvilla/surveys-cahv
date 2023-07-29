@@ -2,10 +2,9 @@ import { Await, Link, useNavigation, useLoaderData } from 'react-router-dom';
 import { IClientsList } from '~types/clients/clients-list-object';
 import { Suspense } from 'react';
 import { LoadingElement } from '~components/app/loading/loading-element.component';
-import { NotificationElement } from '~components/app/common-notification/notification.element';
-import { NotificationType } from '~types/notification/notification-object.type';
 import { TableElement } from '~components/app/table/app-table.component';
 import { TABLE_HEADER } from './constants';
+import { ClientsListErrorElement } from './clients-list-error.element';
 
 export const ClientsListElement = () => {
   const data = useLoaderData() as {
@@ -17,16 +16,7 @@ export const ClientsListElement = () => {
   return (
     <div data-testid='clients-list-element'>
       <Suspense fallback={<LoadingElement />}>
-        <Await
-          errorElement={
-            <NotificationElement
-              title={'Uuups'}
-              body={'Algo fallo'}
-              type={NotificationType.ERROR}
-            />
-          }
-          resolve={data.results}
-        >
+        <Await errorElement={<ClientsListErrorElement />} resolve={data.results}>
           {(clients: Array<IClientsList>) => {
             if (navigation.state === 'loading')
               return (

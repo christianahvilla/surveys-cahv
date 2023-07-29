@@ -1,17 +1,35 @@
 import { NotificationType } from '~types/notification/notification-object.type';
 import { NOTIFICATION_TYPES } from './constants';
+import useNotification from 'src/hooks/useNotification';
+import { useCallback, useEffect } from 'react';
 
-interface INotificationElement {
+export interface INotificationElement {
   title: string;
   information?: string;
   body: string;
   type: NotificationType;
 }
 
-export const NotificationElement = ({ title, information, body, type }: INotificationElement) => {
+export const NotificationElement = () => {
+  const { message, removeNotification } = useNotification();
+
+  const handleHide = useCallback(() => removeNotification(), [removeNotification]);
+
+  useEffect(() => {
+    if (message) {
+      setTimeout(() => handleHide(), 5000);
+    }
+  }, [handleHide, message]);
+
+  if (!message) {
+    return <></>;
+  }
+
+  const { title, information, body, type } = message;
+
   return (
     <div
-      className={`absolute m-12 right-12 ${NOTIFICATION_TYPES[type].mainClass}`}
+      className={`absolute m-12 right-12 top-0 ${NOTIFICATION_TYPES[type].mainClass}`}
       role='alert'
       aria-live='assertive'
       aria-atomic='true'
@@ -31,6 +49,7 @@ export const NotificationElement = ({ title, information, body, type }: INotific
             className='ml-2 box-content rounded-none border-none opacity-80 hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none'
             data-te-toast-dismiss
             aria-label='Close'
+            onClick={handleHide}
           >
             <span className='w-[1em] focus:opacity-100 disabled:pointer-events-none disabled:select-none disabled:opacity-25 [&.disabled]:pointer-events-none [&.disabled]:select-none [&.disabled]:opacity-25'>
               <svg

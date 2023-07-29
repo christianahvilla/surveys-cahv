@@ -1,11 +1,12 @@
 import { Form, Link, useFetcher, useLoaderData, Await, useNavigation } from 'react-router-dom';
-import { NotificationElement } from '~components/app/common-notification/notification.element';
-import { AVAILABLE_ERRORS, IAvailableErrors } from '~types/error/error-object.type';
+import { AVAILABLE_ERRORS, ApiError, IAvailableErrors } from '~types/error/error-object.type';
 import { NotificationType } from '~types/notification/notification-object.type';
 import { IClientsList } from '~types/clients/clients-list-object';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { LoadingElement } from '~components/app/loading/loading-element.component';
 import { getClientOptions } from './helpers';
+import { SurveysCreateErrorElement } from './surveys-create-error.element';
+import useNotification from 'src/hooks/useNotification';
 
 export const SurveysCreateElement = () => {
   const fetcher = useFetcher();
@@ -14,13 +15,26 @@ export const SurveysCreateElement = () => {
   };
   const navigation = useNavigation();
   const { state, data } = fetcher;
-  const { error, statusCode, message } = (data || {}) as any;
+  const { addNotification } = useNotification();
+
+  const { error, statusCode, message } = (data || {}) as ApiError;
+
+  useEffect(() => {
+    if (error) {
+      addNotification({
+        title: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors].title,
+        body: message,
+        type: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors]
+          .type as unknown as NotificationType.ERROR,
+      });
+    }
+  }, [addNotification, error, message, statusCode]);
 
   return (
     <div data-testid='create-survey-element'>
       <Suspense fallback={<LoadingElement />}>
-        <Await errorElement={<SurveysCreateElement />} resolve={clientById.results}>
-          {(clients: Array<IClientsList>) => {
+        <Await errorElement={<SurveysCreateErrorElement />} resolve={clientById.results}>
+          {(clients: any) => {
             if (navigation.state === 'loading')
               return (
                 <div
@@ -38,16 +52,6 @@ export const SurveysCreateElement = () => {
                 id='content'
               >
                 <div className='p-12'>
-                  {error && (
-                    <NotificationElement
-                      title={AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors].title}
-                      body={message}
-                      type={
-                        AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors]
-                          .type as unknown as NotificationType.ERROR
-                      }
-                    />
-                  )}
                   <div className='flex flex-row  flex-nowrap'>
                     <button
                       type='button'
@@ -140,7 +144,7 @@ export const SurveysCreateElement = () => {
                               className='relative mb-3'
                               data-te-datepicker-init
                               data-te-inline='true'
-                              data-te-format="dd, mmm, yyyy"
+                              data-te-format='dd, mmm, yyyy'
                               data-te-input-wrapper-init
                             >
                               <label
@@ -161,7 +165,7 @@ export const SurveysCreateElement = () => {
                               className='relative mb-3'
                               data-te-datepicker-init
                               data-te-inline='true'
-                              data-te-format="dd, mmm, yyyy"
+                              data-te-format='dd, mmm, yyyy'
                               data-te-input-wrapper-init
                             >
                               <label

@@ -1,29 +1,32 @@
+import { useEffect } from 'react';
 import { useFetcher } from 'react-router-dom';
-import { NotificationElement } from '~components/app/common-notification/notification.element';
+import useNotification from 'src/hooks/useNotification';
 import { OAuth } from '~pages/utils/OAuth';
-import { AVAILABLE_ERRORS, IAvailableErrors } from '~types/error/error-object.type';
+import { AVAILABLE_ERRORS, ApiError, IAvailableErrors } from '~types/error/error-object.type';
 import { NotificationType } from '~types/notification/notification-object.type';
 
 export const LoginElement = () => {
   const fetcher = useFetcher();
+  const { addNotification } = useNotification();
 
   const { state, data } = fetcher;
-  const { error, statusCode, message } = (data || {}) as any;
+  const { error, statusCode, message } = (data || {}) as ApiError;
+
+  useEffect(() => {
+    if (error) {
+      addNotification({
+        title: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors].title,
+        body: message,
+        type: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors]
+          .type as unknown as NotificationType.ERROR,
+      });
+    }
+  }, [addNotification, error, message, statusCode]);
 
   return (
     <div data-testid='login-element' className='h-full'>
       <OAuth>
         <section className='gradient-form h-full bg-neutral-200 dark:bg-neutral-700'>
-          {error && (
-            <NotificationElement
-              title={AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors].title}
-              body={message}
-              type={
-                AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors]
-                  .type as unknown as NotificationType.ERROR
-              }
-            />
-          )}
           <div className='container h-full p-10'>
             <div className='g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200'>
               <div className='w-full'>

@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import {
   Await,
   Form,
@@ -8,12 +8,13 @@ import {
   useNavigation,
   useParams,
 } from 'react-router-dom';
-import { NotificationElement } from '~components/app/common-notification/notification.element';
 import { LoadingElement } from '~components/app/loading/loading-element.component';
 import { IClientsList } from '~types/clients/clients-list-object';
-import { AVAILABLE_ERRORS, IAvailableErrors } from '~types/error/error-object.type';
+import { AVAILABLE_ERRORS, ApiError, IAvailableErrors } from '~types/error/error-object.type';
 import { NotificationType } from '~types/notification/notification-object.type';
 import { getClientOptions } from './helpers';
+import useNotification from 'src/hooks/useNotification';
+import { SurveysEditErrorElement } from './surveys-edit-error.element';
 
 export const SurveysEditElement = () => {
   const clientById = useLoaderData() as {
@@ -23,14 +24,27 @@ export const SurveysEditElement = () => {
   const fetcher = useFetcher();
 
   const params = useParams<{ id: string }>();
+  const { addNotification } = useNotification();
+
   const { state, data } = fetcher;
-  const { error, statusCode, message } = (data || {}) as any;
+  const { error, statusCode, message } = (data || {}) as ApiError;
+
+  useEffect(() => {
+    if (error) {
+      addNotification({
+        title: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors].title,
+        body: message,
+        type: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors]
+          .type as unknown as NotificationType.ERROR,
+      });
+    }
+  }, [addNotification, error, message, statusCode]);
 
   return (
     <div data-testid='edit-survey-element'>
       <Suspense fallback={<LoadingElement />}>
-        <Await errorElement={<SurveysEditElement />} resolve={clientById.results}>
-          {(clients: Array<IClientsList>) => {
+        <Await errorElement={<SurveysEditErrorElement />} resolve={clientById.results}>
+          {(clients: IClientsList) => {
             if (navigation.state === 'loading')
               return (
                 <div
@@ -48,16 +62,6 @@ export const SurveysEditElement = () => {
                 id='content'
               >
                 <div className='p-12'>
-                  {error && (
-                    <NotificationElement
-                      title={AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors].title}
-                      body={message}
-                      type={
-                        AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors]
-                          .type as unknown as NotificationType.ERROR
-                      }
-                    />
-                  )}
                   <div className='flex flex-row  flex-nowrap'>
                     <button
                       type='button'
@@ -84,7 +88,7 @@ export const SurveysEditElement = () => {
                       Editar Encuesta
                     </h3>
                   </div>
-                  <Form method='patch' action={`/clients/${params.id}`}>
+                  <Form method='patch' action={`/surveys/${params.id}`}>
                     <div className='max-h-fit p-12 rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
                       <div className='space-y-12'>
                         <div className='pb-12'>

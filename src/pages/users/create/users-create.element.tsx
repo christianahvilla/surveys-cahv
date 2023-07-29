@@ -1,28 +1,32 @@
-import { Form, Link, useFetcher } from 'react-router-dom';
-import { NotificationElement } from '~components/app/common-notification/notification.element';
-import { AVAILABLE_ERRORS, IAvailableErrors } from '~types/error/error-object.type';
+import { useEffect } from 'react';
+import { Link, useFetcher } from 'react-router-dom';
+import useNotification from 'src/hooks/useNotification';
+import { AVAILABLE_ERRORS, ApiError, IAvailableErrors } from '~types/error/error-object.type';
 import { NotificationType } from '~types/notification/notification-object.type';
 
 export const UsersCreateElement = () => {
   const fetcher = useFetcher();
 
-  const { state, data } = fetcher;
-  const { error, statusCode, message } = (data || {}) as any;
+  const { addNotification } = useNotification();
+
+  const { state, data, Form } = fetcher;
+  const { error, statusCode, message } = (data || {}) as ApiError;
+
+  useEffect(() => {
+    if (error) {
+      addNotification({
+        title: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors].title,
+        body: message,
+        type: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors]
+          .type as unknown as NotificationType.ERROR,
+      });
+    }
+  }, [addNotification, error, message, statusCode]);
 
   return (
     <div data-testid='create-user-element'>
       <div className='min-h-screen w-full bg-gray-50 !pl-0 text-center sm:!pl-60' id='content'>
         <div className='p-12'>
-          {error && (
-            <NotificationElement
-              title={AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors].title}
-              body={message}
-              type={
-                AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors]
-                  .type as unknown as NotificationType.ERROR
-              }
-            />
-          )}
           <div className='flex flex-row  flex-nowrap'>
             <button
               type='button'
@@ -178,7 +182,6 @@ export const UsersCreateElement = () => {
                 </button>
                 <button
                   className='rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-                  // type='submit'
                   disabled={state === 'submitting'}
                 >
                   {state === 'submitting' ? (

@@ -1,8 +1,11 @@
-import { useEffect } from 'react';
-import { Link, useFetcher } from 'react-router-dom';
+import { Link, Navigate, useFetcher } from 'react-router-dom';
 import useNotification from 'src/hooks/useNotification';
-import { AVAILABLE_ERRORS, ApiError, IAvailableErrors } from '~types/error/error-object.type';
-import { NotificationType } from '~types/notification/notification-object.type';
+import { ApiError, ApiSuccess } from '~types/api/api-responses.object.type';
+import { AVAILABLE_ERRORS, IAvailableErrors } from '~types/error/error-object.type';
+import {
+  NOTIFICATION_SUCCESS,
+  NotificationType,
+} from '~types/notification/notification-object.type';
 
 export const UsersCreateElement = () => {
   const fetcher = useFetcher();
@@ -11,17 +14,21 @@ export const UsersCreateElement = () => {
 
   const { state, data, Form } = fetcher;
   const { error, statusCode, message } = (data || {}) as ApiError;
+  const { success } = (data || {}) as ApiSuccess;
 
-  useEffect(() => {
-    if (error) {
-      addNotification({
-        title: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors].title,
-        body: message,
-        type: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors]
-          .type as unknown as NotificationType.ERROR,
-      });
-    }
-  }, [addNotification, error, message, statusCode]);
+  if (success) {
+    addNotification(NOTIFICATION_SUCCESS);
+    return <Navigate to='/users/list' />;
+  }
+
+  if (error) {
+    addNotification({
+      title: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors].title,
+      body: message,
+      type: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors]
+        .type as unknown as NotificationType.ERROR,
+    });
+  }
 
   return (
     <div data-testid='create-user-element'>

@@ -42,12 +42,6 @@ export type ErrorType = {
   type: string;
 };
 
-export type ApiError = {
-  statusCode: number;
-  message: string;
-  error: Error;
-};
-
 enum StatusErrors {
   Error500Status = 500,
   Error404Status = 404,

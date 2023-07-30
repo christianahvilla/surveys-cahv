@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link, Navigate, useFetcher } from 'react-router-dom';
 import useNotification from 'src/hooks/useNotification';
 import { ApiError, ApiSuccess } from '~types/api/api-responses.object.type';
@@ -16,18 +17,21 @@ export const UsersCreateElement = () => {
   const { error, statusCode, message } = (data || {}) as ApiError;
   const { success } = (data || {}) as ApiSuccess;
 
-  if (success) {
-    addNotification(NOTIFICATION_SUCCESS);
-    return <Navigate to='/users/list' />;
-  }
+  useEffect(() => {
+    if (error && state !== 'submitting') {
+      addNotification({
+        title: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors].title,
+        body: message,
+        type: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors]
+          .type as unknown as NotificationType.ERROR,
+      });
+    }
+  }, [addNotification, error, message, state, statusCode]);
 
-  if (error) {
-    addNotification({
-      title: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors].title,
-      body: message,
-      type: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors]
-        .type as unknown as NotificationType.ERROR,
-    });
+  if (success && state !== 'submitting') {
+    addNotification(NOTIFICATION_SUCCESS);
+
+    return <Navigate to='/users/list' />;
   }
 
   return (

@@ -1,28 +1,32 @@
+import { useEffect } from 'react';
 import { Form, Link, useFetcher } from 'react-router-dom';
-import { NotificationElement } from '~components/app/common-notification/notification.element';
-import { AVAILABLE_ERRORS, IAvailableErrors } from '~types/error/error-object.type';
+import useNotification from 'src/hooks/useNotification';
+import { AVAILABLE_ERRORS, ApiError, IAvailableErrors } from '~types/error/error-object.type';
 import { NotificationType } from '~types/notification/notification-object.type';
 
 export const ClientsCreateElement = () => {
   const fetcher = useFetcher();
+  const { addNotification } = useNotification();
 
   const { state, data } = fetcher;
-  const { error, statusCode, message } = (data || {}) as any;
+
+  const { error, statusCode, message } = (data || {}) as ApiError;
+
+  useEffect(() => {
+    if (error) {
+      addNotification({
+        title: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors].title,
+        body: message,
+        type: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors]
+          .type as unknown as NotificationType.ERROR,
+      });
+    }
+  }, [addNotification, error, message, statusCode]);
 
   return (
     <div data-testid='create-user-element'>
       <div className='min-h-screen w-full bg-gray-50 !pl-0 text-center sm:!pl-60' id='content'>
         <div className='p-12'>
-          {error && (
-            <NotificationElement
-              title={AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors].title}
-              body={message}
-              type={
-                AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors]
-                  .type as unknown as NotificationType.ERROR
-              }
-            />
-          )}
           <div className='flex flex-row  flex-nowrap'>
             <button
               type='button'

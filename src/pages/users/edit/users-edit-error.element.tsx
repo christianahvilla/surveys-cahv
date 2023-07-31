@@ -1,5 +1,5 @@
 import { ErrorElement } from '~components/app/error/error.element';
 
-export const UsersCreateErrorElement = () => {
+export const UsersEditErrorElement = () => {
   return <ErrorElement />;
 };

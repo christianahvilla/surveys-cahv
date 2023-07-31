@@ -1,15 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSaveQuestion } from 'src/hooks/useSaveQuestion';
-import { NotificationElement } from '~components/app/common-notification/notification.element';
 import { AVAILABLE_ERRORS, IAvailableErrors } from '~types/error/error-object.type';
 import { NotificationType } from '~types/notification/notification-object.type';
 import { displayAvailableQuestionType } from '../helpers';
+import useNotification from 'src/hooks/useNotification';
 
 export const QuestionsCreateElement = () => {
   const [question, setQuestion] = useState<any>({});
   const { isLoading, error, saveQuestion } = useSaveQuestion() as any;
   const { statusCode, message } = error || {};
+  const { addNotification } = useNotification();
+
+  useEffect(() => {
+    if (error) {
+      addNotification({
+        title: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors].title,
+        body: message,
+        type: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors]
+          .type as unknown as NotificationType.ERROR,
+      });
+    }
+  }, [addNotification, error, message, statusCode]);
 
   const handleChangeQuestion = (event: any) => {
     const { target } = event;
@@ -36,16 +48,6 @@ export const QuestionsCreateElement = () => {
     <div data-testid='questions-element'>
       <div className='min-h-screen w-full bg-gray-50 !pl-0 text-center sm:!pl-60' id='content'>
         <div className='p-12'>
-          {error && (
-            <NotificationElement
-              title={AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors].title}
-              body={message}
-              type={
-                AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors]
-                  .type as unknown as NotificationType.ERROR
-              }
-            />
-          )}
           <div className='flex flex-row  flex-nowrap'>
             <button
               type='button'

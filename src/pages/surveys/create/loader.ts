@@ -13,12 +13,13 @@ export const listClientLoader = async () => {
     requireAuth: true,
   });
 
-  const apiResponseData: Array<IClientsListApiResponse> = await apiResponse.json();
-  
+  const apiResponseData: IClientsListApiResponse = await apiResponse.json();
+
   const results = apiResponseData.map((client) => ({
     id: client.id,
     name: client.nombre,
     slug: client.slug,
   }));
+
   return defer({ results });
 };

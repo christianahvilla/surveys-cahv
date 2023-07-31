@@ -1,11 +1,10 @@
 import { Suspense } from 'react';
 import { Await, Link, useLoaderData, useNavigation } from 'react-router-dom';
-import { NotificationElement } from '~components/app/common-notification/notification.element';
 import { LoadingElement } from '~components/app/loading/loading-element.component';
 import { TableElement } from '~components/app/table/app-table.component';
-import { NotificationType } from '~types/notification/notification-object.type';
 import { TABLE_HEADER } from './constants';
 import { SurveyListDataTransform } from '~types/surveys/surveys-list-object';
+import { SurveysListErrorElement } from './surveys-list-error.element';
 
 export const SurveysListElement = () => {
   const data = useLoaderData() as {
@@ -16,16 +15,7 @@ export const SurveysListElement = () => {
   return (
     <div data-testid='surveys-list-element'>
       <Suspense fallback={<LoadingElement />}>
-        <Await
-          errorElement={
-            <NotificationElement
-              title={'Uuups'}
-              body={'Algo fallo'}
-              type={NotificationType.ERROR}
-            />
-          }
-          resolve={data.results}
-        >
+        <Await errorElement={<SurveysListErrorElement />} resolve={data.results}>
           {(surveys: SurveyListDataTransform) => {
             if (navigation.state === 'loading')
               return (

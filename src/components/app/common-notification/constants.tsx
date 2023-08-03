@@ -1,6 +1,6 @@
 import { NotificationType } from '~types/notification/notification-object.type';
 
-type ContstructNotificationType = {
+type ConstructNotificationType = {
   mainClass: string;
   icon: JSX.Element;
   iconClass: string;
@@ -9,11 +9,11 @@ type ContstructNotificationType = {
   titleClass: string;
 };
 
-export type IContructNotification = {
-  [key in NotificationType]: ContstructNotificationType;
+export type IConstructNotification = {
+  [key in NotificationType]: ConstructNotificationType;
 };
 
-export const NOTIFICATION_TYPES: IContructNotification = {
+export const NOTIFICATION_TYPES: IConstructNotification = {
   [NotificationType.PRIMARY]: {
     mainClass:
       'pointer-events-auto mx-auto mb-4 hidden w-96 max-w-full rounded-lg bg-primary-100 bg-clip-padding text-sm text-primary-700 shadow-lg shadow-black/5 data-[te-toast-show]:block data-[te-toast-hide]:hidden',

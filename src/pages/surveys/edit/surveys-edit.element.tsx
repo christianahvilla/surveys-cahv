@@ -1,24 +1,28 @@
 import { Suspense, useEffect } from 'react';
 import {
   Await,
-  Form,
   Link,
+  Navigate,
   useFetcher,
   useLoaderData,
   useNavigation,
   useParams,
 } from 'react-router-dom';
 import { LoadingElement } from '~components/app/loading/loading-element.component';
-import { IClientsList } from '~types/clients/clients-list-object';
-import { AVAILABLE_ERRORS, ApiError, IAvailableErrors } from '~types/error/error-object.type';
-import { NotificationType } from '~types/notification/notification-object.type';
+import { AVAILABLE_ERRORS, IAvailableErrors } from '~types/error/error-object.type';
+import {
+  NOTIFICATION_SUCCESS,
+  NotificationType,
+} from '~types/notification/notification-object.type';
 import { getClientOptions } from './helpers';
 import useNotification from 'src/hooks/useNotification';
 import { SurveysEditErrorElement } from './surveys-edit-error.element';
+import { ApiError, ApiSuccess } from '~types/api/api-responses.object.type';
+import { SurveyLoaderData } from './types';
 
 export const SurveysEditElement = () => {
-  const clientById = useLoaderData() as {
-    results: Awaited<IClientsList>;
+  const surveyData = useLoaderData() as {
+    results: Awaited<SurveyLoaderData>;
   };
   const navigation = useNavigation();
   const fetcher = useFetcher();
@@ -26,11 +30,12 @@ export const SurveysEditElement = () => {
   const params = useParams<{ id: string }>();
   const { addNotification } = useNotification();
 
-  const { state, data } = fetcher;
+  const { state, data, Form } = fetcher;
   const { error, statusCode, message } = (data || {}) as ApiError;
+  const { success } = (data || {}) as ApiSuccess;
 
   useEffect(() => {
-    if (error) {
+    if (error && state !== 'submitting') {
       addNotification({
         title: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors].title,
         body: message,
@@ -38,13 +43,19 @@ export const SurveysEditElement = () => {
           .type as unknown as NotificationType.ERROR,
       });
     }
-  }, [addNotification, error, message, statusCode]);
+  }, [addNotification, error, message, state, statusCode]);
+
+  if (success && state !== 'submitting') {
+    addNotification(NOTIFICATION_SUCCESS);
+
+    return <Navigate to='/surveys/list' />;
+  }
 
   return (
     <div data-testid='edit-survey-element'>
       <Suspense fallback={<LoadingElement />}>
-        <Await errorElement={<SurveysEditErrorElement />} resolve={clientById.results}>
-          {(clients: IClientsList) => {
+        <Await errorElement={<SurveysEditErrorElement />} resolve={surveyData.results}>
+          {({ clients, survey }: SurveyLoaderData) => {
             if (navigation.state === 'loading')
               return (
                 <div
@@ -107,6 +118,7 @@ export const SurveysEditElement = () => {
                                   autoComplete='name'
                                   id='name'
                                   maxLength={32}
+                                  defaultValue={survey.name}
                                   className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                                 />
                               </div>
@@ -123,6 +135,7 @@ export const SurveysEditElement = () => {
                                   type='text'
                                   name='description'
                                   id='description'
+                                  defaultValue={survey.description}
                                   maxLength={32}
                                   className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                                 />
@@ -140,7 +153,7 @@ export const SurveysEditElement = () => {
                                   id='clientId'
                                   className='select select-bordered w-full focus-within:ring-indigo-600'
                                   name='clientId'
-                                  defaultValue={clients[0].id}
+                                  defaultValue={survey.client.id}
                                 >
                                   {getClientOptions(clients)}
                                 </select>
@@ -167,7 +180,7 @@ export const SurveysEditElement = () => {
                                 type='date'
                                 name='startDate'
                                 id='startDate'
-                                className='peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0'
+                                className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                                 placeholder='Seleccione una fecha'
                               />
                             </div>
@@ -188,7 +201,7 @@ export const SurveysEditElement = () => {
                                 type='date'
                                 name='endDate'
                                 id='endDate'
-                                className='peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0'
+                                className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                                 placeholder='Seleccione una fecha'
                               />
                             </div>
@@ -205,7 +218,6 @@ export const SurveysEditElement = () => {
                         </button>
                         <button
                           className='rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-                          // type='submit'
                           disabled={state === 'submitting'}
                         >
                           {state === 'submitting' ? (

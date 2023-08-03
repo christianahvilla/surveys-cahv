@@ -1,4 +1,4 @@
-import { ActionFunctionArgs, redirect } from 'react-router-dom';
+import { ActionFunctionArgs } from 'react-router-dom';
 import { SurveysKeysInput } from '~clean/entity/surveys';
 import { ApiMethods } from '~types/api/api-methods-object.type';
 import { ApiRequestProviderInstance } from '~utils/ApiRequestProvider';
@@ -12,7 +12,7 @@ export const createSurveysAction = async ({ request }: ActionFunctionArgs) => {
   const clientId = (formData.get(SurveysKeysInput.clientId) as string) || '';
 
   try {
-    const url = '/encuestas/';
+    const url = '/encuestas';
     const apiRequestProvider = ApiRequestProviderInstance;
 
     await apiRequestProvider.doRequest({
@@ -25,10 +25,11 @@ export const createSurveysAction = async ({ request }: ActionFunctionArgs) => {
         fecha_inicio: startDate,
         fecha_final: endDate,
         clienteId: clientId,
+        requisitos: null,
       },
     });
 
-    return redirect('/encuestas/list');
+    return { success: true };
   } catch (error) {
     return error;
   }

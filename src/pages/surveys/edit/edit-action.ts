@@ -25,6 +25,7 @@ export const editSurveyAction = async ({ request, params }: ActionFunctionArgs) 
         fecha_inicio: startDate,
         fecha_final: endDate,
         clienteId: clientId,
+        requisitos: null,
       },
     });
 

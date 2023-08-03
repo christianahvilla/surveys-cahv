@@ -20,5 +20,6 @@ export const listClientLoader = async () => {
     name: client.nombre,
     slug: client.slug,
   }));
+
   return defer({ results });
 };

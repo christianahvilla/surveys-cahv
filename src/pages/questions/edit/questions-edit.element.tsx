@@ -126,7 +126,7 @@ export const QuestionsEditElement = () => {
               </Link>
             </button>
             <h3 className='my-6 text-[1.75rem] font-medium leading-[1.2] flex justify-self-start text-gray-500'>
-              Agregar Pregunta
+              Editar Pregunta
             </h3>
           </div>
           <div>

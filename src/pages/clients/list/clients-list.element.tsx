@@ -17,7 +17,7 @@ export const ClientsListElement = () => {
     <div data-testid='clients-list-element'>
       <Suspense fallback={<LoadingElement />}>
         <Await errorElement={<ClientsListErrorElement />} resolve={data.results}>
-          {(clients: Array<IClientsList>) => {
+          {(clients: IClientsList) => {
             if (navigation.state === 'loading')
               return (
                 <div

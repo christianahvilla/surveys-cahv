@@ -6,21 +6,32 @@ import {
   NOTIFICATION_SUCCESS,
   NotificationType,
 } from '~types/notification/notification-object.type';
-import { displayAvailableQuestionType } from '../helpers';
+import { displayAvailableQuestionType, displaySurveysOptions } from '../helpers';
 import useNotification from 'src/hooks/useNotification';
 import { useGetSurveys } from 'src/hooks/useGetSurveys';
-import { displaySurveysOptions } from './helpers';
 import { AVAILABLE_QUESTION_TYPE } from '../constants';
+import { QuestionValues } from '~types/questions/questions-action-objects';
+import { LoadingElement } from '~components/app/loading/loading-element.component';
 
 export const QuestionsCreateElement = () => {
-  const [question, setQuestion] = useState<any>({});
+  const [question, setQuestion] = useState<QuestionValues>({
+    description: '',
+    surveyId: '',
+    text: '',
+    order: 0,
+    type: '',
+  });
   const { isLoading: isLoadingSave, error: errorSave, saveQuestion, isSaved } = useSaveQuestion();
   const { surveys, isLoading: isLoadingSurveys, error: errorSurveys } = useGetSurveys();
   const { addNotification } = useNotification();
 
   const error = errorSave || errorSurveys;
+
+  if (errorSurveys) {
+    throw errorSurveys;
+  }
+
   const { statusCode, message } = error || {};
-  const isLoading = isLoadingSave || isLoadingSurveys;
 
   useEffect(() => {
     if (error) {
@@ -37,18 +48,26 @@ export const QuestionsCreateElement = () => {
     const { target } = event;
     const { id, value } = target;
 
+    if (!id || !value) {
+      return;
+    }
+
     setQuestion({
-      ...question,
-      [id]: value,
+      ...(question || {}),
+      [id as keyof QuestionValues]: value,
     });
   };
 
   const handleSubmitQuestion = () => {
+    if (!question) {
+      return;
+    }
+
     const formattedBody = {
       textoPregunta: question.text,
       orden: Number(question.order),
       tipo: question.type || AVAILABLE_QUESTION_TYPE[0].value,
-      encuestaId: question.survey || surveys[0].id,
+      encuestaId: question.surveyId || surveys[0].id,
       descripcion: question.description,
     };
 
@@ -58,7 +77,11 @@ export const QuestionsCreateElement = () => {
   if (isSaved) {
     addNotification(NOTIFICATION_SUCCESS);
 
-    return <Navigate to='/questions/list' />;
+    <Navigate to='/questions/list' />;
+  }
+
+  if (isLoadingSurveys) {
+    return <LoadingElement />;
   }
 
   return (
@@ -204,9 +227,9 @@ export const QuestionsCreateElement = () => {
                 <button
                   className='rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
                   onClick={handleSubmitQuestion}
-                  disabled={isLoading}
+                  disabled={isLoadingSave}
                 >
-                  {isLoading ? (
+                  {isLoadingSave ? (
                     <>
                       <span className='loading loading-spinner'></span>
                     </>

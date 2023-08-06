@@ -1,4 +1,4 @@
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useGetQuestions } from 'src/hooks/useGetQuestions';
 import { LoadingElement } from '~components/app/loading/loading-element.component';
 import { TableElement } from '~components/app/table/app-table.component';
@@ -14,7 +14,7 @@ export const QuestionsListElement = () => {
   };
 
   if (error) {
-    return <Navigate to={`/${error.statusCode}`} />;
+    throw error;
   }
 
   return (

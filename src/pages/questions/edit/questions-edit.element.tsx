@@ -1,53 +1,103 @@
-import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { SyntheticEvent, useEffect, useState } from 'react';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import { AVAILABLE_ERRORS, IAvailableErrors } from '~types/error/error-object.type';
-import { NotificationType } from '~types/notification/notification-object.type';
-import { displayAvailableQuestionType } from '../helpers';
+import {
+  NOTIFICATION_SUCCESS,
+  NotificationType,
+} from '~types/notification/notification-object.type';
+import { displayAvailableQuestionType, displaySurveysOptions } from '../helpers';
 import { useEditQuestion } from 'src/hooks/useEditQuestion';
 import { useGetQuestionById } from 'src/hooks/useGetQuestionById';
 import useNotification from 'src/hooks/useNotification';
+import { QuestionValues } from '~types/questions/questions-action-objects';
+import { useGetSurveys } from 'src/hooks/useGetSurveys';
+import { LoadingElement } from '~components/app/loading/loading-element.component';
 
 export const QuestionsEditElement = () => {
   const { id = '' } = useParams<{ id: string }>();
-  const [question, setQuestion] = useState<any>({});
-  const { isLoading: isEditLoading, error: errorEdit, editQuestion } = useEditQuestion(id) as any;
-  const { isLoading: isGetByIdLoading, error: errorById } = useGetQuestionById(id) as any;
-  const isLoading = isEditLoading || isGetByIdLoading;
-  const error = errorById || errorEdit;
+  const [question, setQuestion] = useState<QuestionValues>({
+    description: '',
+    surveyId: '',
+    text: '',
+    order: 0,
+    type: '',
+  });
+  const {
+    isLoading: isEditLoading,
+    error: errorEdit,
+    editQuestion,
+    isEdited,
+  } = useEditQuestion(id);
+  const {
+    isLoading: isGetByIdLoading,
+    error: errorById,
+    question: questionById,
+  } = useGetQuestionById(id);
+  const { surveys, isLoading: isLoadingSurveys, error: errorSurveys } = useGetSurveys();
+
+  const isLoading = isGetByIdLoading || isLoadingSurveys;
+  const error = errorById || errorEdit || errorSurveys;
+
+  if (errorSurveys || errorById) {
+    throw errorSurveys || errorById;
+  }
+
   const { statusCode, message } = error || {};
+
   const { addNotification } = useNotification();
 
   useEffect(() => {
     if (error) {
       addNotification({
         title: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors].title,
-        body: message,
+        body: message || '',
         type: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors]
           .type as unknown as NotificationType.ERROR,
       });
     }
   }, [addNotification, error, message, statusCode]);
 
-  const handleChangeQuestion = (event: any) => {
+  const handleChangeQuestion = (event: SyntheticEvent<HTMLElement, Event>) => {
+    console.log(event);
     const { target } = event;
-    const { id, value } = target;
+
+    const { id, value } = target as any;
+
+    if (!id || !value) {
+      return;
+    }
 
     setQuestion({
-      ...question,
-      [id]: value,
+      ...(question || {}),
+      [id as keyof QuestionValues]: value,
     });
   };
 
   const handleSubmitQuestion = () => {
+    if (!question) {
+      return;
+    }
+
     const formattedBody = {
-      texto: question.text,
-      orden: Number(question.order),
-      tipo: question.type,
-      id: question.survey,
+      textoPregunta: question.text || questionById?.text || '',
+      orden: Number(question.order) || Number(questionById?.order),
+      tipo: question.type || questionById?.type || '',
+      encuestaId: question.surveyId || questionById?.surveyId || surveys[0].id,
+      descripcion: question.description || questionById?.description || '',
     };
 
     editQuestion(formattedBody);
   };
+
+  if (isEdited) {
+    addNotification(NOTIFICATION_SUCCESS);
+
+    return <Navigate to='/questions/list' />;
+  }
+
+  if (isLoading) {
+    return <LoadingElement />;
+  }
 
   return (
     <div data-testid='questions-element'>
@@ -83,7 +133,7 @@ export const QuestionsEditElement = () => {
             <div className='max-h-fit p-12 rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
               <div className='space-y-12'>
                 <div className='pb-12'>
-                  <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1'>
+                  <div className='mt-10 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-2'>
                     <div className='sm:col-span-1'>
                       <label
                         htmlFor='text'
@@ -98,7 +148,27 @@ export const QuestionsEditElement = () => {
                           id='text'
                           onChange={handleChangeQuestion}
                           maxLength={32}
+                          defaultValue={questionById?.text}
                           className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                        />
+                      </div>
+                    </div>
+                    <div className='sm:col-span-1'>
+                      <label
+                        htmlFor='description'
+                        className='block text-lg font-medium leading-8 text-gray-900'
+                      >
+                        Descripción
+                      </label>
+                      <div className='mt-2'>
+                        <input
+                          type='text'
+                          name='description'
+                          id='description'
+                          onChange={handleChangeQuestion}
+                          maxLength={32}
+                          className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                          defaultValue={questionById?.description}
                         />
                       </div>
                     </div>
@@ -121,6 +191,7 @@ export const QuestionsEditElement = () => {
                           onChange={handleChangeQuestion}
                           max={99}
                           id='order'
+                          defaultValue={questionById?.order}
                           className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                         />
                       </div>
@@ -138,9 +209,9 @@ export const QuestionsEditElement = () => {
                           className='select select-bordered w-full focus-within:ring-indigo-600'
                           name='survey'
                           onChange={handleChangeQuestion}
-                          defaultValue='abierta'
+                          defaultValue={question?.surveyId}
                         >
-                          {displayAvailableQuestionType()}
+                          {displaySurveysOptions(surveys)}
                         </select>
                       </div>
                     </div>
@@ -157,7 +228,7 @@ export const QuestionsEditElement = () => {
                           className='select select-bordered w-full focus-within:ring-indigo-600'
                           name='type'
                           onChange={handleChangeQuestion}
-                          defaultValue='abierta'
+                          defaultValue={questionById?.type}
                         >
                           {displayAvailableQuestionType()}
                         </select>
@@ -174,9 +245,9 @@ export const QuestionsEditElement = () => {
                 <button
                   className='rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
                   onClick={handleSubmitQuestion}
-                  disabled={isLoading}
+                  disabled={isEditLoading}
                 >
-                  {isLoading ? (
+                  {isEditLoading ? (
                     <>
                       <span className='loading loading-spinner'></span>
                     </>

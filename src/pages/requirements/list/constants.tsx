@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ColDef, ICellRendererParams } from 'ag-grid-community';
-import { ISurveyDataTransform } from '~types/surveys/surveys-list-object';
+import { RequirementDTO } from '~types/requirements/requirements-list-object';
 
 export const TABLE_HEADER: Array<ColDef> = [
   {
@@ -16,76 +16,16 @@ export const TABLE_HEADER: Array<ColDef> = [
     },
   },
   {
-    headerName: 'Descripción',
-    field: 'description',
-    type: 'text',
-    wrapText: true,
-    autoHeight: true,
-    filter: true,
-    sortable: true,
-    cellDataType: 'text',
-    cellStyle: {
-      textAlign: 'left',
-    },
-  },
-  {
-    headerName: 'Cliente',
-    field: 'client',
-    type: 'text',
-    filter: true,
-    sortable: true,
-    cellDataType: 'text',
-    cellStyle: {
-      display: 'flex',
-      justifyContent: 'left',
-    },
-    cellRenderer: (column: ICellRendererParams) => {
-      const { data } = column;
-      const { client } = data as ISurveyDataTransform;
-      const { name, id } = client;
-
-      return (
-        <div className='flex h-full space-x-4 justify-center items-center'>
-          <Link className='text-sky-500' to={`/clients/${id}`}>
-            {name}
-          </Link>
-        </div>
-      );
-    },
-  },
-  {
-    headerName: 'Preguntas',
-    field: 'questions',
-    type: 'text',
-    filter: true,
-    sortable: true,
-    cellDataType: 'text',
-    cellStyle: {
-      display: 'flex',
-      justifyContent: 'left',
-    },
-    cellRenderer: (column: ICellRendererParams) => {
-      const { data } = column;
-      const { questions } = data as ISurveyDataTransform;
-
-      if (!questions) {
-        return 'N/A';
-      }
-
-      return 'Si tiene';
-    },
-  },
-  {
     field: 'Acciones',
     suppressMenu: false,
     suppressMovable: false,
     cellRenderer: (column: ICellRendererParams) => {
       const { data } = column;
-      const { id } = data as ISurveyDataTransform;
+      const { id } = data as RequirementDTO;
 
       return (
         <div className='flex h-full space-x-4 justify-center items-center'>
-          <Link className='text-sky-500' to={`/surveys/${id}`}>
+          <Link className='text-sky-500' to={`/requirements/edit/${id}`}>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'

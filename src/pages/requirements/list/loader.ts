@@ -1,13 +1,13 @@
 import { defer } from 'react-router-dom';
 import { ApiMethods } from '~types/api/api-methods-object.type';
 import {
-  SurveyListDataTransform,
-  SurveysListApiResponse,
-} from '~types/surveys/surveys-list-object';
+  RequirementListApiResponse,
+  RequirementListDTO,
+} from '~types/requirements/requirements-list-object';
 import { ApiRequestProviderInstance } from '~utils/ApiRequestProvider';
 
-export const listSurveysLoader = async () => {
-  const url = '/encuestas';
+export const listRequirementsLoader = async () => {
+  const url = '/encuestas/requisitos/all';
   const apiRequestProvider = ApiRequestProviderInstance;
 
   const apiResponse = await apiRequestProvider.doRequest({
@@ -16,19 +16,12 @@ export const listSurveysLoader = async () => {
     requireAuth: true,
   });
 
-  const apiResponseData: SurveysListApiResponse = await apiResponse.json();
+  const apiResponseData: RequirementListApiResponse = await apiResponse.json();
 
-  const results: SurveyListDataTransform = apiResponseData.map((survey) => ({
-    id: survey.id,
-    name: survey.nombre,
-    slug: survey.slug,
-    description: survey.descripcion,
-    client: {
-      id: survey.id,
-      name: survey.cliente.nombre,
-    },
-    questions: Boolean(survey.preguntas.length),
-  })) as SurveyListDataTransform;
+  const results: RequirementListDTO = apiResponseData.map((requirement) => ({
+    id: requirement.id,
+    name: requirement.nombre,
+  })) as RequirementListDTO;
 
   return defer({ results });
 };

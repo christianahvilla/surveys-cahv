@@ -14,7 +14,8 @@ import { routes as surveyedRoutes } from '~pages/surveyed/routes';
 import { routes as surveysRoutes } from '~pages/surveys/routes';
 import { routes as accountRoutes } from '~pages/account/routes';
 import { routes as usersRoutes } from '~pages/users/routes';
-import {routes as clientsRoutes} from '~pages/clients/routers'
+import { routes as clientsRoutes } from '~pages/clients/routes';
+import { routes as requirementsRoutes } from '~pages/requirements/routes';
 import { HomeRouteElement } from './home-route.element';
 
 export const routes: Array<NonIndexRouteObjectWithNav> = [
@@ -40,6 +41,7 @@ export const routes: Array<NonIndexRouteObjectWithNav> = [
       ...surveysRoutes,
       ...usersRoutes,
       ...clientsRoutes,
+      ...requirementsRoutes,
     ],
   },
 ];

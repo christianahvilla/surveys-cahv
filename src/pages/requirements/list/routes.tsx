@@ -1,17 +1,17 @@
 import { NonIndexRouteObjectWithNav } from '~types/router/route-object-with-nav.type';
-import { listSurveysLoader } from './loader';
-import { SurveysListErrorElement } from './requirements-list-error.element';
-import { SurveysListElement } from './requirements-list.element';
+import { listRequirementsLoader } from './loader';
 import { RouteURLs } from './urls';
+import { RequirementsListElement } from './requirements-list.element';
+import { RequirementsListErrorElement } from './requirements-list-error.element';
 
 export const routes: Array<NonIndexRouteObjectWithNav> = [
   {
     path: RouteURLs.ROOT,
-    element: <SurveysListElement />,
-    errorElement: <SurveysListErrorElement />,
+    element: <RequirementsListElement />,
+    errorElement: <RequirementsListErrorElement />,
     name: RouteURLs.ROOT,
     showInNav: false,
-    loader: listSurveysLoader,
+    loader: listRequirementsLoader,
     order: 1,
   },
 ];

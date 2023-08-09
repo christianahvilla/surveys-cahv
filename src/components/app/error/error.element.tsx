@@ -6,6 +6,10 @@ import { removeFromLocalStorage } from '~utils/LocalStorage';
 export function ErrorElement() {
   const error: any | ErrorType = useRouteError();
 
+  if (!error) {
+    return <></>;
+  }
+
   if (
     isRouteErrorResponse(error) &&
     error.status === 404 &&

@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { ApiMethods } from '~types/api/api-methods-object.type';
 import { ApiError } from '~types/api/api-responses.object.type';
+import { QuestionApiValues } from '~types/questions/questions-action-objects';
 import { ApiRequestProviderInstance } from '~utils/ApiRequestProvider';
 
 export const useSaveQuestion = (): {
   isLoading: boolean;
-  saveQuestion: (body: any) => void;
+  saveQuestion: (body: QuestionApiValues) => void;
   error: ApiError | null;
   isSaved: boolean;
 } => {

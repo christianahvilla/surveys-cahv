@@ -5,14 +5,15 @@ import { IQuestionDataTransform } from '~types/questions/questions-list-object';
 export const TABLE_HEADER: Array<ColDef> = [
   {
     headerName: 'Texto',
-    field: 'name',
-    type: 'textColumn',
+    field: 'text',
+    type: 'text',
     filter: true,
+    wrapText: true,
+    autoHeight: true,
     sortable: true,
     cellDataType: 'text',
     cellStyle: {
-      display: 'flex',
-      justifyContent: 'left',
+      textAlign: 'left',
     },
   },
   {

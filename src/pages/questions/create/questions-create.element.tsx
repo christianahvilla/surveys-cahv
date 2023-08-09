@@ -1,22 +1,32 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useSaveQuestion } from 'src/hooks/useSaveQuestion';
 import { AVAILABLE_ERRORS, IAvailableErrors } from '~types/error/error-object.type';
-import { NotificationType } from '~types/notification/notification-object.type';
+import {
+  NOTIFICATION_SUCCESS,
+  NotificationType,
+} from '~types/notification/notification-object.type';
 import { displayAvailableQuestionType } from '../helpers';
 import useNotification from 'src/hooks/useNotification';
+import { useGetSurveys } from 'src/hooks/useGetSurveys';
+import { displaySurveysOptions } from './helpers';
+import { AVAILABLE_QUESTION_TYPE } from '../constants';
 
 export const QuestionsCreateElement = () => {
   const [question, setQuestion] = useState<any>({});
-  const { isLoading, error, saveQuestion } = useSaveQuestion() as any;
-  const { statusCode, message } = error || {};
+  const { isLoading: isLoadingSave, error: errorSave, saveQuestion, isSaved } = useSaveQuestion();
+  const { surveys, isLoading: isLoadingSurveys, error: errorSurveys } = useGetSurveys();
   const { addNotification } = useNotification();
+
+  const error = errorSave || errorSurveys;
+  const { statusCode, message } = error || {};
+  const isLoading = isLoadingSave || isLoadingSurveys;
 
   useEffect(() => {
     if (error) {
       addNotification({
         title: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors].title,
-        body: message,
+        body: message || '',
         type: AVAILABLE_ERRORS[statusCode as keyof IAvailableErrors]
           .type as unknown as NotificationType.ERROR,
       });
@@ -35,14 +45,21 @@ export const QuestionsCreateElement = () => {
 
   const handleSubmitQuestion = () => {
     const formattedBody = {
-      texto: question.text,
+      textoPregunta: question.text,
       orden: Number(question.order),
-      tipo: question.type,
-      id: question.survey,
+      tipo: question.type || AVAILABLE_QUESTION_TYPE[0].value,
+      encuestaId: question.survey || surveys[0].id,
+      descripcion: question.description,
     };
 
     saveQuestion(formattedBody);
   };
+
+  if (isSaved) {
+    addNotification(NOTIFICATION_SUCCESS);
+
+    return <Navigate to='/questions/list' />;
+  }
 
   return (
     <div data-testid='questions-element'>
@@ -78,7 +95,7 @@ export const QuestionsCreateElement = () => {
             <div className='max-h-fit p-12 rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
               <div className='space-y-12'>
                 <div className='pb-12'>
-                  <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1'>
+                  <div className='mt-10 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-2'>
                     <div className='sm:col-span-1'>
                       <label
                         htmlFor='text'
@@ -91,6 +108,24 @@ export const QuestionsCreateElement = () => {
                           type='text'
                           name='text'
                           id='text'
+                          onChange={handleChangeQuestion}
+                          maxLength={32}
+                          className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                        />
+                      </div>
+                    </div>
+                    <div className='sm:col-span-1'>
+                      <label
+                        htmlFor='description'
+                        className='block text-lg font-medium leading-8 text-gray-900'
+                      >
+                        Descripción
+                      </label>
+                      <div className='mt-2'>
+                        <input
+                          type='text'
+                          name='description'
+                          id='description'
                           onChange={handleChangeQuestion}
                           maxLength={32}
                           className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
@@ -133,9 +168,9 @@ export const QuestionsCreateElement = () => {
                           className='select select-bordered w-full focus-within:ring-indigo-600'
                           name='survey'
                           onChange={handleChangeQuestion}
-                          defaultValue='abierta'
+                          defaultValue={surveys[0]?.id}
                         >
-                          {displayAvailableQuestionType()}
+                          {displaySurveysOptions(surveys)}
                         </select>
                       </div>
                     </div>

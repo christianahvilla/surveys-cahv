@@ -1,9 +1,16 @@
 import { useState } from 'react';
 import { ApiMethods } from '~types/api/api-methods-object.type';
+import { ApiError } from '~types/api/api-responses.object.type';
 import { ApiRequestProviderInstance } from '~utils/ApiRequestProvider';
 
-export const useSaveQuestion = () => {
+export const useSaveQuestion = (): {
+  isLoading: boolean;
+  saveQuestion: (body: any) => void;
+  error: ApiError | null;
+  isSaved: boolean;
+} => {
   const [loading, setLoading] = useState(false);
+  const [saved, setSaved] = useState(false);
   const [error, setError] = useState(null);
   const url = `/encuestas/preguntas`;
   const apiRequestProvider = ApiRequestProviderInstance;
@@ -18,9 +25,7 @@ export const useSaveQuestion = () => {
         requireAuth: true,
       })
       .then((response) => {
-        response.json().then(({ data }: any) => {
-          console.log('aqui entro', data);
-        });
+        response.json().then(() => setSaved(true));
       })
       .catch((error) => {
         setError(error);
@@ -32,5 +37,6 @@ export const useSaveQuestion = () => {
     isLoading: loading,
     saveQuestion,
     error,
+    isSaved: saved,
   };
 };

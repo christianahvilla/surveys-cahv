@@ -3,12 +3,12 @@ import { Await, Link, useLoaderData, useNavigation } from 'react-router-dom';
 import { LoadingElement } from '~components/app/loading/loading-element.component';
 import { TableElement } from '~components/app/table/app-table.component';
 import { TABLE_HEADER } from './constants';
-import { SurveyListDataTransform } from '~types/surveys/surveys-list-object';
+import { SurveyListDTO } from '~types/surveys/surveys-list-object';
 import { SurveysListErrorElement } from './surveys-list-error.element';
 
 export const SurveysListElement = () => {
   const data = useLoaderData() as {
-    results: Awaited<SurveyListDataTransform>;
+    results: Awaited<SurveyListDTO>;
   };
   const navigation = useNavigation();
 
@@ -16,7 +16,7 @@ export const SurveysListElement = () => {
     <div data-testid='surveys-list-element'>
       <Suspense fallback={<LoadingElement />}>
         <Await errorElement={<SurveysListErrorElement />} resolve={data.results}>
-          {(surveys: SurveyListDataTransform) => {
+          {(surveys: SurveyListDTO) => {
             if (navigation.state === 'loading')
               return (
                 <div

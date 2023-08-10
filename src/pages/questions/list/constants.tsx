@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ColDef, ICellRendererParams } from 'ag-grid-community';
-import { IQuestionDataTransform } from '~types/questions/questions-list-object';
+import { IQuestionDTO } from '~types/questions/questions-list-object';
 
 export const TABLE_HEADER: Array<ColDef> = [
   {
@@ -42,7 +42,7 @@ export const TABLE_HEADER: Array<ColDef> = [
     },
     cellRenderer: (column: ICellRendererParams) => {
       const { data } = column;
-      const { survey } = data as IQuestionDataTransform;
+      const { survey } = data as IQuestionDTO;
 
       if (!survey) {
         return 'N/A';
@@ -71,7 +71,7 @@ export const TABLE_HEADER: Array<ColDef> = [
     },
     cellRenderer: (column: ICellRendererParams) => {
       const { data } = column;
-      const { id, options } = data as IQuestionDataTransform;
+      const { id, options } = data as IQuestionDTO;
 
       if (!options.length) {
         return 'N/A';
@@ -92,7 +92,7 @@ export const TABLE_HEADER: Array<ColDef> = [
     suppressMovable: false,
     cellRenderer: (column: ICellRendererParams) => {
       const { data } = column;
-      const { id } = data as IQuestionDataTransform;
+      const { id } = data as IQuestionDTO;
 
       return (
         <div className='flex h-full space-x-4 justify-center items-center'>

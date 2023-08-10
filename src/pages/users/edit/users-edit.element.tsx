@@ -11,13 +11,13 @@ import {
 import { LoadingElement } from '~components/app/loading/loading-element.component';
 import { AVAILABLE_ERRORS, ApiError, IAvailableErrors } from '~types/error/error-object.type';
 import { NotificationType } from '~types/notification/notification-object.type';
-import { IUserDataTransform } from '~types/users/users-list-object';
+import { IUserDTO } from '~types/users/users-list-object';
 import { UsersEditErrorElement } from './users-edit-error.element';
 import useNotification from 'src/hooks/useNotification';
 
 export const UsersEditElement = () => {
   const userById = useLoaderData() as {
-    results: Awaited<IUserDataTransform>;
+    results: Awaited<IUserDTO>;
   };
 
   const navigation = useNavigation();
@@ -44,7 +44,7 @@ export const UsersEditElement = () => {
     <div data-testid='create-user-element'>
       <Suspense fallback={<LoadingElement />}>
         <Await errorElement={<UsersEditErrorElement />} resolve={userById.results}>
-          {(user: IUserDataTransform) => {
+          {(user: IUserDTO) => {
             if (navigation.state === 'loading')
               return (
                 <div
@@ -65,7 +65,7 @@ export const UsersEditElement = () => {
                   <div className='flex flex-row  flex-nowrap'>
                     <button
                       type='button'
-                      className='text-lg flex items-center pr-2 font-semibold leading-6 text-gray-900'
+                      className='text-lg flex items-center pr-2 font-semibold leading-8 text-gray-900'
                     >
                       <Link to='/users/list/0' replace>
                         <svg
@@ -108,7 +108,7 @@ export const UsersEditElement = () => {
                                   id='username'
                                   defaultValue={user.username}
                                   maxLength={32}
-                                  className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                                  className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-8'
                                 />
                               </div>
                             </div>
@@ -127,14 +127,14 @@ export const UsersEditElement = () => {
                                   id='name'
                                   defaultValue={user.name}
                                   maxLength={32}
-                                  className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                                  className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-8'
                                 />
                               </div>
                             </div>
                             <div className='sm:col-span-1'>
                               <label
                                 htmlFor='roles'
-                                className='block text-lg font-medium leading-6 text-gray-900'
+                                className='block text-lg font-medium leading-8 text-gray-900'
                               >
                                 Roles
                               </label>
@@ -158,7 +158,7 @@ export const UsersEditElement = () => {
                             <div className='sm:col-span-1'>
                               <label
                                 htmlFor='email'
-                                className='block text-lg font-medium leading-6 text-gray-900'
+                                className='block text-lg font-medium leading-8 text-gray-900'
                               >
                                 Correo
                               </label>
@@ -170,14 +170,14 @@ export const UsersEditElement = () => {
                                   autoComplete='email'
                                   id='email'
                                   maxLength={32}
-                                  className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                                  className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-8'
                                 />
                               </div>
                             </div>
                             <div className='sm:col-span-1'>
                               <label
                                 htmlFor='password'
-                                className='block text-lg font-medium leading-6 text-gray-900'
+                                className='block text-lg font-medium leading-8 text-gray-900'
                               >
                                 Contraseña
                               </label>
@@ -188,14 +188,14 @@ export const UsersEditElement = () => {
                                   autoComplete='current-password'
                                   id='password'
                                   maxLength={32}
-                                  className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                                  className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-8'
                                 />
                               </div>
                             </div>
                             <div className='col-span-1'>
                               <label
                                 htmlFor='phone'
-                                className='block text-lg font-medium leading-6 text-gray-900'
+                                className='block text-lg font-medium leading-8 text-gray-900'
                               >
                                 Celular
                               </label>
@@ -207,7 +207,7 @@ export const UsersEditElement = () => {
                                   defaultValue={user.phone}
                                   autoComplete='tel'
                                   maxLength={10}
-                                  className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                                  className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-8'
                                 />
                               </div>
                             </div>
@@ -218,7 +218,7 @@ export const UsersEditElement = () => {
                       <div className='mt-6 flex items-center justify-end gap-x-6'>
                         <button
                           type='button'
-                          className='text-lg font-semibold leading-6 text-gray-900'
+                          className='text-lg font-semibold leading-8 text-gray-900'
                         >
                           <Link to='/users/list'>Regresar</Link>
                         </button>

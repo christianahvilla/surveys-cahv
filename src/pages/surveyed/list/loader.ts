@@ -1,6 +1,6 @@
 import { ApiRequestProviderInstance } from '~utils/ApiRequestProvider';
 import { ApiMethods } from '../../../types/api/api-methods-object.type';
-import { IDataApiResponse, SurveyedListDataTransform } from '~types/surveyed/surveyed-list-object';
+import { IDataApiResponse, SurveyedListDTO } from '~types/surveyed/surveyed-list-object';
 import { defer } from 'react-router-dom';
 
 export const listSurveyedLoader = async () => {
@@ -13,7 +13,7 @@ export const listSurveyedLoader = async () => {
   });
   const apiResponseData: IDataApiResponse = await apiResponse.json();
 
-  const results: SurveyedListDataTransform = apiResponseData.data.map((surveyed) => ({
+  const results: SurveyedListDTO = apiResponseData.data.map((surveyed) => ({
     id: surveyed.id,
     name: surveyed.nombres,
     fatherLastname: surveyed.apaterno,
@@ -22,6 +22,6 @@ export const listSurveyedLoader = async () => {
     birthDate: surveyed.birthDate,
     studioLevel: surveyed.studioNivel,
     sign: surveyed.firma,
-  })) as SurveyedListDataTransform;
+  })) as SurveyedListDTO;
   return defer({ results });
 };

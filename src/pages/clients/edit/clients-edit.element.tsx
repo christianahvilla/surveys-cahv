@@ -62,7 +62,7 @@ export const ClientsEditElement = () => {
                   <div className='flex flex-row  flex-nowrap'>
                     <button
                       type='button'
-                      className='text-lg flex items-center pr-2 font-semibold leading-6 text-gray-900'
+                      className='text-lg flex items-center pr-2 font-semibold leading-8 text-gray-900'
                     >
                       <Link to='/clients/list' replace>
                         <svg
@@ -105,7 +105,7 @@ export const ClientsEditElement = () => {
                                   id='name'
                                   defaultValue={client.name}
                                   maxLength={32}
-                                  className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                                  className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-8'
                                 />
                               </div>
                             </div>
@@ -115,7 +115,7 @@ export const ClientsEditElement = () => {
                       <div className='mt-6 flex items-center justify-end gap-x-6'>
                         <button
                           type='button'
-                          className='text-lg font-semibold leading-6 text-gray-900'
+                          className='text-lg font-semibold leading-8 text-gray-900'
                         >
                           <Link to='/clients/list'>Regresar</Link>
                         </button>

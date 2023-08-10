@@ -1,16 +1,20 @@
 import { useEffect, useState } from 'react';
 import { ApiMethods } from '~types/api/api-methods-object.type';
+import { ApiError } from '~types/api/api-responses.object.type';
+import { QuestionApiResponse, QuestionApiDTO } from '~types/questions/questions-action-objects';
 import { ApiRequestProviderInstance } from '~utils/ApiRequestProvider';
 
-export const useGetQuestionById = (id: string) => {
+export const useGetQuestionById = (
+  id: string,
+): { isLoading: boolean; question: QuestionApiDTO | undefined; error: ApiError | null } => {
   const [loading, setLoading] = useState(false);
-  const [questions, setQuestions] = useState([]);
+  const [question, setQuestion] = useState<QuestionApiDTO | undefined>();
   const [error, setError] = useState(null);
-  const url = `/encuestas/preguntas/${id}`;
+  const url = `/encuestas/pregunta/${id}`;
   const apiRequestProvider = ApiRequestProviderInstance;
 
   useEffect(() => {
-    if (!questions.length) {
+    if (!question) {
       setLoading(true);
       apiRequestProvider
         .doRequest({
@@ -19,8 +23,15 @@ export const useGetQuestionById = (id: string) => {
           requireAuth: true,
         })
         .then((response) => {
-          response.json().then(({ data }: any) => {
-            setQuestions(data);
+          response.json().then((data: QuestionApiResponse) => {
+            setQuestion({
+              description: data.descripcion,
+              order: data.orden,
+              id: data.id,
+              surveyId: data.encuestaId,
+              text: data.textoPregunta,
+              type: data.tipo,
+            });
           });
         })
         .catch((error) => {
@@ -28,11 +39,11 @@ export const useGetQuestionById = (id: string) => {
         })
         .finally(() => setLoading(false));
     }
-  }, [apiRequestProvider, questions.length, url]);
+  }, [apiRequestProvider, question, url]);
 
   return {
     isLoading: loading,
-    questions,
+    question,
     error,
   };
 };

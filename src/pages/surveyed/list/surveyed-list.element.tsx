@@ -1,23 +1,20 @@
-import { Await, Link, useNavigation, useLoaderData } from 'react-router-dom';
-import { IClientsList } from '~types/clients/clients-list-object';
 import { Suspense } from 'react';
+import { Await, Link, useLoaderData, useNavigation } from 'react-router-dom';
 import { LoadingElement } from '~components/app/loading/loading-element.component';
 import { TableElement } from '~components/app/table/app-table.component';
+import { SurveyedListDataTransform } from '~types/surveyed/surveyed-list-object';
+import { SurveyedListErrorElement } from './surveyed-list-error.element';
 import { TABLE_HEADER } from './constants';
-import { ClientsListErrorElement } from './clients-list-error.element';
 
-export const ClientsListElement = () => {
-  const data = useLoaderData() as {
-    results: Awaited<IClientsList>;
-  };
-
+export const SurveyedListElement = () => {
+  const data = useLoaderData() as { results: Awaited<SurveyedListDataTransform> };
   const navigation = useNavigation();
 
   return (
-    <div data-testid='clients-list-element'>
+    <div data-testid='surveyed-list-element'>
       <Suspense fallback={<LoadingElement />}>
-        <Await errorElement={<ClientsListErrorElement />} resolve={data.results}>
-          {(clients: IClientsList) => {
+        <Await errorElement={<SurveyedListErrorElement />} resolve={data.results}>
+          {(surveyed: SurveyedListDataTransform) => {
             if (navigation.state === 'loading')
               return (
                 <div
@@ -38,16 +35,11 @@ export const ClientsListElement = () => {
                 <div className='p-12'>
                   <div className='flex flex-row justify-between'>
                     <h3 className='my-6 text-[1.75rem] font-medium leading-[1.2] flex justify-self-start text-gray-500'>
-                      Clientes
+                      Encuestdos
                     </h3>
-                    <Link className='flex' to='/clients/create' replace>
-                      <button className='self-center h-fit rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>
-                        Agregar
-                      </button>
-                    </Link>
                   </div>
-                  <div className='rounded-lg h-32 bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
-                    <TableElement columnDefs={TABLE_HEADER} rowData={clients} />
+                  <div className='rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
+                    <TableElement rowData={surveyed} columnDefs={TABLE_HEADER} />
                   </div>
                 </div>
               </div>

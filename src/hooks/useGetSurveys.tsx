@@ -1,11 +1,19 @@
 import { useEffect, useState } from 'react';
 import { ApiMethods } from '~types/api/api-methods-object.type';
-import { ISurveyList, ISurveyListApiResponse } from '~types/surveys/surveys-list-object';
+import { ApiError } from '~types/api/api-responses.object.type';
+import {
+  SurveySelectListApiResponse,
+  SurveySelectListDTO,
+} from '~types/selects/survey-object.type';
 import { ApiRequestProviderInstance } from '~utils/ApiRequestProvider';
 
-export const useGetSurveys = () => {
+export const useGetSurveys = (): {
+  surveys: SurveySelectListDTO;
+  error: null | ApiError;
+  isLoading: boolean;
+} => {
   const [loading, setLoading] = useState(false);
-  const [surveys, setSurveys] = useState<Array<ISurveyList>>([]);
+  const [surveys, setSurveys] = useState<SurveySelectListDTO>([]);
   const [error, setError] = useState(null);
   const url = '/encuestas';
   const apiRequestProvider = ApiRequestProviderInstance;
@@ -20,14 +28,10 @@ export const useGetSurveys = () => {
           requireAuth: true,
         })
         .then((response) => {
-          response.json().then((data: Array<ISurveyListApiResponse>) => {
-            const formattedSurveys = apiResponseData.map((survey) => ({
+          response.json().then((data: SurveySelectListApiResponse) => {
+            const formattedSurveys = data.map((survey) => ({
               id: survey.id,
               name: survey.nombre,
-              slug: survey.slug,
-              description: survey.descripcion,
-              client: survey.cliente,
-              questions: survey.preguntas,
             }));
             setSurveys(formattedSurveys);
           });
@@ -37,7 +41,7 @@ export const useGetSurveys = () => {
         })
         .finally(() => setLoading(false));
     }
-  }, [apiRequestProvider, apiResponseData, surveys?.length, url]);
+  }, [apiRequestProvider, surveys?.length, url]);
 
   return {
     isLoading: loading,

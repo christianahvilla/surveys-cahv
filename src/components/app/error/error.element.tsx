@@ -6,7 +6,9 @@ import { removeFromLocalStorage } from '~utils/LocalStorage';
 export function ErrorElement() {
   const error: any | ErrorType = useRouteError();
 
-  console.error(error);
+  if (!error) {
+    return <></>;
+  }
 
   if (
     (isRouteErrorResponse(error) &&

@@ -2,19 +2,19 @@ import { Suspense } from 'react';
 import { Await, Link, useLoaderData, useNavigation } from 'react-router-dom';
 import { LoadingElement } from '~components/app/loading/loading-element.component';
 import { TableElement } from '~components/app/table/app-table.component';
-import { SurveyedListDataTransform } from '~types/surveyed/surveyed-list-object';
+import { SurveyedListDTO } from '~types/surveyed/surveyed-list-object';
 import { SurveyedListErrorElement } from './surveyed-list-error.element';
 import { TABLE_HEADER } from './constants';
 
 export const SurveyedListElement = () => {
-  const data = useLoaderData() as { results: Awaited<SurveyedListDataTransform> };
+  const data = useLoaderData() as { results: Awaited<SurveyedListDTO> };
   const navigation = useNavigation();
 
   return (
     <div data-testid='surveyed-list-element'>
       <Suspense fallback={<LoadingElement />}>
         <Await errorElement={<SurveyedListErrorElement />} resolve={data.results}>
-          {(surveyed: SurveyedListDataTransform) => {
+          {(surveyed: SurveyedListDTO) => {
             if (navigation.state === 'loading')
               return (
                 <div

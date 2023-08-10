@@ -1,31 +1,33 @@
 import { IOptions } from '~types/api/options-object.type';
-import {
-  QuestionTypeApiResponse,
-  QuestionTypeDataTransform,
-} from '~types/questions/questions-list-object';
+import { QuestionTypeApiResponse, QuestionTypeDTO } from '~types/questions/questions-list-object';
 
-export type SurveyListDataTransform = Array<ISurveyDataTransform>;
+export type SurveyListDTO = Array<ISurveyDTO>;
 
-export interface ISurveyDataTransform {
-  client: IClientSurveyDataTransform;
+export interface ISurveyDTO {
+  client: IClientSurveyDTO;
   description: string;
   id: string;
   name: string;
   questions: boolean;
   slug: string;
+  requirements: string;
 }
 
-export interface IClientSurveyDataTransform {
+export interface IClientSurveyDTO {
   id: string;
   name: string;
 }
 
-export interface IQuestionSurveyDataTransform {
+export interface IRequirementSurveyDTO {
+  name: string;
+}
+
+export interface IQuestionSurveyDTO {
   description: string;
   id: string;
   options: IOptions[];
   text: string;
-  type: QuestionTypeDataTransform;
+  type: QuestionTypeDTO;
 }
 
 export type SurveysListApiResponse = Array<ISurveyApiResponse>;
@@ -37,6 +39,7 @@ export interface ISurveyApiResponse {
   nombre: string;
   preguntas: IQuestionSurveyApiResponse[];
   slug: string;
+  requisitos: IRequirementSurveyResponse | null;
 }
 
 export interface IClientSurveyApiResponse {
@@ -44,6 +47,11 @@ export interface IClientSurveyApiResponse {
   id: string;
   nombre: string;
   slug: string;
+}
+
+export interface IRequirementSurveyResponse {
+  nombre: string;
+  id: string;
 }
 
 export interface IQuestionSurveyApiResponse {

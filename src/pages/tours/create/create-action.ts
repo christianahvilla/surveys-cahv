@@ -12,7 +12,7 @@ export const createToursAction = async ({ request }: ActionFunctionArgs) => {
   const order = (formData.get(ToursKeysInput.order) as string) || '';
   const female = (formData.get(ToursKeysInput.female) as string) || null;
   const male = (formData.get(ToursKeysInput.male) as string) || null;
-  const userId = (formData.get(ToursKeysInput.user) as string) || '';
+  const userId = (formData.get(ToursKeysInput.userId) as string) || '';
 
   try {
     const url = '/recorridos';

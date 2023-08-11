@@ -4,7 +4,7 @@ export enum ToursKeysInput {
   colony = 'colony',
   cp = 'cp',
   order = 'order',
-  user = 'user',
+  userId = 'userId',
   female = 'female',
   male = 'male',
 }

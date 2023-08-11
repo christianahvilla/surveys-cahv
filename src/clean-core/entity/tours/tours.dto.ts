@@ -5,6 +5,4 @@ export enum ToursKeysInput {
   cp = 'cp',
   order = 'order',
   userId = 'userId',
-  female = 'female',
-  male = 'male',
 }

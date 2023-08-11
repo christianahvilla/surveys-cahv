@@ -10,8 +10,6 @@ export const createToursAction = async ({ request }: ActionFunctionArgs) => {
   const colony = (formData.get(ToursKeysInput.colony) as string) || '';
   const cp = (formData.get(ToursKeysInput.cp) as string) || '';
   const order = (formData.get(ToursKeysInput.order) as string) || '';
-  const female = (formData.get(ToursKeysInput.female) as string) || null;
-  const male = (formData.get(ToursKeysInput.male) as string) || null;
   const userId = (formData.get(ToursKeysInput.userId) as string) || '';
 
   try {
@@ -27,8 +25,6 @@ export const createToursAction = async ({ request }: ActionFunctionArgs) => {
         city: city,
         colony: colony,
         cp: cp,
-        female: female,
-        male: male,
         order: order,
         userId: userId,
       },

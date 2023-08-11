@@ -93,7 +93,7 @@ export const ToursCreateElement = () => {
                     <div className='max-h-fit p-12 rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
                       <div className='space-y-12'>
                         <div className='pb-12'>
-                          <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-4'>
+                          <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3'>
                             <div className='sm:col-span-1'>
                               <label
                                 htmlFor='state'
@@ -128,7 +128,6 @@ export const ToursCreateElement = () => {
                                 />
                               </div>
                             </div>
-
                             <div className='sm:col-span-1'>
                               <label
                                 htmlFor='colony'
@@ -146,7 +145,44 @@ export const ToursCreateElement = () => {
                                 />
                               </div>
                             </div>
-
+                          </div>
+                        </div>
+                        <div className='border-b border-gray-900/10 pb-12'>
+                          <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3'>
+                            <div className='sm:col-span-1'>
+                              <label
+                                htmlFor='cp'
+                                className='block text-lg font-medium leading-8 text-gray-900'
+                              >
+                                Código Postal
+                              </label>
+                              <div className='mt-2'>
+                                <input
+                                  type='text'
+                                  name='cp'
+                                  id='cp'
+                                  maxLength={32}
+                                  className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                                />
+                              </div>
+                            </div>
+                            <div className='sm:col-span-1'>
+                              <label
+                                htmlFor='order'
+                                className='block text-lg font-medium leading-8 text-gray-900'
+                              >
+                                Orden
+                              </label>
+                              <div className='mt-2'>
+                                <input
+                                  type='text'
+                                  name='order'
+                                  id='order'
+                                  maxLength={32}
+                                  className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                                />
+                              </div>
+                            </div>
                             <div className='sm:col-span-1'>
                               <label
                                 htmlFor='userId'
@@ -167,83 +203,7 @@ export const ToursCreateElement = () => {
                             </div>
                           </div>
                         </div>
-
-                        <div className='border-b border-gray-900/10 pb-12'>
-                          <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-4'>
-                            <div className='sm:col-span-1'>
-                              <label
-                                htmlFor='cp'
-                                className='block text-lg font-medium leading-8 text-gray-900'
-                              >
-                                Código Postal
-                              </label>
-                              <div className='mt-2'>
-                                <input
-                                  type='text'
-                                  name='cp'
-                                  id='cp'
-                                  maxLength={32}
-                                  className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
-                                />
-                              </div>
-                            </div>
-                            <div className='sm:col-span-1'>
-                              <label
-                                htmlFor='female'
-                                className='block text-lg font-medium leading-8 text-gray-900'
-                              >
-                                Mujer
-                              </label>
-                              <div className='mt-2'>
-                                <input
-                                  type='text'
-                                  name='female'
-                                  id='female'
-                                  maxLength={32}
-                                  className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
-                                />
-                              </div>
-                            </div>
-
-                            <div className='sm:col-span-1'>
-                              <label
-                                htmlFor='male'
-                                className='block text-lg font-medium leading-8 text-gray-900'
-                              >
-                                Hombre
-                              </label>
-                              <div className='mt-2'>
-                                <input
-                                  type='text'
-                                  name='male'
-                                  id='male'
-                                  maxLength={32}
-                                  className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
-                                />
-                              </div>
-                            </div>
-
-                            <div className='sm:col-span-1'>
-                              <label
-                                htmlFor='order'
-                                className='block text-lg font-medium leading-8 text-gray-900'
-                              >
-                                Orden
-                              </label>
-                              <div className='mt-2'>
-                                <input
-                                  type='text'
-                                  name='order'
-                                  id='order'
-                                  maxLength={32}
-                                  className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
                       </div>
-
                       <div className='mt-6 flex items-center justify-end gap-x-6'>
                         <button
                           type='button'

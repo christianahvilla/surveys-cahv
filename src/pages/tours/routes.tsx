@@ -5,6 +5,7 @@ import { ToursErrorElement } from './tours-error.element';
 import { ToursElement } from './tours.element';
 import { routes as tourListRoutes } from './list/routes';
 import { routes as tourCreateRoutes } from './create/routes';
+import { routes as tourEditRoutes } from './edit/routes';
 
 export const routes: Array<NonIndexRouteObjectWithNav> = [
   {
@@ -15,6 +16,6 @@ export const routes: Array<NonIndexRouteObjectWithNav> = [
     showInNav: false,
     order: 1,
     loader: surveyRouteLoader,
-    children: [...tourListRoutes, ...tourCreateRoutes],
+    children: [...tourListRoutes, ...tourCreateRoutes, ...tourEditRoutes],
   },
 ];

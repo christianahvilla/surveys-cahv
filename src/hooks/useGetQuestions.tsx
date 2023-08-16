@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
 import { ApiMethods } from '~types/api/api-methods-object.type';
-import {
-  IQuestionApiResponse,
-  QuestionDataTransform,
-} from '~types/questions/questions-list-object';
+import { IQuestionApiResponse, QuestionDTO } from '~types/questions/questions-list-object';
 import { ApiRequestProviderInstance } from '~utils/ApiRequestProvider';
 
 export const useGetQuestions = () => {
   const [loading, setLoading] = useState(false);
-  const [questions, setQuestions] = useState<QuestionDataTransform>([]);
+  const [questions, setQuestions] = useState<QuestionDTO>([]);
   const [error, setError] = useState(null);
   const url = `/encuestas/preguntas/all`;
   const apiRequestProvider = ApiRequestProviderInstance;
@@ -24,7 +21,7 @@ export const useGetQuestions = () => {
         })
         .then((response) => {
           response.json().then((data: IQuestionApiResponse) => {
-            const formattedQuestions: QuestionDataTransform = data.map(
+            const formattedQuestions: QuestionDTO = data.map(
               ({
                 id,
                 descripcion,

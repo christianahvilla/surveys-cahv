@@ -106,7 +106,7 @@ export const QuestionsEditElement = () => {
           <div className='flex flex-row  flex-nowrap'>
             <button
               type='button'
-              className='text-lg flex items-center pr-2 font-semibold leading-6 text-gray-900'
+              className='text-lg flex items-center pr-2 font-semibold leading-8 text-gray-900'
             >
               <Link to='/questions/list' replace>
                 <svg
@@ -149,7 +149,7 @@ export const QuestionsEditElement = () => {
                           onChange={handleChangeQuestion}
                           maxLength={32}
                           defaultValue={questionById?.text}
-                          className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                          className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-8'
                         />
                       </div>
                     </div>
@@ -167,7 +167,7 @@ export const QuestionsEditElement = () => {
                           id='description'
                           onChange={handleChangeQuestion}
                           maxLength={32}
-                          className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                          className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-8'
                           defaultValue={questionById?.description}
                         />
                       </div>
@@ -192,14 +192,14 @@ export const QuestionsEditElement = () => {
                           max={99}
                           id='order'
                           defaultValue={questionById?.order}
-                          className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                          className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-8'
                         />
                       </div>
                     </div>
                     <div className='sm:col-span-1'>
                       <label
                         htmlFor='survey'
-                        className='block text-lg font-medium leading-6 text-gray-900'
+                        className='block text-lg font-medium leading-8 text-gray-900'
                       >
                         Encuesta
                       </label>
@@ -218,7 +218,7 @@ export const QuestionsEditElement = () => {
                     <div className='sm:col-span-1'>
                       <label
                         htmlFor='type'
-                        className='block text-lg font-medium leading-6 text-gray-900'
+                        className='block text-lg font-medium leading-8 text-gray-900'
                       >
                         Tipo
                       </label>
@@ -239,7 +239,7 @@ export const QuestionsEditElement = () => {
               </div>
 
               <div className='mt-6 flex items-center justify-end gap-x-6'>
-                <button type='button' className='text-lg font-semibold leading-6 text-gray-900'>
+                <button type='button' className='text-lg font-semibold leading-8 text-gray-900'>
                   <Link to='/questions/list'>Regresar</Link>
                 </button>
                 <button

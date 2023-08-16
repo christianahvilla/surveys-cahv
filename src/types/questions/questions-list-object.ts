@@ -2,11 +2,11 @@ import { IOptions } from '~types/api/options-object.type';
 
 export type IQuestionApiResponse = Array<IQuestionData>;
 
-export type QuestionDataTransform = Array<IQuestionDataTransform>;
+export type QuestionDTO = Array<IQuestionDTO>;
 
-export interface IQuestionDataTransform {
+export interface IQuestionDTO {
   description: string;
-  survey: IQuestionSurveyDataTransform;
+  survey: IQuestionSurveyDTO;
   id: string;
   options: IOptions[];
   text: string;
@@ -22,7 +22,7 @@ export interface IQuestionData {
   tipo: QuestionTypeApiResponse;
 }
 
-export interface IQuestionSurveyDataTransform {
+export interface IQuestionSurveyDTO {
   client: IClient;
   description: string;
   id: string;
@@ -42,7 +42,7 @@ export interface IClient {
   id: string;
 }
 
-export enum QuestionTypeDataTransform {
+export enum QuestionTypeDTO {
   open = 'open',
   multiple = 'multiple',
   multipleImages = 'multipleImages',

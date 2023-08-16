@@ -12,6 +12,8 @@ export const createUserAction = async ({ request }: ActionFunctionArgs) => {
   const phone = (formData.get(UserKeysInput.phone) as string) || '';
   const email = (formData.get(UserKeysInput.email) as string) || '';
 
+  console.log(formData);
+
   try {
     const url = '/auth/register';
     const apiRequestProvider = ApiRequestProviderInstance;

@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 import { ColDef, ICellRendererParams } from 'ag-grid-community';
 import { IUserDTO } from '~types/users/users-list-object';
+import { getDropdownValue } from '~utils/helpers';
+import { USER_DROPDOWN_OPTIONS } from '../constants';
+
+export const USERS_TITLE = 'Usuarios';
 
 export const TABLE_HEADER: Array<ColDef> = [
   {
@@ -37,6 +41,24 @@ export const TABLE_HEADER: Array<ColDef> = [
     cellStyle: {
       display: 'flex',
       justifyContent: 'left',
+    },
+  },
+  {
+    headerName: 'Rol',
+    field: 'roles',
+    type: 'textColumn',
+    filter: true,
+    sortable: true,
+    cellDataType: 'text',
+    cellStyle: {
+      display: 'flex',
+      justifyContent: 'left',
+    },
+    cellRenderer: (column: ICellRendererParams) => {
+      const { data } = column;
+      const { roles } = data as IUserDTO;
+
+      return getDropdownValue(roles, USER_DROPDOWN_OPTIONS).label;
     },
   },
   {

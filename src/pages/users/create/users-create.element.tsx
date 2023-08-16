@@ -109,7 +109,7 @@ export const UsersCreateElement = () => {
                       />
                     </div>
                     <div className='sm:col-span-1'>
-                      <InputPassword state={state} />
+                      <InputPassword isRequired state={state} />
                     </div>
                     <div className='col-span-1'>
                       <Input

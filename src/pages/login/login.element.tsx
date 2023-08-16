@@ -66,7 +66,7 @@ export const LoginElement = () => {
                     />
                   </div>
                   <div className='pb-2'>
-                    <InputPassword state={state} />
+                    <InputPassword isRequired state={state} />
                   </div>
                   <Button
                     isLoading={isSubmitting(state)}

@@ -1,0 +1,9 @@
+.navbar-brand {
+  position: fixed;
+  left: 1.5rem;
+}
+
+.navbar-user {
+  position: fixed;
+  right: 1.5rem;
+}

@@ -1,13 +1,16 @@
 /* eslint-disable no-undef */
 /** @type {import('tailwindcss').Config} */
+const { nextui } = require('@nextui-org/react');
+
 module.exports = {
   content: [
     './index.html',
     './src/**/*.{js,ts,jsx,tsx,html}',
     './node_modules/tw-elements/dist/js/**/*.js',
+    './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
   ],
   presets: [],
-  darkMode: 'media', // or 'class'
+  darkMode: 'class', // or 'class'
   theme: {
     accentColor: ({ theme }) => ({
       ...theme('colors'),
@@ -992,5 +995,5 @@ module.exports = {
       50: '50',
     },
   },
-  plugins: [require('tw-elements/dist/plugin.cjs'), require('daisyui')],
+  plugins: [require('tw-elements/dist/plugin.cjs'), require('daisyui'), nextui()],
 };

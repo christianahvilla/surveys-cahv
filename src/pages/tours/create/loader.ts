@@ -16,8 +16,8 @@ export const listUserLoader = async () => {
   const apiResponseData: IUsersListApiResponse = await apiResponse.json();
 
   const results = apiResponseData.map((user) => ({
-    id: user.id,
-    name: user.nombreCompleto,
+    key: user.id,
+    label: user.nombreCompleto,
   }));
 
   return defer({ results });

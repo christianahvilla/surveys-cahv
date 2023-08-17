@@ -1,5 +1,6 @@
-import { Link } from 'react-router-dom';
-import { ColDef, ICellRendererParams } from 'ag-grid-community';
+import { ColDef } from 'ag-grid-community';
+
+export const TOURS_TITLE = 'Recorridos';
 
 export const TABLE_HEADER: Array<ColDef> = [
   {

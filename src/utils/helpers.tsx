@@ -1,9 +1,8 @@
 import { Key, ReactNode } from 'react';
 import { IDropdownOptions } from '~components/inputs/dropdown/types';
+import { SELECTELEMENT, SUBMITTING } from '../constants';
 
-export const SUBMITtING = 'submitting';
-
-export const isSubmitting = (state: string) => state === SUBMITtING;
+export const isSubmitting = (state: string) => state === SUBMITTING;
 
 export const displayContentButton = (state: string, text: string): ReactNode => {
   return isSubmitting(state) ? (
@@ -15,5 +14,12 @@ export const displayContentButton = (state: string, text: string): ReactNode => 
   );
 };
 
-export const getDropdownValue = (filterKey: Key, options: Array<IDropdownOptions>) =>
-  options.filter(({ key }) => key === filterKey)[0];
+export const getDropdownValue = (filterKey: Key, options: Array<IDropdownOptions>) => {
+  if (!options.length) {
+    return {
+      label: SELECTELEMENT,
+      key: SELECTELEMENT,
+    };
+  }
+  return options.filter(({ key }) => key === filterKey)[0];
+};

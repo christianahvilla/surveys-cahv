@@ -1,14 +1,14 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
-export const OptionsElement = () => {
+export const ToursElement = () => {
   const { pathname } = useLocation();
 
-  if (pathname === '/options') {
+  if (pathname === '/tours') {
     return <Navigate to='list' />;
   }
 
   return (
-    <div data-testid='users-element'>
+    <div data-testid='tours-element'>
       <Outlet />
     </div>
   );

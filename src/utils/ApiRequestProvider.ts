@@ -53,6 +53,7 @@ class ApiRequestProvider {
 
   doRequest({ method, url, requireAuth = true, params, body, additionalHeaders }: RequestParams) {
     const isFormData = body && body.constructor.name === 'FormData';
+    console.log(isFormData, body);
     let commonHeaders = {
       ...additionalHeaders,
     };

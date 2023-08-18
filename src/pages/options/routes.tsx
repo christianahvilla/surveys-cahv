@@ -2,6 +2,8 @@ import { NonIndexRouteObjectWithNav } from '~types/router/route-object-with-nav.
 import { RouteURLs } from './urls';
 import { OptionsErrorElement } from './options-error.element';
 import { OptionsElement } from './options.element';
+import { routes as optionsListRoutes } from './list/routes';
+import { routes as optionsCreateRoutes } from './create/routes';
 
 export const routes: Array<NonIndexRouteObjectWithNav> = [
   {
@@ -11,6 +13,6 @@ export const routes: Array<NonIndexRouteObjectWithNav> = [
     name: RouteURLs.ROOT,
     showInNav: false,
     order: 1,
-    children: [],
+    children: [...optionsListRoutes, ...optionsCreateRoutes],
   },
 ];

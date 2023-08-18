@@ -4,3 +4,5 @@ export const BACK_MESSAGE = 'Regresar';
 export const SAVE_MESSAGE = 'Guardar';
 export const EMAIL = 'Correo';
 export const PASSWORD = 'Contraseña';
+export const SUBMITTING = 'submitting';
+export const SELECTELEMENT = 'Selecciona un elemento'

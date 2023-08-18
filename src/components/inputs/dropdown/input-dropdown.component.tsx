@@ -20,7 +20,7 @@ export const InputDropdown = ({
 }: IInputDropdown) => {
   return (
     <>
-      <Input className='hidden' name={name} defaultValue={key || defaultKey} />
+      <Input className='hidden' name={name} defaultValue={key || defaultKey} value={key} />
       <Dropdown>
         <DropdownTrigger name='roles'>
           <Button size='lg' className='w-full h-full' variant='bordered'>

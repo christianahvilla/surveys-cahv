@@ -6,6 +6,7 @@ const REQUIREMENTS_ROUTE_TITLE = 'Requisitos';
 const QUESTIONS_ROUTE_TITLE = 'Preguntas';
 const OPTIONS_ROUTE_TITLE = 'Opciones';
 const ANSWERS_ROUTE_TITLE = 'Respuestas';
+const TOURS_ROUTE_TITLE = 'Recorridos';
 const RESULTS_ROUTE_TITLE = 'Resultados';
 const SURVEYED_ROUTE_TITLE = 'Encuestados';
 const USERS_ROUTE_TITLE = 'Usarios';
@@ -44,6 +45,11 @@ export const APP_LINKS: AppLinks = [
     text: ANSWERS_ROUTE_TITLE,
     route: '/answers',
     key: 'answers',
+  },
+  {
+    text: TOURS_ROUTE_TITLE,
+    route: '/tours',
+    key: 'tours',
   },
   {
     text: RESULTS_ROUTE_TITLE,

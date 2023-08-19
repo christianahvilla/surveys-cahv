@@ -7,7 +7,6 @@ const QUESTIONS_ROUTE_TITLE = 'Preguntas';
 const OPTIONS_ROUTE_TITLE = 'Opciones';
 const ANSWERS_ROUTE_TITLE = 'Respuestas';
 const TOURS_ROUTE_TITLE = 'Recorridos';
-const RESULTS_ROUTE_TITLE = 'Resultados';
 const SURVEYED_ROUTE_TITLE = 'Encuestados';
 const USERS_ROUTE_TITLE = 'Usarios';
 const CLIENTS_ROUTE_TITLE = 'Clientes';
@@ -18,57 +17,52 @@ export const LOGOUT = 'Cerrar sesión';
 export const APP_LINKS: AppLinks = [
   {
     text: DASHBOARD_ROUTE_TITLE,
-    route: '/dashboard',
+    route: '/dashboard/list',
     key: 'dashboard',
   },
   {
     text: SURVEYS_ROUTE_TITLE,
-    route: '/surveys',
+    route: '/surveys/list',
     key: 'surveys',
   },
   {
     text: REQUIREMENTS_ROUTE_TITLE,
-    route: '/requirements',
+    route: '/requirements/list',
     key: 'requirements',
   },
   {
     text: QUESTIONS_ROUTE_TITLE,
-    route: '/questions',
+    route: '/questions/list',
     key: 'questions',
   },
   {
     text: OPTIONS_ROUTE_TITLE,
-    route: '/options',
+    route: '/options/list',
     key: 'options',
   },
   {
     text: ANSWERS_ROUTE_TITLE,
-    route: '/answers',
+    route: '/answers/list',
     key: 'answers',
   },
   {
     text: TOURS_ROUTE_TITLE,
-    route: '/tours',
+    route: '/tours/list',
     key: 'tours',
   },
   {
-    text: RESULTS_ROUTE_TITLE,
-    route: '/results',
-    key: 'results',
-  },
-  {
     text: SURVEYED_ROUTE_TITLE,
-    route: '/surveyed',
+    route: '/surveyed/list',
     key: 'surveyed',
   },
   {
     text: USERS_ROUTE_TITLE,
-    route: '/users',
+    route: '/users/list',
     key: 'users',
   },
   {
     text: CLIENTS_ROUTE_TITLE,
-    route: '/clients',
+    route: '/clients/list',
     key: 'clients',
   },
 ];

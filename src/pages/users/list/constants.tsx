@@ -8,7 +8,7 @@ export const USERS_TITLE = 'Usuarios';
 
 export const TABLE_HEADER: Array<ColDef> = [
   {
-    headerName: 'Username',
+    headerName: 'Nombre de usuario',
     field: 'username',
     type: 'textColumn',
     filter: true,

@@ -9,12 +9,12 @@ import { Card } from '@nextui-org/react';
 import { PageContainer } from '~components/containers/page-container.component';
 import { TitlePage } from '~components/app/title-page/app-title-page.component';
 import { AddButton } from '~components/buttons/add-button/app-add-button.component';
-import { IOptionsListDTO } from '~types/options/options-list-object';
+import { OptionsListDTO } from '~types/options/options-list-object';
 import { ADD_OPTIONS_ROUTE } from '../constants';
 
 export const UsersListElement = () => {
   const data = useLoaderData() as {
-    results: Awaited<IOptionsListDTO>;
+    results: Awaited<OptionsListDTO>;
   };
 
   const navigation = useNavigation();
@@ -25,7 +25,7 @@ export const UsersListElement = () => {
         <ParentContainer>
           <PageContainer>
             <Await errorElement={<UsersListErrorElement />} resolve={data.results}>
-              {(options: Array<IOptionsListDTO>) => {
+              {(options: Array<OptionsListDTO>) => {
                 if (navigation.state === 'loading') return <LoadingElement />;
 
                 return (

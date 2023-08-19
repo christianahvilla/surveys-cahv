@@ -12,6 +12,6 @@ export interface IOptionsDTO {
   text: string;
 }
 
-export type IOptionsListApiResponse = Array<IOptionsApiResponse>;
+export type OptionsListApiResponse = Array<IOptionsApiResponse>;
 
-export type IOptionsListDTO = Array<IOptionsDTO>;
+export type OptionsListDTO = Array<IOptionsDTO>;

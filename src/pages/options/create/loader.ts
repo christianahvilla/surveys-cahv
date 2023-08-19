@@ -7,7 +7,7 @@ import {
 import { ApiRequestProviderInstance } from '~utils/ApiRequestProvider';
 
 export const createOptionsLoader = async () => {
-  const url = '/encuestas/preguntas/opciones/selects';
+  const url = '/encuestas/preguntas/all';
   const apiRequestProvider = ApiRequestProviderInstance;
 
   const apiResponse = await apiRequestProvider.doRequest({
@@ -20,7 +20,7 @@ export const createOptionsLoader = async () => {
 
   const formattedQuestions: QuestionsSelectListDTO = questionsData.map((question) => ({
     key: question.id,
-    label: question.nombre,
+    label: question.textoPregunta,
   }));
 
   const results = {

@@ -3,4 +3,5 @@ export enum OptionsKeysInput {
   text = 'text',
   img = 'img',
   questionId = 'questionId',
+  base64File = 'base64File',
 }

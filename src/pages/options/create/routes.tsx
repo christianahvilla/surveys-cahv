@@ -12,7 +12,7 @@ export const routes: Array<NonIndexRouteObjectWithNav> = [
     errorElement: <OptionsCreateErrorElement />,
     name: RouteURLs.ROOT,
     action: createOptionAction,
-    // loader: createOptionsLoader,
+    loader: createOptionsLoader,
     showInNav: false,
     order: 1,
   },

@@ -1,3 +1,4 @@
+import { Nullable } from '~clean/common/types/common';
 export type IUserSelectListApiResponse = Array<UserData>;
 
 export interface UserData {
@@ -6,7 +7,7 @@ export interface UserData {
 }
 
 export interface IUserSelectDTO {
-  key: string;
+  key: Nullable<string>;
   label: string;
 }
 

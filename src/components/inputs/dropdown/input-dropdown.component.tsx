@@ -19,9 +19,14 @@ export const InputDropdown = ({
   handleSelect,
 }: IInputDropdown) => {
   return (
-    <>
-      <Input className='hidden' name={name} defaultValue={key || defaultKey} value={key} />
-      <Dropdown>
+    <div className='w-full h-14'>
+      <Input
+        className='hidden'
+        name={name}
+        defaultValue={key || defaultKey || ''}
+        value={key || ''}
+      />
+      <Dropdown className='h-full'>
         <DropdownTrigger name='roles'>
           <Button size='lg' className='w-full h-full' variant='bordered'>
             {label || defaultLabel}
@@ -31,6 +36,6 @@ export const InputDropdown = ({
           {displayOptions(options)}
         </DropdownMenu>
       </Dropdown>
-    </>
+    </div>
   );
 };

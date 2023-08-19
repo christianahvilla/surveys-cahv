@@ -1,4 +1,6 @@
-import { ColDef } from 'ag-grid-community';
+import { Image } from '@nextui-org/react';
+import { ColDef, ICellRendererParams } from 'ag-grid-community';
+import { IOptionsDTO } from '~types/options/options-list-object';
 
 export const OPTIONS_TITLE = 'Opciones';
 
@@ -36,7 +38,24 @@ export const TABLE_HEADER: Array<ColDef> = [
     cellDataType: 'text',
     cellStyle: {
       display: 'flex',
-      justifyContent: 'left',
+    },
+    cellRenderer: (column: ICellRendererParams) => {
+      const { data } = column;
+      const { img } = data as IOptionsDTO;
+
+      if (!img) {
+        return <p>-</p>;
+      }
+
+      return (
+        <Image
+          className='cursor-pointer h-ful'
+          src={img}
+          width={200}
+          height={200}
+          onClick={() => window.open(img, '_blank')}
+        />
+      );
     },
   },
   // {

@@ -1,7 +1,7 @@
 import { ApiRequestProviderInstance } from '~utils/ApiRequestProvider';
 import { ApiMethods } from '~types/api/api-methods-object.type';
 import { defer } from 'react-router-dom';
-import { IOptionsListApiResponse } from '~types/options/options-list-object';
+import { OptionsListApiResponse } from '~types/options/options-list-object';
 
 export const listOptionsLoader = async () => {
   const url = `/encuestas/preguntas/opciones/selects`;
@@ -13,7 +13,7 @@ export const listOptionsLoader = async () => {
     requireAuth: true,
   });
 
-  const options: IOptionsListApiResponse = await apiResponse.json();
+  const options: OptionsListApiResponse = await apiResponse.json();
 
   const results = options.map((option) => ({
     id: option.id,

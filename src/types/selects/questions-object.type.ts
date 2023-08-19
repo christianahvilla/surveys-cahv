@@ -1,10 +1,11 @@
+import { Nullable } from '~clean/common/types/common';
 export interface IQuestionsSelectApiResponse {
   id: string;
-  nombre: string;
+  textoPregunta: string;
 }
 
 export interface IQuestionsSelectDTO {
-  key: string;
+  key: Nullable<string>;
   label: string;
 }
 

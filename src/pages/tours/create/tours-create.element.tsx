@@ -16,7 +16,7 @@ import {
   NotificationType,
 } from '~types/notification/notification-object.type';
 import { getDropdownValue, isSubmitting } from '~utils/helpers';
-import { SELECTELEMENT } from '../../../constants';
+import { SELECT_ELEMENT } from '../../../constants';
 import { ADD_TOUR_ROUTE, LIST_TOUR_ROUTE } from '../constants';
 import { ADD_TOUR__TITLE } from './constants';
 import { ToursCreateErrorElement } from './tours-create-error.element';
@@ -29,8 +29,7 @@ export const ToursCreateElement = () => {
   const navigation = useNavigation();
   const fetcher = useFetcher();
 
-  const SELECT_ELEMENTS = { label: SELECTELEMENT, key: SELECTELEMENT };
-  const [user, setUser] = useState<IUserSelectDTO>(SELECT_ELEMENTS);
+  const [user, setUser] = useState<IUserSelectDTO>(SELECT_ELEMENT);
   const { addNotification } = useNotification();
 
   const { state, data, Form } = fetcher;
@@ -133,7 +132,7 @@ export const ToursCreateElement = () => {
                                 <InputDropdown
                                   handleSelect={handleSelect}
                                   value={user}
-                                  defaultValue={SELECT_ELEMENTS}
+                                  defaultValue={SELECT_ELEMENT}
                                   name='userId'
                                   options={results}
                                 />

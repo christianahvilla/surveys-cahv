@@ -98,7 +98,7 @@ export const TABLE_HEADER: Array<ColDef> = [
 
       return (
         <div className='flex h-full space-x-4 justify-center items-center'>
-          <Link className='text-sky-500' to={`/surveys/${id}`}>
+          <Link className='text-sky-500 disabled-button' to={`/surveys/${id}`}>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
@@ -114,7 +114,7 @@ export const TABLE_HEADER: Array<ColDef> = [
               />
             </svg>
           </Link>
-          <Link className='text-red-500' to={id}>
+          <Link className='text-red-500 disabled-button' to={id}>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'

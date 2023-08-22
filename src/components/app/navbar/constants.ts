@@ -9,10 +9,10 @@ const ANSWERS_ROUTE_TITLE = 'Respuestas';
 const TOURS_ROUTE_TITLE = 'Recorridos';
 const RESULTS_ROUTE_TITLE = 'Resultados';
 const SURVEYED_ROUTE_TITLE = 'Encuestados';
-const USERS_ROUTE_TITLE = 'Usarios';
+const USERS_ROUTE_TITLE = 'Usuarios';
 const CLIENTS_ROUTE_TITLE = 'Clientes';
 export const USER_WELCOME_NAVBAR = 'Bienvenido';
-export const USER_SETTINGS = 'Configración';
+export const USER_SETTINGS = 'Configuración';
 export const LOGOUT = 'Cerrar sesión';
 
 export const APP_LINKS: AppLinks = [

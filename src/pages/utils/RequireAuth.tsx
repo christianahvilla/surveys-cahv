@@ -1,5 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { HeaderElement } from '~components/app/header/app-header.component';
+import { NavBarComponent } from '~components/app/navbar/app-navbar.component';
 import { SidenavElement } from '~components/app/sidenav/sidenav-element.component';
 import { getFromLocalStorage } from '~utils/LocalStorage';
 
@@ -17,8 +18,9 @@ export const RequireAuth = ({ children }: IRequireAuth) => {
 
   return (
     <>
-      <HeaderElement />
-      <SidenavElement />
+      <NavBarComponent />
+      {/* <HeaderElement />
+      <SidenavElement /> */}
       {children}
     </>
   );

@@ -19,7 +19,7 @@ export interface ITourDTO {
   colony: string;
   cp: string;
   order: string;
-  user: IUserTourTransform;
+  user: string;
 }
 
 export interface IUserTourApiResponse {
@@ -36,9 +36,4 @@ export interface IPointsApiResponse {
   street: string;
   number: string;
   order: string;
-}
-
-export interface IUserTourTransform {
-  id: string;
-  name: string;
 }

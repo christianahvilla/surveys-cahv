@@ -8,7 +8,7 @@ interface ITableElement {
 
 export const TableElement = ({ columnDefs, rowData }: ITableElement) => {
   return (
-    <div className='ag-theme-material' style={{ height: 600 }}>
+    <div className='ag-theme-material' style={{ height: 620 }}>
       <AgGridReact
         rowData={rowData}
         columnDefs={columnDefs}

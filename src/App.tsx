@@ -4,20 +4,26 @@ import { NotificationElement } from '~components/app/common-notification/notific
 import { routes } from '~pages/routes';
 import ModalProvider from '~utils/ModalProvider';
 import NotificationProvider from '~utils/NotificationProvider';
+import { NextUIProvider } from '@nextui-org/react';
+import { setupApp } from '~utils/helpers';
+
+setupApp();
 
 function App() {
   const router = createBrowserRouter(routes);
 
   return (
-    <ModalProvider>
-      <NotificationProvider>
-        <>
-          <RouterProvider router={router} />
-          <NotificationElement />
-          <ModalElement />
-        </>
-      </NotificationProvider>
-    </ModalProvider>
+    <NextUIProvider>
+      <ModalProvider>
+        <NotificationProvider>
+          <>
+            <RouterProvider router={router} />
+            <NotificationElement />
+            <ModalElement />
+          </>
+        </NotificationProvider>
+      </ModalProvider>
+    </NextUIProvider>
   );
 }
 

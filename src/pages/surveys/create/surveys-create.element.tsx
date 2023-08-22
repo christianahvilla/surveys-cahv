@@ -4,17 +4,18 @@ import {
   NOTIFICATION_SUCCESS,
   NotificationType,
 } from '~types/notification/notification-object.type';
-import { IClientsList } from '~types/clients/clients-list-object';
 import { Suspense, useEffect } from 'react';
 import { LoadingElement } from '~components/app/loading/loading-element.component';
-import { getClientOptions } from './helpers';
+import { getSelectOptions } from '../helpers';
 import { SurveysCreateErrorElement } from './surveys-create-error.element';
 import useNotification from 'src/hooks/useNotification';
 import { ApiError, ApiSuccess } from '~types/api/api-responses.object.type';
+import { IClientsListSelectDTO } from '~types/selects/clients-object.type';
+import { RequirementListDTO } from '~types/requirements/requirements-list-object';
 
 export const SurveysCreateElement = () => {
-  const clientById = useLoaderData() as {
-    results: Awaited<IClientsList>;
+  const results = useLoaderData() as {
+    results: Awaited<{ clients: IClientsListSelectDTO; requirements: RequirementListDTO }>;
   };
   const navigation = useNavigation();
   const fetcher = useFetcher();
@@ -45,8 +46,8 @@ export const SurveysCreateElement = () => {
   return (
     <div data-testid='create-survey-element'>
       <Suspense fallback={<LoadingElement />}>
-        <Await errorElement={<SurveysCreateErrorElement />} resolve={clientById.results}>
-          {(clients: any) => {
+        <Await errorElement={<SurveysCreateErrorElement />} resolve={results}>
+          {({ clients, requirements } = results) => {
             if (navigation.state === 'loading')
               return (
                 <div
@@ -67,7 +68,7 @@ export const SurveysCreateElement = () => {
                   <div className='flex flex-row  flex-nowrap'>
                     <button
                       type='button'
-                      className='text-lg flex items-center pr-2 font-semibold leading-6 text-gray-900'
+                      className='text-lg flex items-center pr-2 font-semibold leading-8 text-gray-900'
                     >
                       <Link to='/surveys/list' replace>
                         <svg
@@ -109,7 +110,7 @@ export const SurveysCreateElement = () => {
                                   autoComplete='name'
                                   id='name'
                                   maxLength={32}
-                                  className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                                  className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-8'
                                 />
                               </div>
                             </div>
@@ -126,14 +127,14 @@ export const SurveysCreateElement = () => {
                                   name='description'
                                   id='description'
                                   maxLength={32}
-                                  className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                                  className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-8'
                                 />
                               </div>
                             </div>
                             <div className='sm:col-span-1'>
                               <label
                                 htmlFor='clientId'
-                                className='block text-lg font-medium leading-6 text-gray-900'
+                                className='block text-lg font-medium leading-8 text-gray-900'
                               >
                                 Cliente
                               </label>
@@ -144,14 +145,14 @@ export const SurveysCreateElement = () => {
                                   name='clientId'
                                   defaultValue={clients[0].id}
                                 >
-                                  {getClientOptions(clients)}
+                                  {getSelectOptions(clients)}
                                 </select>
                               </div>
                             </div>
                           </div>
                         </div>
                         <div className='border-b border-gray-900/10 pb-12'>
-                          <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2'>
+                          <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3'>
                             <div
                               className='relative mb-3'
                               data-te-datepicker-init
@@ -161,7 +162,7 @@ export const SurveysCreateElement = () => {
                             >
                               <label
                                 htmlFor='startDate'
-                                className='block text-lg font-medium leading-6 text-gray-900'
+                                className='block text-lg font-medium leading-8 text-gray-900'
                               >
                                 Seleccione una fecha de inicio
                               </label>
@@ -169,7 +170,7 @@ export const SurveysCreateElement = () => {
                                 type='date'
                                 name='startDate'
                                 id='startDate'
-                                className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                                className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-8'
                                 placeholder='Seleccione una fecha'
                               />
                             </div>
@@ -182,7 +183,7 @@ export const SurveysCreateElement = () => {
                             >
                               <label
                                 htmlFor='endDate'
-                                className='block text-lg font-medium leading-6 text-gray-900'
+                                className='block text-lg font-medium leading-8 text-gray-900'
                               >
                                 Seleccione una fecha de fin
                               </label>
@@ -190,9 +191,27 @@ export const SurveysCreateElement = () => {
                                 type='date'
                                 name='endDate'
                                 id='endDate'
-                                className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                                className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-8'
                                 placeholder='Seleccione una fecha'
                               />
+                            </div>
+                            <div className='sm:col-span-1'>
+                              <label
+                                htmlFor='requirementsId'
+                                className='block text-lg font-medium leading-8 text-gray-900'
+                              >
+                                Requisitos
+                              </label>
+                              <div className='mt-2'>
+                                <select
+                                  id='requirementsId'
+                                  className='select select-bordered w-full focus-within:ring-indigo-600'
+                                  name='requirementsId'
+                                  defaultValue={requirements[0].id}
+                                >
+                                  {getSelectOptions(requirements)}
+                                </select>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -201,7 +220,7 @@ export const SurveysCreateElement = () => {
                       <div className='mt-6 flex items-center justify-end gap-x-6'>
                         <button
                           type='button'
-                          className='text-lg font-semibold leading-6 text-gray-900'
+                          className='text-lg font-semibold leading-8 text-gray-900'
                         >
                           <Link to='/surveys/list'>Regresar</Link>
                         </button>

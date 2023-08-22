@@ -1,5 +1,5 @@
 export type SurveyedListApiResponse = Array<ISurveyedApiResponse>;
-export type SurveyedListDataTransform = Array<ISurveyedDTO>;
+export type SurveyedListDTO = Array<ISurveyedDTO>;
 
 export interface ISurveyedDTO {
   id: string;

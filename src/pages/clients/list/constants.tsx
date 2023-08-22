@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ColDef, ICellRendererParams } from 'ag-grid-community';
-import { IClientDataTransform } from '~types/clients/clients-list-object';
+import { IClientDTO } from '~types/clients/clients-list-object';
 
 export const TABLE_HEADER: Array<ColDef> = [
   {
@@ -33,11 +33,11 @@ export const TABLE_HEADER: Array<ColDef> = [
     suppressMovable: false,
     cellRenderer: (column: ICellRendererParams) => {
       const { data } = column;
-      const { id } = data as IClientDataTransform;
+      const { id } = data as IClientDTO;
 
       return (
         <div className='flex h-full space-x-4 justify-center items-center'>
-          <Link className='text-sky-500' to={`/clients/${id}`}>
+          <Link className='text-sky-500 disabled-button' to={`/clients/${id}`}>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'

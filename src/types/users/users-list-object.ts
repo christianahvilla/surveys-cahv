@@ -10,7 +10,7 @@ export interface UserData {
   username: string;
 }
 
-export interface IUserDataTransform {
+export interface IUserDTO {
   id: string;
   phone: string;
   email: string;
@@ -19,4 +19,4 @@ export interface IUserDataTransform {
   username: string;
 }
 
-export type IUsersList = Array<IUserDataTransform>;
+export type IUsersList = Array<IUserDTO>;

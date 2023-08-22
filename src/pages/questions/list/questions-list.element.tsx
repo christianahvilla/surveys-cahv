@@ -3,12 +3,12 @@ import { useGetQuestions } from 'src/hooks/useGetQuestions';
 import { LoadingElement } from '~components/app/loading/loading-element.component';
 import { TableElement } from '~components/app/table/app-table.component';
 import { TABLE_HEADER } from './constants';
-import { QuestionDataTransform } from '~types/questions/questions-list-object';
+import { QuestionDTO } from '~types/questions/questions-list-object';
 import { ErrorType } from '~types/error/error-object.type';
 
 export const QuestionsListElement = () => {
   const { isLoading, error, questions } = useGetQuestions() as {
-    questions: QuestionDataTransform;
+    questions: QuestionDTO;
     isLoading: boolean;
     error: ErrorType | null;
   };

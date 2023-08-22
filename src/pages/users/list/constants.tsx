@@ -1,10 +1,14 @@
 import { Link } from 'react-router-dom';
 import { ColDef, ICellRendererParams } from 'ag-grid-community';
-import { IUserDataTransform } from '~types/users/users-list-object';
+import { IUserDTO } from '~types/users/users-list-object';
+import { getDropdownValue } from '~utils/helpers';
+import { USER_DROPDOWN_OPTIONS } from '../constants';
+
+export const USERS_TITLE = 'Usuarios';
 
 export const TABLE_HEADER: Array<ColDef> = [
   {
-    headerName: 'Username',
+    headerName: 'Nombre de usuario',
     field: 'username',
     type: 'textColumn',
     filter: true,
@@ -40,6 +44,24 @@ export const TABLE_HEADER: Array<ColDef> = [
     },
   },
   {
+    headerName: 'Rol',
+    field: 'roles',
+    type: 'textColumn',
+    filter: true,
+    sortable: true,
+    cellDataType: 'text',
+    cellStyle: {
+      display: 'flex',
+      justifyContent: 'left',
+    },
+    cellRenderer: (column: ICellRendererParams) => {
+      const { data } = column;
+      const { roles } = data as IUserDTO;
+
+      return getDropdownValue(roles, USER_DROPDOWN_OPTIONS).label;
+    },
+  },
+  {
     headerName: 'Celular',
     field: 'phone',
     type: 'text',
@@ -69,11 +91,11 @@ export const TABLE_HEADER: Array<ColDef> = [
     suppressMovable: false,
     cellRenderer: (column: ICellRendererParams) => {
       const { data } = column;
-      const { id } = data as IUserDataTransform;
+      const { id } = data as IUserDTO;
 
       return (
         <div className='flex h-full space-x-4 justify-center items-center'>
-          <Link className='text-sky-500' to={`/users/${id}`}>
+          <Link className='text-sky-500 disabled-button' to={`/users/${id}`}>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
@@ -89,7 +111,7 @@ export const TABLE_HEADER: Array<ColDef> = [
               />
             </svg>
           </Link>
-          <Link className='text-red-500' to={id}>
+          <Link className='text-red-500 disabled-button' to={id}>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'

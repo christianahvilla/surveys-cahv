@@ -6,10 +6,10 @@ export interface ClientData {
   slug: string;
 }
 
-export interface IClientDataTransform {
+export interface IClientDTO {
   id: string;
   name: string;
   slug: string;
 }
 
-export type IClientsList = Array<IClientDataTransform>;
+export type IClientsList = Array<IClientDTO>;

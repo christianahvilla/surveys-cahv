@@ -10,6 +10,7 @@ export const editSurveyAction = async ({ request, params }: ActionFunctionArgs) 
   const startDate = (formData.get(SurveysKeysInput.startDate) as string) || '';
   const endDate = (formData.get(SurveysKeysInput.endDate) as string) || '';
   const clientId = (formData.get(SurveysKeysInput.clientId) as string) || '';
+  const requirementId = (formData.get(SurveysKeysInput.requirementId) as string) || null;
 
   try {
     const url = `/auth/user/${params.id}`;
@@ -25,7 +26,7 @@ export const editSurveyAction = async ({ request, params }: ActionFunctionArgs) 
         fecha_inicio: startDate,
         fecha_final: endDate,
         clienteId: clientId,
-        requisitos: null,
+        requisitos: requirementId,
       },
     });
 

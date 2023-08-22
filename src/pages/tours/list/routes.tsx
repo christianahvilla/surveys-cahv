@@ -1,7 +1,7 @@
 import { NonIndexRouteObjectWithNav } from '~types/router/route-object-with-nav.type';
 import { listToursLoader } from './loader';
-import { ToursListErrorElement } from './tours-error.element';
-import { ToursListElement } from './tours.element';
+import { ToursListErrorElement } from './tours-list-error.element';
+import { ToursListElement } from './tours-list.element';
 import { RouteURLs } from './urls';
 
 export const routes: Array<NonIndexRouteObjectWithNav> = [

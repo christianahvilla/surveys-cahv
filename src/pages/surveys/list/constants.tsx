@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ColDef, ICellRendererParams } from 'ag-grid-community';
-import { ISurveyDataTransform } from '~types/surveys/surveys-list-object';
+import { ISurveyDTO } from '~types/surveys/surveys-list-object';
 
 export const TABLE_HEADER: Array<ColDef> = [
   {
@@ -41,7 +41,7 @@ export const TABLE_HEADER: Array<ColDef> = [
     },
     cellRenderer: (column: ICellRendererParams) => {
       const { data } = column;
-      const { client } = data as ISurveyDataTransform;
+      const { client } = data as ISurveyDTO;
       const { name, id } = client;
 
       return (
@@ -51,6 +51,19 @@ export const TABLE_HEADER: Array<ColDef> = [
           </Link>
         </div>
       );
+    },
+  },
+  {
+    headerName: 'Requisitos',
+    field: 'requirements',
+    type: 'text',
+    wrapText: true,
+    autoHeight: true,
+    filter: true,
+    sortable: true,
+    cellDataType: 'text',
+    cellStyle: {
+      textAlign: 'left',
     },
   },
   {
@@ -66,7 +79,7 @@ export const TABLE_HEADER: Array<ColDef> = [
     },
     cellRenderer: (column: ICellRendererParams) => {
       const { data } = column;
-      const { questions } = data as ISurveyDataTransform;
+      const { questions } = data as ISurveyDTO;
 
       if (!questions) {
         return 'N/A';
@@ -81,11 +94,11 @@ export const TABLE_HEADER: Array<ColDef> = [
     suppressMovable: false,
     cellRenderer: (column: ICellRendererParams) => {
       const { data } = column;
-      const { id } = data as ISurveyDataTransform;
+      const { id } = data as ISurveyDTO;
 
       return (
         <div className='flex h-full space-x-4 justify-center items-center'>
-          <Link className='text-sky-500' to={`/surveys/${id}`}>
+          <Link className='text-sky-500 disabled-button' to={`/surveys/${id}`}>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
@@ -101,7 +114,7 @@ export const TABLE_HEADER: Array<ColDef> = [
               />
             </svg>
           </Link>
-          <Link className='text-red-500' to={id}>
+          <Link className='text-red-500 disabled-button' to={id}>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'

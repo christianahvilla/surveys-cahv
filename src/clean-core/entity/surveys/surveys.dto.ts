@@ -4,4 +4,5 @@ export enum SurveysKeysInput {
   startDate = 'startDate',
   endDate = 'endDate',
   clientId = 'clientId',
+  requirementId = 'requirementId',
 }

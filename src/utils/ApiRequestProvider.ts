@@ -10,9 +10,10 @@ type RequestHeaders = {
 type RequestParams = {
   additionalHeaders?: RequestHeaders;
   body?: Record<string, any>;
-  method: ApiMethods;
+  method?: ApiMethods;
   params?: Record<string, any>;
   requireAuth?: boolean;
+  useFullUrl?: boolean;
   url: string;
 };
 
@@ -51,7 +52,15 @@ class ApiRequestProvider {
    * @returns {Promise.<T>|*}
    */
 
-  doRequest({ method, url, requireAuth = true, params, body, additionalHeaders }: RequestParams) {
+  doRequest({
+    method,
+    url,
+    requireAuth = true,
+    params,
+    body,
+    additionalHeaders,
+    useFullUrl = true,
+  }: RequestParams) {
     const isFormData = body && body.constructor.name === 'FormData';
     let commonHeaders = {
       ...additionalHeaders,
@@ -66,7 +75,12 @@ class ApiRequestProvider {
     }
 
     const headers: any = isFormData
-      ? { ...commonHeaders }
+      ? {
+          ...commonHeaders,
+          Accept: '*/*',
+          'Accept-Encoding': 'gzip, deflate, br',
+          Connection: 'keep-alive',
+        }
       : {
           ...commonHeaders,
           'Content-Type': 'application/json',
@@ -84,7 +98,7 @@ class ApiRequestProvider {
       });
     }
 
-    let fullUrl = `${BASE_URL}${url}`;
+    let fullUrl = useFullUrl ? `${BASE_URL}${url}` : url;
     if (params) {
       const queryStrParams = new URLSearchParams(params).toString();
       fullUrl = fullUrl.concat(`?${queryStrParams}`);

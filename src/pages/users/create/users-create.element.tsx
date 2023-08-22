@@ -8,11 +8,7 @@ import {
   NOTIFICATION_SUCCESS,
   NotificationType,
 } from '~types/notification/notification-object.type';
-import {
-  ADD_USER_ROUTE,
-  LIST_USER_ROUTE,
-  USER_DROPDOWN_OPTIONS as USER_DROPDOWN_OPTIONS,
-} from '../constants';
+import { ADD_USER_ROUTE, LIST_USER_ROUTE, USER_DROPDOWN_OPTIONS } from '../constants';
 import { ADD_USER_TITLE } from './constants';
 import { ApiMethods } from '~types/api/api-methods-object.type';
 import { PageContainer } from '~components/containers/page-container.component';

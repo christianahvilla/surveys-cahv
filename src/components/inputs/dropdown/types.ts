@@ -1,4 +1,5 @@
+import { Nullable } from '~clean/common/types/common';
 export interface IDropdownOptions {
-  key: string;
+  key: Nullable<string>;
   label: string;
 }

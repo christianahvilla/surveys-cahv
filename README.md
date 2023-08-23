@@ -114,7 +114,7 @@ npm format
 - **Christian Herrejon** - _Software Engineer_ - [EPAM](https://www.epam.com/)
 
 - **Jose Calderon** -
-  _Developer_ -
+  _Developer_
 
 - **Diego Sisternes** -
   _Trainee_

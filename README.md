@@ -1,12 +1,67 @@
-<h1 align='center'>Vite + React + TypeScript + Eslint + Prettier Template ⚡</h1>
+# Focus
 
-Create a new project with Vite, React JS, TypeScript, Eslint, Prettier in just 1 second and you don't need to setup anything.
+It is an application to do surveys and tracking the data provided by the people, you can create questions with multiple option also you can create many types of user to do the surveys.
 
-#### **Vercel Deploy: https://vite-react-ts-eslint-prettier.vercel.app**
+## Built with
 
-![image](https://user-images.githubusercontent.com/70432453/170648662-2ff424b9-74e9-4754-a04d-512fe1496a3b.png)
+- [NodeJS](https://nodejs.org/en) Node.js® is an open-source, cross-platform JavaScript runtime environment.
 
-## **Some Features 📋**
+- [React JS](https://react.dev/) The library for web and native user interfaces
+
+- [TypeScript](https://www.typescriptlang.org/) TypeScript is JavaScript with syntax for types.
+
+- [Clean-Arch](https://betterprogramming.pub/the-clean-architecture-beginners-guide-e4b7058c1165) The Clean Architecture is the system architecture guideline proposed by Robert C. Martin (Uncle Bob) derived from many architectural guidelines like Hexagonal Architecture, Onion Architecture, etc... over the years.
+
+- [Eslint](https://eslint.org/) Find and fix problems in your JavaScript code.
+
+- [Prettier](https://prettier.io/) An opinionated code formatter.
+
+- [Vercel Template](https://vite-react-ts-eslint-prettier.vercel.app) Create a new project with Vite, React JS, TypeScript, Eslint, Prettier in just 1 second and you don't need to setup anything.
+
+- [NextUI](https://nextui.org/) Beautiful, fast and modern React UI library.
+
+- [DaisyUI](https://daisyui.com/) daisyUI adds component class names to Tailwind CSS
+  so you can make beautiful websites faster than ever.
+
+- [Tailwind](https://tailwindui.com/) Build your next idea even faster.
+
+## Prerequisites
+
+- Vite
+- Node JS **v16**
+
+### Installing
+
+- #### Node JS Download Node JS from [here](https://nodejs.org/en) then install on your PC.
+- #### Vite run `npm i -g vite`
+
+## Using 📦
+
+1. Clone Project
+
+```
+git clone https://github.com/christianahvilla/surveys-cahv
+```
+
+2. Install Packages
+
+```
+npm install
+```
+
+3. Start Project
+
+```
+vite --host
+```
+
+4. If you using git, delete the existing folder .git after cloning (open `git bash` or other terminal)
+
+```
+rm -rf .git
+```
+
+## Some Features 📋
 
 Alias Import
 
@@ -22,60 +77,48 @@ Prettier Warning
 
 Etc...
 
-## **Using 📦**
-
-1. Clone Template
-
-```
-git clone https://github.com/igdev116/vite-react-ts-eslint-prettier.git
-```
-
-2. Install Packages
-
-```
-yarn install
-```
-
-3. Start Project
-
-```
-yarn dev
-```
-
-4. If you using git, delete the existing folder .git after cloning (open `git bash` or other terminal)
-
-```
-rm -rf .git
-```
-
-## **Options ✍️**
+## Options ✍️
 
 1. Check lint
 
 ```
-yarn lint
+npm lint
 ```
 
 2. Fix lint
 
 ```
-yarn lint:fix
+npm lint:fix
 ```
 
 3. Check prettier
 
 ```
-yarn prettier
+npm prettier
 ```
 
 4. Fix prettier
 
 ```
-yarn prettier:fix
+npm prettier:fix
 ```
 
 5. Fix lint and prettier
 
 ```
-yarn format
+npm format
 ```
+
+## Authors
+
+- **Christian Herrejon** - _Software Engineer_ - [EPAM](https://www.epam.com/)
+
+- **Jose Calderon** -
+  _Developer_
+
+- **Diego Sisternes** -
+  _Trainee_
+
+## License
+
+This project is licensed under the GNU License - see the LICENSE file for details

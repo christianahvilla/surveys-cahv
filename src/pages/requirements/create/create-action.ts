@@ -2,6 +2,7 @@ import { ActionFunctionArgs } from 'react-router-dom';
 import { RequirementKeysInput } from '~clean/entity/requirement';
 import { ApiMethods } from '~types/api/api-methods-object.type';
 import { ApiRequestProviderInstance } from '~utils/ApiRequestProvider';
+import { QUANTITY_IS_LOWER_THAN_TOTAL } from '../constants';
 
 export const createRequirementAction = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
@@ -20,7 +21,26 @@ export const createRequirementAction = async ({ request }: ActionFunctionArgs) =
   const adultUpperAdvance = Number(
     (formData.get(RequirementKeysInput.adultUpperAdvance) as string) || 0,
   );
+  const quantity = Number((formData.get(RequirementKeysInput.quantity) as string) || 0);
   const surveyId = (formData.get(RequirementKeysInput.surveyId) as string) || '';
+
+  const total =
+    adult +
+    female +
+    femaleAdvance +
+    male +
+    maleAdvance +
+    adultLittle +
+    adultLittleAdvance +
+    adult +
+    adultAdvance +
+    adultUpper +
+    adultUpperAdvance;
+
+  // return data if we have errors
+  if (total > quantity) {
+    return { validation: QUANTITY_IS_LOWER_THAN_TOTAL };
+  }
 
   try {
     const url = '/encuestas/requisitos';
@@ -43,6 +63,7 @@ export const createRequirementAction = async ({ request }: ActionFunctionArgs) =
         adultoMayor: adultUpper,
         adultoMayorAvance: adultUpperAdvance,
         encuestaId: surveyId,
+        cantidad: quantity,
       },
     });
 

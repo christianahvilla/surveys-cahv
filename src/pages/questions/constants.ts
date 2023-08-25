@@ -1,14 +1,17 @@
+export const ADD_QUESTION_ROUTE = '/questions/create';
+export const LIST_QUESTION_ROUTE = '/questions/list';
+
 export const AVAILABLE_QUESTION_TYPE = [
   {
-    value: 'abierta',
-    text: 'Abierta',
+    key: 'abierta',
+    label: 'Abierta',
   },
   {
-    value: 'multiple',
-    text: 'Múltiple',
+    key: 'multiple',
+    label: 'Múltiple',
   },
   {
-    value: 'multipleimages',
-    text: 'Imagenes Múltiples',
+    key: 'multipleimages',
+    label: 'Imagenes Múltiples',
   },
 ];

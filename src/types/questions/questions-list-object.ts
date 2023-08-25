@@ -13,6 +13,15 @@ export interface IQuestionDTO {
   type: QuestionTypeApiResponse;
 }
 
+export interface IQuestionDTOList {
+  description: string;
+  survey: ISurveyApiResponse;
+  id: string;
+  options: IOptions[];
+  text: string;
+  type: QuestionTypeApiResponse;
+}
+
 export interface IQuestionData {
   descripcion: string;
   encuesta: ISurveyApiResponse;

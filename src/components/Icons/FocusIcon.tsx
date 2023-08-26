@@ -1,7 +1,3 @@
-export const FocusIcon = () => (
-  <img
-    className='w-8 h-8 mr-2'
-    src='https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg'
-    alt='logo'
-  />
-);
+import icon_launcher from '~parentAssets/icon_launcher.svg';
+
+export const FocusIcon = () => <img className='w-8 h-8 mr-2' src={icon_launcher} alt='logo' />;

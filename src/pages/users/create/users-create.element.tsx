@@ -13,7 +13,7 @@ import { ADD_USER_TITLE } from './constants';
 import { ApiMethods } from '~types/api/api-methods-object.type';
 import { PageContainer } from '~components/containers/page-container.component';
 import { ParentContainer } from '~components/containers/parent-container.component';
-import { Card, Input } from '@nextui-org/react';
+import { Card, Divider, Input } from '@nextui-org/react';
 import { FormButtons } from '~components/buttons/form-buttons/form-buttons.component';
 import { getDropdownValue, isSubmitting } from '~utils/helpers';
 import { EMAIL } from 'src/constants';
@@ -91,7 +91,7 @@ export const UsersCreateElement = () => {
                     </div>
                   </div>
                 </div>
-                <div className='border-b border-gray-900/10 pb-12'>
+                <div className='pb-4'>
                   <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3'>
                     <div className='sm:col-span-1'>
                       <Input
@@ -120,7 +120,19 @@ export const UsersCreateElement = () => {
                     </div>
                   </div>
                 </div>
+                <div hidden={true} className=' pb-4'>
+                  <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3'>
+                    <InputDropdown
+                      handleSelect={handleSelect}
+                      value={role}
+                      name='roles'
+                      options={USER_DROPDOWN_OPTIONS}
+                    />
+                  </div>
+                </div>
               </div>
+
+              <Divider className='mt-8' />
 
               <FormButtons state={state} backRoute={LIST_USER_ROUTE} />
             </Card>

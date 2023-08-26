@@ -1,30 +1,51 @@
-import { Link, useFetcher, useLoaderData, Await, useNavigation, Navigate } from 'react-router-dom';
+import { useFetcher, useLoaderData, Await, useNavigation, Navigate } from 'react-router-dom';
 import { AVAILABLE_ERRORS, IAvailableErrors } from '~types/error/error-object.type';
 import {
   NOTIFICATION_SUCCESS,
   NotificationType,
 } from '~types/notification/notification-object.type';
-import { Suspense, useEffect } from 'react';
+import { Key, Suspense, useEffect, useState } from 'react';
 import { LoadingElement } from '~components/app/loading/loading-element.component';
-import { getSelectOptions } from '../helpers';
 import { SurveysCreateErrorElement } from './surveys-create-error.element';
 import useNotification from 'src/hooks/useNotification';
 import { ApiError, ApiSuccess } from '~types/api/api-responses.object.type';
-import { IClientsListSelectDTO } from '~types/selects/clients-object.type';
-import { RequirementListDTO } from '~types/requirements/requirements-list-object';
+import { IClientSelectDTO, ClientsListSelectDTO } from '~types/selects/clients-object.type';
+import { ParentContainer } from '~components/containers/parent-container.component';
+import { PageContainer } from '~components/containers/page-container.component';
+import { ADD_SURVEYS_ROUTE, LIST_SURVEYS_ROUTE } from '../constants';
+import { TitleAction } from '~components/app/title-actions/app-title-page.component';
+import { ApiMethods } from '~types/api/api-methods-object.type';
+import { Card, Input } from '@nextui-org/react';
+import { FormButtons } from '~components/buttons/form-buttons/form-buttons.component';
+import { getDropdownValue, isSubmitting } from '~utils/helpers';
+import { ADD_SURVEY_TITLE } from './constants';
+import { InputDropdown } from '~components/inputs/dropdown/input-dropdown.component';
+import { EMPTY_PLACEHOLDER, SELECT_ELEMENT } from 'src/constants';
+import {
+  IRequirementSelectDTO,
+  RequirementsSelectDTO,
+} from '~types/selects/requirements-list-object';
 
 export const SurveysCreateElement = () => {
-  const results = useLoaderData() as {
-    results: Awaited<{ clients: IClientsListSelectDTO; requirements: RequirementListDTO }>;
-  };
+  const results = useLoaderData() as Awaited<{
+    clients: ClientsListSelectDTO;
+    requirements: RequirementsSelectDTO;
+  }>;
   const navigation = useNavigation();
   const fetcher = useFetcher();
 
+  const [client, setClient] = useState<IClientSelectDTO>(SELECT_ELEMENT);
+  const [requirement, setRequirement] = useState<IRequirementSelectDTO>(SELECT_ELEMENT);
   const { addNotification } = useNotification();
 
   const { state, data, Form } = fetcher;
   const { error, statusCode, message } = (data || {}) as ApiError;
   const { success } = (data || {}) as ApiSuccess;
+
+  const handleSelectClient = (key: Key) => setClient(getDropdownValue(key, results.clients || []));
+
+  const handleSelectRequirement = (key: Key) =>
+    setRequirement(getDropdownValue(key, results.requirements || []));
 
   useEffect(() => {
     if (error && state !== 'submitting') {
@@ -40,210 +61,106 @@ export const SurveysCreateElement = () => {
   if (success && state !== 'submitting') {
     addNotification(NOTIFICATION_SUCCESS);
 
-    return <Navigate to='/surveys/list' />;
+    return <Navigate to={LIST_SURVEYS_ROUTE} />;
   }
 
   return (
     <div data-testid='create-survey-element'>
       <Suspense fallback={<LoadingElement />}>
-        <Await errorElement={<SurveysCreateErrorElement />} resolve={results}>
-          {({ clients, requirements } = results) => {
-            if (navigation.state === 'loading')
-              return (
-                <div
-                  className='min-h-screen w-full bg-gray-50 !pl-0 text-center sm:!pl-60'
-                  id='content'
-                >
-                  <div className='p-12'>
-                    <LoadingElement />
-                  </div>
-                </div>
-              );
-            return (
-              <div
-                className='min-h-screen w-full bg-gray-50 !pl-0 text-center sm:!pl-60'
-                id='content'
-              >
-                <div className='p-12'>
-                  <div className='flex flex-row  flex-nowrap'>
-                    <button
-                      type='button'
-                      className='text-lg flex items-center pr-2 font-semibold leading-8 text-gray-900'
-                    >
-                      <Link to='/surveys/list' replace>
-                        <svg
-                          xmlns='http://www.w3.org/2000/svg'
-                          fill='none'
-                          viewBox='0 0 24 24'
-                          strokeWidth={1.5}
-                          stroke='currentColor'
-                          className='w-6 h-6'
-                        >
-                          <path
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                            d='M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18'
-                          />
-                        </svg>
-                      </Link>
-                    </button>
-                    <h3 className='my-6 text-[1.75rem] font-medium leading-[1.2] flex justify-self-start text-gray-500'>
-                      Agregar Encuesta
-                    </h3>
-                  </div>
-                  <Form method='post' action='/surveys/create'>
-                    <div className='max-h-fit p-12 rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
-                      <div className='space-y-12'>
-                        <div className='pb-12'>
-                          <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3'>
-                            <div className='sm:col-span-1'>
-                              <label
-                                htmlFor='name'
-                                className='block text-lg font-medium leading-8 text-gray-900'
-                              >
-                                Nombre
-                              </label>
-                              <div className='mt-2'>
-                                <input
-                                  type='text'
+        <ParentContainer>
+          <PageContainer>
+            <Await errorElement={<SurveysCreateErrorElement />} resolve={results}>
+              {({ clients, requirements } = results) => {
+                if (navigation.state === 'loading') return <LoadingElement />;
+
+                return (
+                  <>
+                    <TitleAction title={ADD_SURVEY_TITLE} route={LIST_SURVEYS_ROUTE} />
+                    <Form method={ApiMethods.POST} action={ADD_SURVEYS_ROUTE}>
+                      <Card className='p-6'>
+                        <div className='space-y-12'>
+                          <div className='pb-12'>
+                            <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3'>
+                              <div className='sm:col-span-1'>
+                                <Input
+                                  className='w-full'
+                                  variant='bordered'
+                                  isDisabled={isSubmitting(state)}
+                                  type='name'
                                   name='name'
-                                  autoComplete='name'
-                                  id='name'
-                                  maxLength={32}
-                                  className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-8'
+                                  label='Nombre'
+                                  isRequired
                                 />
                               </div>
-                            </div>
-                            <div className='sm:col-span-1'>
-                              <label
-                                htmlFor='description'
-                                className='block text-lg font-medium leading-8 text-gray-900'
-                              >
-                                Descripción
-                              </label>
-                              <div className='mt-2'>
-                                <input
+                              <div className='sm:col-span-1'>
+                                <Input
+                                  className='w-full'
+                                  variant='bordered'
+                                  isDisabled={isSubmitting(state)}
                                   type='text'
                                   name='description'
-                                  id='description'
-                                  maxLength={32}
-                                  className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-8'
+                                  label='Descripción'
+                                  isRequired
+                                />
+                              </div>
+                              <div className='sm:col-span-1'>
+                                <InputDropdown
+                                  handleSelect={handleSelectClient}
+                                  value={client}
+                                  defaultValue={SELECT_ELEMENT}
+                                  name='clientId'
+                                  options={clients}
                                 />
                               </div>
                             </div>
-                            <div className='sm:col-span-1'>
-                              <label
-                                htmlFor='clientId'
-                                className='block text-lg font-medium leading-8 text-gray-900'
-                              >
-                                Cliente
-                              </label>
-                              <div className='mt-2'>
-                                <select
-                                  id='clientId'
-                                  className='select select-bordered w-full focus-within:ring-indigo-600'
-                                  name='clientId'
-                                  defaultValue={clients[0].id}
-                                >
-                                  {getSelectOptions(clients)}
-                                </select>
-                              </div>
-                            </div>
                           </div>
-                        </div>
-                        <div className='border-b border-gray-900/10 pb-12'>
-                          <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3'>
-                            <div
-                              className='relative mb-3'
-                              data-te-datepicker-init
-                              data-te-inline='true'
-                              data-te-format='dd, mmm, yyyy'
-                              data-te-input-wrapper-init
-                            >
-                              <label
-                                htmlFor='startDate'
-                                className='block text-lg font-medium leading-8 text-gray-900'
-                              >
-                                Seleccione una fecha de inicio
-                              </label>
-                              <input
+                          <div className='sm:col-span-1'></div>
+                          <div className='border-b border-gray-900/10 pb-12'>
+                            <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3'>
+                              <Input
+                                className='w-full'
+                                variant='bordered'
+                                isDisabled={isSubmitting(state)}
                                 type='date'
+                                defaultValue={EMPTY_PLACEHOLDER}
                                 name='startDate'
-                                id='startDate'
-                                className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-8'
-                                placeholder='Seleccione una fecha'
+                                lang='es-MX'
+                                label='Fecha de inicio'
+                                isRequired
                               />
-                            </div>
-                            <div
-                              className='relative mb-3'
-                              data-te-datepicker-init
-                              data-te-inline='true'
-                              data-te-format='dd, mmm, yyyy'
-                              data-te-input-wrapper-init
-                            >
-                              <label
-                                htmlFor='endDate'
-                                className='block text-lg font-medium leading-8 text-gray-900'
-                              >
-                                Seleccione una fecha de fin
-                              </label>
-                              <input
+                              <Input
+                                className='w-full'
+                                variant='bordered'
+                                defaultValue={EMPTY_PLACEHOLDER}
+                                isDisabled={isSubmitting(state)}
                                 type='date'
+                                data-te-format='DD/MM/YYYY'
                                 name='endDate'
-                                id='endDate'
-                                className='block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-8'
-                                placeholder='Seleccione una fecha'
+                                lang='es-MX'
+                                label='Fecha de termino'
+                                isRequired
                               />
-                            </div>
-                            <div className='sm:col-span-1'>
-                              <label
-                                htmlFor='requirementsId'
-                                className='block text-lg font-medium leading-8 text-gray-900'
-                              >
-                                Requisitos
-                              </label>
-                              <div className='mt-2'>
-                                <select
-                                  id='requirementsId'
-                                  className='select select-bordered w-full focus-within:ring-indigo-600'
+                              <div className='sm:col-span-1'>
+                                <InputDropdown
+                                  handleSelect={handleSelectRequirement}
+                                  value={requirement}
+                                  defaultValue={SELECT_ELEMENT}
                                   name='requirementsId'
-                                  defaultValue={requirements[0].id}
-                                >
-                                  {getSelectOptions(requirements)}
-                                </select>
+                                  options={requirements}
+                                />
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-
-                      <div className='mt-6 flex items-center justify-end gap-x-6'>
-                        <button
-                          type='button'
-                          className='text-lg font-semibold leading-8 text-gray-900'
-                        >
-                          <Link to='/surveys/list'>Regresar</Link>
-                        </button>
-                        <button
-                          className='rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-                          disabled={state === 'submitting'}
-                        >
-                          {state === 'submitting' ? (
-                            <>
-                              <span className='loading loading-spinner'></span>
-                            </>
-                          ) : (
-                            <>Guardar</>
-                          )}
-                        </button>
-                      </div>
-                    </div>
-                  </Form>
-                </div>
-              </div>
-            );
-          }}
-        </Await>
+                        <FormButtons state={state} backRoute={LIST_SURVEYS_ROUTE} />
+                      </Card>
+                    </Form>
+                  </>
+                );
+              }}
+            </Await>
+          </PageContainer>
+        </ParentContainer>
       </Suspense>
     </div>
   );

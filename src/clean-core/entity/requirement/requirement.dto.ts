@@ -1,6 +1,7 @@
 export enum RequirementKeysInput {
   name = 'name',
   female = 'female',
+  quantity = 'quantity',
   femaleAdvance = 'femaleAdvance',
   male = 'male',
   maleAdvance = 'maleAdvance',

@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { ColDef, ICellRendererParams } from 'ag-grid-community';
 import { IRequirementDTO } from '~types/requirements/requirements-list-object';
 
+export const REQUIREMENTS_TITLE = 'Requisitos';
+
 export const TABLE_HEADER: Array<ColDef> = [
   {
     headerName: 'Nombre',
@@ -25,7 +27,7 @@ export const TABLE_HEADER: Array<ColDef> = [
 
       return (
         <div className='flex h-full space-x-4 justify-center items-center'>
-          <Link className='text-sky-500' to={`/requirements/edit/${id}`}>
+          <Link className='text-sky-500 disabled-button' to={`/requirements/edit/${id}`}>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'

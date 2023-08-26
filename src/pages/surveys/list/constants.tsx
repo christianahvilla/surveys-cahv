@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { ColDef, ICellRendererParams } from 'ag-grid-community';
 import { ISurveyDTO } from '~types/surveys/surveys-list-object';
 
+export const SURVEYS_TITLE = 'Encuestas';
+
 export const TABLE_HEADER: Array<ColDef> = [
   {
     headerName: 'Nombre',
@@ -42,13 +44,14 @@ export const TABLE_HEADER: Array<ColDef> = [
     cellRenderer: (column: ICellRendererParams) => {
       const { data } = column;
       const { client } = data as ISurveyDTO;
-      const { name, id } = client;
+      const { label } = client;
 
       return (
         <div className='flex h-full space-x-4 justify-center items-center'>
-          <Link className='text-sky-500' to={`/clients/${id}`}>
-            {name}
-          </Link>
+          {label}
+          {/* <Link className='text-sky-500' to={`/clients/${key}`}>
+            {label}
+          </Link> */}
         </div>
       );
     },

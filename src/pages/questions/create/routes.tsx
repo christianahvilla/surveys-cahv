@@ -2,6 +2,7 @@ import { NonIndexRouteObjectWithNav } from '~types/router/route-object-with-nav.
 import { RouteURLs } from './urls';
 import { QuestionsCreateElement } from './questions-create.element';
 import { QuestionsCreateErrorElement } from './questions-create-error.element';
+import { listSurveyLoader } from './loader';
 
 export const routes: Array<NonIndexRouteObjectWithNav> = [
   {
@@ -9,6 +10,7 @@ export const routes: Array<NonIndexRouteObjectWithNav> = [
     element: <QuestionsCreateElement />,
     errorElement: <QuestionsCreateErrorElement />,
     name: RouteURLs.ROOT,
+    loader: listSurveyLoader,
     showInNav: false,
     order: 1,
   },

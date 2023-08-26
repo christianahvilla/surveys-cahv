@@ -1,25 +1,17 @@
+import { IDropdownOptions } from '~components/inputs/dropdown/types';
 import { IOptions } from '~types/api/options-object.type';
 import { QuestionTypeApiResponse, QuestionTypeDTO } from '~types/questions/questions-list-object';
 
 export type SurveyListDTO = Array<ISurveyDTO>;
 
 export interface ISurveyDTO {
-  client: IClientSurveyDTO;
+  client: IDropdownOptions;
   description: string;
   id: string;
   name: string;
   questions: boolean;
   slug: string;
-  requirements: string;
-}
-
-export interface IClientSurveyDTO {
-  id: string;
-  name: string;
-}
-
-export interface IRequirementSurveyDTO {
-  name: string;
+  requirement: IDropdownOptions;
 }
 
 export interface IQuestionSurveyDTO {

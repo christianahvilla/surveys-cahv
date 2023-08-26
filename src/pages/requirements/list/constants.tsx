@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ColDef, ICellRendererParams } from 'ag-grid-community';
-import { RequirementDTO } from '~types/requirements/requirements-list-object';
+import { IRequirementDTO } from '~types/requirements/requirements-list-object';
 
 export const REQUIREMENTS_TITLE = 'Requisitos';
 
@@ -23,7 +23,7 @@ export const TABLE_HEADER: Array<ColDef> = [
     suppressMovable: false,
     cellRenderer: (column: ICellRendererParams) => {
       const { data } = column;
-      const { id } = data as RequirementDTO;
+      const { id } = data as IRequirementDTO;
 
       return (
         <div className='flex h-full space-x-4 justify-center items-center'>

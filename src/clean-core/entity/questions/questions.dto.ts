@@ -1,4 +1,4 @@
-export enum QuestionKeysImput {
+export enum QuestionKeysInput {
   questionText = 'textoPregunta',
   order = 'orden',
   questionType = 'tipo',

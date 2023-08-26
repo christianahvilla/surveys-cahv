@@ -50,7 +50,6 @@ export const TABLE_HEADER: Array<ColDef> = [
         return 'N/A';
       }
       const { id, nombre } = survey;
-      console.log(nombre);
 
       return (
         <div className='flex h-full space-x-4 justify-center items-center'>

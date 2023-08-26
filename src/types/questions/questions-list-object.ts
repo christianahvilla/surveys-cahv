@@ -1,9 +1,14 @@
 import { IOptions } from '~types/api/options-object.type';
+import { SurveySelectListDTO } from '../selects/survey-object.type';
 
 export type IQuestionApiResponse = Array<IQuestionData>;
 
 export type QuestionDTO = Array<IQuestionDTO>;
 
+export interface QuestionEditSurveyDto {
+  question: IQuestionDTOEdit;
+  surveys: SurveySelectListDTO;
+}
 export interface IQuestionDTO {
   description: string;
   survey: IQuestionSurveyDTO;
@@ -11,6 +16,15 @@ export interface IQuestionDTO {
   options: IOptions[];
   text: string;
   type: QuestionTypeApiResponse;
+}
+
+export interface IQuestionDTOEdit {
+  description: string;
+  survey: SurveySelectListDTO;
+  id: string;
+  text: string;
+  type: QuestionTypeApiResponse;
+  order: string;
 }
 
 export interface IQuestionDTOList {
@@ -27,6 +41,15 @@ export interface IQuestionData {
   encuesta: ISurveyApiResponse;
   id: string;
   opciones: IOptions[];
+  textoPregunta: string;
+  tipo: QuestionTypeApiResponse;
+}
+
+export interface IQuestionDataEdit {
+  descripcion: string;
+  encuesta: ISurveyApiResponse;
+  id: string;
+  orden: string;
   textoPregunta: string;
   tipo: QuestionTypeApiResponse;
 }

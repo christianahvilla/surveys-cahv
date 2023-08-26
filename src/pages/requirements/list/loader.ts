@@ -18,10 +18,10 @@ export const listRequirementsLoader = async () => {
 
   const apiResponseData: RequirementListApiResponse = await apiResponse.json();
 
-  const results: RequirementListDTO = apiResponseData.map((requirement) => ({
+  const requirements: RequirementListDTO = apiResponseData.map((requirement) => ({
     id: requirement.id,
     name: requirement.nombre,
-  })) as RequirementListDTO;
+  }));
 
-  return defer({ results });
+  return defer({ results: requirements });
 };

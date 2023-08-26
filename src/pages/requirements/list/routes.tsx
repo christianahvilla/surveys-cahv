@@ -11,6 +11,7 @@ export const routes: Array<NonIndexRouteObjectWithNav> = [
     errorElement: <RequirementsListErrorElement />,
     name: RouteURLs.ROOT,
     showInNav: false,
+    shouldRevalidate: () => false,
     loader: listRequirementsLoader,
     order: 1,
   },

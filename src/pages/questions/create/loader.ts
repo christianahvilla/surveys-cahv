@@ -1,12 +1,9 @@
-import { ApiRequestProviderInstance } from '~utils/ApiRequestProvider';
-import { ApiMethods } from '~types/api/api-methods-object.type';
 import { defer } from 'react-router-dom';
-import {
-  SurveySelectListApiResponse,
-  SurveySelectListDTO,
-} from '~types/selects/survey-object.type';
+import { ApiMethods } from '~types/api/api-methods-object.type';
+import { SurveySelectListApiResponse } from '~types/selects/survey-object.type';
+import { ApiRequestProviderInstance } from '~utils/ApiRequestProvider';
 
-export const requirementCreateLoader = async () => {
+export const listSurveyLoader = async () => {
   const url = '/encuestas/selects';
   const apiRequestProvider = ApiRequestProviderInstance;
 
@@ -18,7 +15,7 @@ export const requirementCreateLoader = async () => {
 
   const apiResponseData: SurveySelectListApiResponse = await apiResponse.json();
 
-  const results: SurveySelectListDTO = apiResponseData.map((survey) => ({
+  const results = apiResponseData.map((survey) => ({
     key: survey.id,
     label: survey.nombre,
   }));

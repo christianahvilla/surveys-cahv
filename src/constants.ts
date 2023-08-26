@@ -8,3 +8,4 @@ export const EMAIL = 'Correo';
 export const PASSWORD = 'Contraseña';
 export const SUBMITTING = 'submitting';
 export const SELECT_ELEMENT: IDropdownOptions = { key: null, label: 'Selecciona uno' };
+export const EMPTY_PLACEHOLDER = '-';

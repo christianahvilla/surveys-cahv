@@ -12,6 +12,7 @@ export const routes: Array<NonIndexRouteObjectWithNav> = [
     name: RouteURLs.ROOT,
     showInNav: false,
     loader: listSurveysLoader,
+    shouldRevalidate: () => false,
     order: 1,
   },
 ];

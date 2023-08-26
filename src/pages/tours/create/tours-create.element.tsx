@@ -37,6 +37,7 @@ export const ToursCreateElement = () => {
   const { success } = (data || {}) as ApiSuccess;
 
   const handleSelect = (key: Key) => setUser(getDropdownValue(key, usersById.results || []));
+
   useEffect(() => {
     if (error && state !== 'submitting') {
       addNotification({

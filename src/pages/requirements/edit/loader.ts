@@ -1,8 +1,8 @@
-import { ApiRequestProviderInstance } from '~utils/ApiRequestProvider';
-import { ApiMethods } from '~types/api/api-methods-object.type';
 import { ActionFunctionArgs, defer } from 'react-router-dom';
-import { RequirementSurveyListApiResponse } from '~types/requirements/requirements-surveys-list-object';
+import { ApiMethods } from '~types/api/api-methods-object.type';
 import { RequirementEditApiResponse } from '~types/requirements/requirement-edit-object';
+import { SurveySelectListApiResponse } from '~types/selects/survey-object.type';
+import { ApiRequestProviderInstance } from '~utils/ApiRequestProvider';
 
 export const requirementEditLoader = async ({ params }: ActionFunctionArgs) => {
   const urlSurvey = `/encuestas/selects`;
@@ -22,13 +22,13 @@ export const requirementEditLoader = async ({ params }: ActionFunctionArgs) => {
     requireAuth: true,
   });
 
-  const apiResponseDataSurvey: RequirementSurveyListApiResponse = await apiResponseSurvey.json();
+  const apiResponseDataSurvey: SurveySelectListApiResponse = await apiResponseSurvey.json();
   const apiResponseDataRequirement: RequirementEditApiResponse =
     await apiResponseRequirement.json();
 
   const surveys = apiResponseDataSurvey.map((survey) => ({
-    id: survey.id,
-    name: survey.nombre,
+    key: survey.id,
+    label: survey.nombre,
   }));
 
   const requirement = {
@@ -43,7 +43,8 @@ export const requirementEditLoader = async ({ params }: ActionFunctionArgs) => {
     adultAdvance: apiResponseDataRequirement.adultoAvance,
     adultUpper: apiResponseDataRequirement.adultoMayor,
     adultUpperAdvance: apiResponseDataRequirement.adultoMayorAvance,
-    surveyId: apiResponseDataRequirement.encuestaId,
+    surveyId: undefined,
+    quantity: apiResponseDataRequirement.cantidad,
   };
 
   const results = {

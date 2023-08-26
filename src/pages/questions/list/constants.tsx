@@ -1,11 +1,13 @@
-import { Link } from 'react-router-dom';
 import { ColDef, ICellRendererParams } from 'ag-grid-community';
-import { IQuestionDTO } from '~types/questions/questions-list-object';
+import { Link } from 'react-router-dom';
+import { IQuestionDTO, IQuestionDTOList } from '~types/questions/questions-list-object';
+
+export const QUESTIONS_TITLE = 'Preguntas';
 
 export const TABLE_HEADER: Array<ColDef> = [
   {
     headerName: 'Texto',
-    field: 'text',
+    field: 'questionText',
     type: 'text',
     filter: true,
     wrapText: true,
@@ -31,7 +33,7 @@ export const TABLE_HEADER: Array<ColDef> = [
   },
   {
     headerName: 'Encuesta',
-    field: 'name',
+    field: 'survey',
     type: 'text',
     filter: true,
     sortable: true,
@@ -42,17 +44,17 @@ export const TABLE_HEADER: Array<ColDef> = [
     },
     cellRenderer: (column: ICellRendererParams) => {
       const { data } = column;
-      const { survey } = data as IQuestionDTO;
+      const { survey } = data as IQuestionDTOList;
 
       if (!survey) {
         return 'N/A';
       }
-      const { id, name } = survey;
+      const { id, nombre } = survey;
 
       return (
         <div className='flex h-full space-x-4 justify-center items-center'>
           <Link className='text-sky-500' to={`/surveys/${id}`}>
-            {name}
+            {nombre}
           </Link>
         </div>
       );

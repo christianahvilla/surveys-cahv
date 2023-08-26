@@ -2,6 +2,7 @@ import { NonIndexRouteObjectWithNav } from '~types/router/route-object-with-nav.
 import { RouteURLs } from './urls';
 import { QuestionsListElement } from './questions-list.element';
 import { QuestionsListErrorElement } from './questions-list-error.element';
+import { listQuestionLoader } from './loader';
 
 export const routes: Array<NonIndexRouteObjectWithNav> = [
   {
@@ -10,6 +11,7 @@ export const routes: Array<NonIndexRouteObjectWithNav> = [
     errorElement: <QuestionsListErrorElement />,
     name: RouteURLs.ROOT,
     showInNav: false,
+    loader: listQuestionLoader,
     order: 1,
   },
 ];

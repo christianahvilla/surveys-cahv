@@ -13,5 +13,6 @@ export const routes: Array<NonIndexRouteObjectWithNav> = [
     showInNav: false,
     loader: listAnswersLoader,
     order: 1,
+    shouldRevalidate: () => false,
   },
 ];

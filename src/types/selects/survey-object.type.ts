@@ -1,11 +1,13 @@
+import { Nullable } from '../../clean-core/common/types/common';
+
 export interface SurveySelectApiResponse {
   id: string;
   nombre: string;
 }
 
 export interface SurveySelectDTO {
-  id: string;
-  name: string;
+  key: Nullable<string>;
+  label: string;
 }
 
 export type SurveySelectListApiResponse = Array<SurveySelectApiResponse>;

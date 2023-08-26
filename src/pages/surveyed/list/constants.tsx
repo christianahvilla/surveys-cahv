@@ -1,5 +1,7 @@
 import { ColDef } from 'ag-grid-community';
 
+export const SURVEYEDS_TITLE = 'Encuestados';
+
 export const TABLE_HEADER: Array<ColDef> = [
   {
     headerName: 'Nombre',

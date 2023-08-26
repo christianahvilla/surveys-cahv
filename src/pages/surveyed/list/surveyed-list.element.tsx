@@ -4,7 +4,14 @@ import { LoadingElement } from '~components/app/loading/loading-element.componen
 import { TableElement } from '~components/app/table/app-table.component';
 import { SurveyedListDTO } from '~types/surveyed/surveyed-list-object';
 import { SurveyedListErrorElement } from './surveyed-list-error.element';
-import { TABLE_HEADER } from './constants';
+import { SURVEYEDS_TITLE, TABLE_HEADER } from './constants';
+import { TitlePage } from '~components/app/title-page/app-title-page.component';
+import { ParentContainer } from '~components/containers/parent-container.component';
+import { PageContainer } from '~components/containers/page-container.component';
+import { SurveyedErrorElement } from '../surveyed-error.element';
+import { ADD_SURVEYED_ROUTE } from '../constants';
+import { AddButton } from '~components/buttons/add-button/app-add-button.component';
+import { Card } from '@nextui-org/react';
 
 export const SurveyedListElement = () => {
   const data = useLoaderData() as { results: Awaited<SurveyedListDTO> };
@@ -13,39 +20,28 @@ export const SurveyedListElement = () => {
   return (
     <div data-testid='surveyed-list-element'>
       <Suspense fallback={<LoadingElement />}>
-        <Await errorElement={<SurveyedListErrorElement />} resolve={data.results}>
-          {(surveyed: SurveyedListDTO) => {
-            if (navigation.state === 'loading')
-              return (
-                <div
-                  className='min-h-screen w-full bg-gray-50 !pl-0 text-center sm:!pl-60'
-                  id='content'
-                >
-                  <div className='p-12'>
-                    <LoadingElement />
-                  </div>
-                </div>
-              );
+        <ParentContainer>
+          <PageContainer>
+            <Await errorElement={<SurveyedErrorElement />} resolve={data.results}>
+              {(surveyeds: Array<SurveyedListDTO>) => {
+                if (navigation.state === 'loading') return <LoadingElement />;
 
-            return (
-              <div
-                className='min-h-screen w-full bg-gray-50 !pl-0 text-center sm:!pl-60'
-                id='content'
-              >
-                <div className='p-12'>
-                  <div className='flex flex-row justify-between'>
-                    <h3 className='my-6 text-[1.75rem] font-medium leading-[1.2] flex justify-self-start text-gray-500'>
-                      Encuestdos
-                    </h3>
-                  </div>
-                  <div className='rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
-                    <TableElement rowData={surveyed} columnDefs={TABLE_HEADER} />
-                  </div>
-                </div>
-              </div>
-            );
-          }}
-        </Await>
+                return (
+                  <>
+                    <TitlePage
+                      title={SURVEYEDS_TITLE}
+                      Button={<AddButton route={ADD_SURVEYED_ROUTE} />}
+                      hasButton
+                    />
+                    <Card>
+                      <TableElement rowData={surveyeds} columnDefs={TABLE_HEADER} />
+                    </Card>
+                  </>
+                );
+              }}
+            </Await>
+          </PageContainer>
+        </ParentContainer>
       </Suspense>
     </div>
   );

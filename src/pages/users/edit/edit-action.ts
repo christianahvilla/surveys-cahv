@@ -1,4 +1,5 @@
-import { ActionFunctionArgs, redirect } from 'react-router-dom';
+import isNull from 'lodash/isNull';
+import { ActionFunctionArgs } from 'react-router-dom';
 import { UserKeysInput } from '~clean/entity/users';
 import { ApiMethods } from '~types/api/api-methods-object.type';
 import { ApiRequestProviderInstance } from '~utils/ApiRequestProvider';
@@ -11,6 +12,15 @@ export const editUserAction = async ({ request, params }: ActionFunctionArgs) =>
   const password = (formData.get(UserKeysInput.password) as string) || '';
   const phone = (formData.get(UserKeysInput.phone) as string) || '';
   const email = (formData.get(UserKeysInput.email) as string) || '';
+  const clientId = (formData.get(UserKeysInput.clientId) as string) || null;
+
+  if (roles !== 'admin' && isNull(clientId)) {
+    return {
+      error: new Error(),
+      message: 'Selecciona un cliente',
+      statusCode: 400,
+    };
+  }
 
   try {
     const url = `/auth/user/${params.id}`;
@@ -27,10 +37,11 @@ export const editUserAction = async ({ request, params }: ActionFunctionArgs) =>
         password,
         celular: phone,
         email,
+        clienteId: clientId,
       },
     });
 
-    return redirect('/users/list');
+    return { success: true };
   } catch (error) {
     return error;
   }

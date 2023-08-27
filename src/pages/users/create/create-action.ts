@@ -1,3 +1,4 @@
+import isNull from 'lodash/isNull';
 import { ActionFunctionArgs } from 'react-router-dom';
 import { UserKeysInput } from '~clean/entity/users';
 import { ApiMethods } from '~types/api/api-methods-object.type';
@@ -11,8 +12,15 @@ export const createUserAction = async ({ request }: ActionFunctionArgs) => {
   const password = (formData.get(UserKeysInput.password) as string) || '';
   const phone = (formData.get(UserKeysInput.phone) as string) || '';
   const email = (formData.get(UserKeysInput.email) as string) || '';
+  const clientId = (formData.get(UserKeysInput.clientId) as string) || null;
 
-  console.log(formData);
+  if (roles !== 'admin' && isNull(clientId)) {
+    return {
+      error: new Error(),
+      message: 'Selecciona un cliente',
+      statusCode: 400,
+    };
+  }
 
   try {
     const url = '/auth/register';
@@ -29,6 +37,7 @@ export const createUserAction = async ({ request }: ActionFunctionArgs) => {
         password,
         celular: phone,
         email,
+        clienteId: clientId,
       },
     });
 

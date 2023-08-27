@@ -5,4 +5,5 @@ export enum UserKeysInput {
   password = 'password',
   phone = 'phone',
   email = 'email',
+  clientId = 'clientId',
 }

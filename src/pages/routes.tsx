@@ -9,7 +9,6 @@ import { routes as loginRoutes } from '~pages/login/routes';
 import { routes as answersRoutes } from '~pages/answers/routes';
 import { routes as dashboardRoutes } from '~pages/dashboard/routes';
 import { routes as questionsRoutes } from '~pages/questions/routes';
-import { routes as resultsRoutes } from '~pages/results/routes';
 import { routes as surveyedRoutes } from '~pages/surveyed/routes';
 import { routes as surveysRoutes } from '~pages/surveys/routes';
 import { routes as accountRoutes } from '~pages/account/routes';
@@ -38,7 +37,6 @@ export const routes: Array<NonIndexRouteObjectWithNav> = [
       ...answersRoutes,
       ...dashboardRoutes,
       ...questionsRoutes,
-      ...resultsRoutes,
       ...surveyedRoutes,
       ...surveysRoutes,
       ...usersRoutes,

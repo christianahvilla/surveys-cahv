@@ -15,15 +15,15 @@ export const AnswersListElement = () => {
     answers: Awaited<AnswerListDTO>;
   };
 
-  console.log('aqui entra');
+  console.log(results);
 
   const navigation = useNavigation();
 
   return (
     <div data-testid='answers-list-element'>
-      <ParentContainer>
-        <PageContainer>
-          <Suspense fallback={<LoadingElement />}>
+      <Suspense fallback={<LoadingElement />}>
+        <ParentContainer>
+          <PageContainer>
             <Await errorElement={<AnswersErrorElement />} resolve={results.answers}>
               {(answers: AnswerListDTO) => {
                 if (navigation.state === 'loading') return <LoadingElement />;
@@ -38,9 +38,9 @@ export const AnswersListElement = () => {
                 );
               }}
             </Await>
-          </Suspense>
-        </PageContainer>
-      </ParentContainer>
+          </PageContainer>
+        </ParentContainer>
+      </Suspense>
     </div>
   );
 };

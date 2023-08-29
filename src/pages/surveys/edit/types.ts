@@ -1,9 +1,9 @@
-import { IClientsList } from '~types/clients/clients-list-object';
-import { RequirementListDTO } from '~types/requirements/requirements-list-object';
+import { ClientsListSelectDTO } from '~types/selects/clients-object.type';
+import { RequirementsSelectDTO } from '~types/selects/requirements-list-object';
 import { ISurveyDTO } from '~types/surveys/surveys-list-object';
 
 export type SurveyLoaderData = {
   survey: ISurveyDTO;
-  clients: IClientsList;
-  requirements: RequirementListDTO;
+  clients: ClientsListSelectDTO;
+  requirements: RequirementsSelectDTO;
 };

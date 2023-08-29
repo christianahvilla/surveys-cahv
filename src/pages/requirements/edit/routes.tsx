@@ -11,6 +11,7 @@ export const routes: Array<NonIndexRouteObjectWithNav> = [
     name: RouteURLs.ROOT,
     action: createSurveysAction,
     loader: requirementEditLoader,
+    shouldRevalidate: () => false,
     showInNav: false,
     order: 1,
   },

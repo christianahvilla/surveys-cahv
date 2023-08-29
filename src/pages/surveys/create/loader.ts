@@ -1,11 +1,8 @@
 import { ApiRequestProviderInstance } from '~utils/ApiRequestProvider';
 import { ApiMethods } from '~types/api/api-methods-object.type';
 import { defer } from 'react-router-dom';
-import {
-  RequirementListApiResponse,
-  RequirementListDTO,
-} from '~types/requirements/requirements-list-object';
-import { IClientsSelectListApiResponse } from '~types/selects/clients-object.type';
+import { ClientsSelectListApiResponse } from '~types/selects/clients-object.type';
+import { RequirementsSelectApiResponse } from '~types/selects/requirements-list-object';
 
 export const listClientLoader = async () => {
   const urlClients = '/clientes';
@@ -24,17 +21,17 @@ export const listClientLoader = async () => {
     requireAuth: true,
   });
 
-  const requirementsData: RequirementListApiResponse = await apiResponseRequirements.json();
-  const clientsData: IClientsSelectListApiResponse = await apiResponseClients.json();
+  const requirementsData: RequirementsSelectApiResponse = await apiResponseRequirements.json();
+  const clientsData: ClientsSelectListApiResponse = await apiResponseClients.json();
 
-  const formattedRequirements: RequirementListDTO = requirementsData.map((requirement) => ({
-    id: requirement.id,
-    name: requirement.nombre,
-  })) as RequirementListDTO;
+  const formattedRequirements = requirementsData.map((requirement) => ({
+    key: requirement.id,
+    label: requirement.nombre,
+  }));
 
   const formattedClients = clientsData.map((client) => ({
-    id: client.id,
-    name: client.nombre,
+    key: client.id,
+    label: client.nombre,
   }));
 
   const results = {

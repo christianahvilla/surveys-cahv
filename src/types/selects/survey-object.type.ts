@@ -10,6 +10,6 @@ export interface SurveySelectDTO {
   label: string;
 }
 
-export type SurveySelectListApiResponse = Array<SurveySelectApiResponse>;
+export type SurveySelectListApiResponse = Array<ISurveySelectApiResponse>;
 
-export type SurveySelectListDTO = Array<SurveySelectDTO>;
+export type SurveySelectListDTO = Array<ISurveySelectDTO>;

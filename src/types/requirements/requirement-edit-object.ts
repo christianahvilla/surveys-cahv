@@ -1,4 +1,5 @@
-import { RequirementSurveyListDTO } from './requirements-surveys-list-object';
+import { IDropdownOptions } from '~components/inputs/dropdown/types';
+import { SurveySelectListDTO } from '~types/selects/survey-object.type';
 
 export interface RequirementEditApiResponse {
   nombre: string;
@@ -13,6 +14,7 @@ export interface RequirementEditApiResponse {
   adultoMayor: number;
   adultoMayorAvance: number;
   encuestaId: number;
+  cantidad: number;
 }
 
 export interface RequirementEditDTO {
@@ -27,10 +29,11 @@ export interface RequirementEditDTO {
   adultAdvance: number;
   adultUpper: number;
   adultUpperAdvance: number;
-  surveyId: number;
+  surveyId: IDropdownOptions | undefined;
+  quantity: number;
 }
 
 export interface RequirementEditSurveyDTO {
   requirement: RequirementEditDTO;
-  surveys: RequirementSurveyListDTO;
+  surveys: SurveySelectListDTO;
 }

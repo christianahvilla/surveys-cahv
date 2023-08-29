@@ -3,10 +3,13 @@ import { ApiMethods } from '~types/api/api-methods-object.type';
 import { defer } from 'react-router-dom';
 import { ISurveyApiResponse } from '~types/surveys/surveys-list-object';
 import {
-  RequirementListApiResponse,
-  RequirementListDTO,
-} from '~types/requirements/requirements-list-object';
-import { IClientsSelectListApiResponse } from '~types/selects/clients-object.type';
+  ClientsListSelectDTO,
+  ClientsSelectListApiResponse,
+} from '~types/selects/clients-object.type';
+import {
+  RequirementsSelectApiResponse,
+  RequirementsSelectDTO,
+} from '~types/selects/requirements-list-object';
 
 export const getSurveysLoader = async ({ params }: any) => {
   const urlSurvey = `/encuestas/filter/${params.id}`;
@@ -34,18 +37,18 @@ export const getSurveysLoader = async ({ params }: any) => {
   });
 
   const apiResponseDataSurvey: ISurveyApiResponse = await apiResponseSurvey.json();
-  const clientsData: IClientsSelectListApiResponse = await apiResponseClients.json();
-  const requirementsData: RequirementListApiResponse = await apiResponseRequirements.json();
+  const clientsData: ClientsSelectListApiResponse = await apiResponseClients.json();
+  const requirementsData: RequirementsSelectApiResponse = await apiResponseRequirements.json();
 
-  const clients = clientsData.map((client) => ({
-    id: client.id,
-    name: client.nombre,
+  const formattedClients: ClientsListSelectDTO = clientsData.map((client) => ({
+    key: client.id,
+    label: client.nombre,
   }));
 
-  const formattedRequirements: RequirementListDTO = requirementsData.map((requirement) => ({
-    id: requirement.id,
-    name: requirement.nombre,
-  })) as RequirementListDTO;
+  const formattedRequirements: RequirementsSelectDTO = requirementsData.map((requirement) => ({
+    key: requirement.id,
+    label: requirement.nombre,
+  }));
 
   const survey = {
     id: apiResponseDataSurvey.id,
@@ -53,18 +56,18 @@ export const getSurveysLoader = async ({ params }: any) => {
     slug: apiResponseDataSurvey.slug,
     description: apiResponseDataSurvey.descripcion,
     client: {
-      id: apiResponseDataSurvey.cliente.id,
-      name: apiResponseDataSurvey.cliente.nombre,
+      key: apiResponseDataSurvey.cliente.id,
+      label: apiResponseDataSurvey.cliente.nombre,
     },
-    requirements: {
-      id: apiResponseDataSurvey.requisitos?.id,
-      name: apiResponseDataSurvey.requisitos?.nombre,
+    requirement: {
+      key: apiResponseDataSurvey.requisitos?.id,
+      label: apiResponseDataSurvey.requisitos?.nombre,
     },
   };
 
   const results = {
     survey,
-    clients,
+    clients: formattedClients,
     requirements: formattedRequirements,
   };
 

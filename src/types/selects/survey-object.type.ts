@@ -1,14 +1,15 @@
-import { Nullable } from './../../clean-core/common/types/common/nullable';
-export interface ISurveySelectApiResponse {
+import { Nullable } from '../../clean-core/common/types/common';
+
+export interface SurveySelectApiResponse {
   id: string;
   nombre: string;
 }
 
-export interface ISurveySelectDTO {
+export interface SurveySelectDTO {
   key: Nullable<string>;
   label: string;
 }
 
-export type SurveySelectListApiResponse = Array<ISurveySelectApiResponse>;
+export type SurveySelectListApiResponse = Array<SurveySelectApiResponse>;
 
-export type SurveySelectListDTO = Array<ISurveySelectDTO>;
+export type SurveySelectListDTO = Array<SurveySelectDTO>;

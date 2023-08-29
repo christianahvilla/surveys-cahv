@@ -6,16 +6,16 @@ import { LoadingElement } from '~components/app/loading/loading-element.componen
 import { AVAILABLE_ERRORS, IAvailableErrors } from '~types/error/error-object.type';
 import { NotificationType } from '~types/notification/notification-object.type';
 import { SurveySelectDTO } from '~types/selects/survey-object.type';
-import { TitleAction } from '../../../components/app/title-actions/app-title-page.component';
-import { FormButtons } from '../../../components/buttons/form-buttons/form-buttons.component';
-import { PageContainer } from '../../../components/containers/page-container.component';
-import { ParentContainer } from '../../../components/containers/parent-container.component';
-import { InputDropdown } from '../../../components/inputs/dropdown/input-dropdown.component';
+import { TitleAction } from '~components/app/title-actions/app-title-page.component';
+import { FormButtons } from '~components/buttons/form-buttons/form-buttons.component';
+import { PageContainer } from '~components/containers/page-container.component';
+import { ParentContainer } from '~components/containers/parent-container.component';
+import { InputDropdown } from '~components/inputs/dropdown/input-dropdown.component';
 import { SELECT_ELEMENT } from '../../../constants';
-import { ApiMethods } from '../../../types/api/api-methods-object.type';
-import { ApiError } from '../../../types/api/api-responses.object.type';
-import { QuestionEditSurveyDto } from '../../../types/questions/questions-list-object';
-import { getDropdownValue, isSubmitting } from '../../../utils/helpers';
+import { ApiMethods } from '~types/api/api-methods-object.type';
+import { ApiError } from '~types/api/api-responses.object.type';
+import { QuestionEditSurveyDto } from '~types/questions/questions-list-object';
+import { getDropdownValue, isSubmitting } from '~utils/helpers';
 import { AVAILABLE_QUESTION_TYPE, EDIT_QUESTION_ROUTE, LIST_QUESTION_ROUTE } from '../constants';
 import { EDIT_QUESTION_TITLE } from './constants';
 import { QuestionsEditErrorElement } from './questions-edit-error.element';
@@ -54,7 +54,7 @@ export const QuestionsEditElement = () => {
     }
   }, [addNotification, error, message, statusCode]);
   return (
-    <div data-testid='create-questions-element'>
+    <div data-testid='edit-questions-element'>
       <ParentContainer>
         <PageContainer>
           <Suspense fallback={<LoadingElement />}>

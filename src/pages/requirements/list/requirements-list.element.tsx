@@ -18,8 +18,6 @@ export const RequirementsListElement = () => {
   };
   const navigation = useNavigation();
 
-  console.log(data);
-
   return (
     <div data-testid='requirements-list-element'>
       <Suspense fallback={<LoadingElement />}>

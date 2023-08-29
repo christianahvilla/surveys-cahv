@@ -15,8 +15,6 @@ export const AnswersListElement = () => {
     answers: Awaited<AnswerListDTO>;
   };
 
-  console.log(results);
-
   const navigation = useNavigation();
 
   return (

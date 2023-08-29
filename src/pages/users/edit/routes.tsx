@@ -12,6 +12,7 @@ export const routes: Array<NonIndexRouteObjectWithNav> = [
     action: editUserAction,
     loader: getUserLoader,
     showInNav: false,
+    shouldRevalidate: () => false,
     order: 1,
   },
 ];

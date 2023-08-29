@@ -17,7 +17,7 @@ export const LOGOUT = 'Cerrar sesión';
 export const APP_LINKS: AppLinks = [
   {
     text: DASHBOARD_ROUTE_TITLE,
-    route: '/dashboard/list',
+    route: '/dashboard',
     key: 'dashboard',
   },
   {

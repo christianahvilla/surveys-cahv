@@ -28,6 +28,7 @@
       "~types/*": ["./src/types/*"],
       "~utils/*": ["./src/utils/*"],
       "~assets/*": ["./src/assets/*"],
+      "~parentAssets/*": ["./assets/*"],
       "~clean/*": ["./src/clean-core/*"]
     }
   },
@@ -40,7 +41,7 @@
     "setupTest.ts",
     "src/**/*.test.ts",
     "src/**/*.test.tsx",
-    "tailwind.config.js"
+    "tailwind.config.backup.js"
   ],
   "exclude": ["node_modules", "**/__mocks__/*", "vitest/**/*"]
 }

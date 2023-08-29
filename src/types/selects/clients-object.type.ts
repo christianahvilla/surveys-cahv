@@ -1,6 +1,6 @@
 import { Nullable } from './../../clean-core/common/types/common/nullable';
 
-export interface ClientData {
+export interface IClientSelectApiResponse {
   id: string;
   nombre: string;
 }
@@ -11,4 +11,4 @@ export interface IClientSelectDTO {
 }
 
 export type ClientsListSelectDTO = Array<IClientSelectDTO>;
-export type ClientsSelectListApiResponse = Array<ClientData>;
+export type ClientsSelectListApiResponse = Array<IClientSelectApiResponse>;

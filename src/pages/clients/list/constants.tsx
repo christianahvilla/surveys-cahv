@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { ColDef, ICellRendererParams } from 'ag-grid-community';
 import { IClientDTO } from '~types/clients/clients-list-object';
 
+export const CLIENTS_TITLE = 'Clientes';
+
 export const TABLE_HEADER: Array<ColDef> = [
   {
     headerName: 'Cliente',

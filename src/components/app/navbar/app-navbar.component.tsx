@@ -35,7 +35,7 @@ export const NavBarComponent = () => {
       onMenuOpenChange={setIsMenuOpen}
     >
       <NavbarToggle isMenuOpen={isMenuOpen} />
-      <NavbarContent justify='start' className='navbar-brand  xs:hidden md:flex'>
+      <NavbarContent justify='start' className='navbar-brand  md:flex sm:hidden'>
         <AppNavBarBrand />
       </NavbarContent>
 

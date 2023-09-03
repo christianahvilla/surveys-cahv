@@ -2,7 +2,7 @@ import { NonIndexRouteObjectWithNav } from '~types/router/route-object-with-nav.
 import { RouteURLs } from './urls';
 import { RequirementsCreateElement } from './requirements-create.element';
 import { createRequirementAction } from './create-action';
-import { requirementCreateLoader } from './loader';
+// import { requirementCreateLoader } from './loader';
 
 export const routes: Array<NonIndexRouteObjectWithNav> = [
   {
@@ -10,7 +10,7 @@ export const routes: Array<NonIndexRouteObjectWithNav> = [
     element: <RequirementsCreateElement />,
     name: RouteURLs.ROOT,
     action: createRequirementAction,
-    loader: requirementCreateLoader,
+    // loader: requirementCreateLoader,
     shouldRevalidate: () => false,
     showInNav: false,
     order: 1,

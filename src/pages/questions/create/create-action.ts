@@ -9,7 +9,8 @@ export const createQuestionsAction = async ({ request }: ActionFunctionArgs) => 
   const description = (formData.get(QuestionKeysInput.description) as string) || '';
   const questionType = (formData.get(QuestionKeysInput.questionType) as string) || '';
   const surveyId = (formData.get(QuestionKeysInput.surveyId) as string) || '';
-  const order = (formData.get(QuestionKeysInput.order) as string) || '';
+  const propose = (formData.get(QuestionKeysInput.propose) as string) || '';
+  const order = Number(formData.get(QuestionKeysInput.order) as string) || 0;
 
   try {
     const url = '/encuestas/preguntas';
@@ -24,6 +25,7 @@ export const createQuestionsAction = async ({ request }: ActionFunctionArgs) => 
         tipo: questionType,
         encuestaId: surveyId,
         orden: order,
+        proposito: propose,
       },
     });
     return { success: true };

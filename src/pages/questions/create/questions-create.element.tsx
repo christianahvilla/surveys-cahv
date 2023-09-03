@@ -15,12 +15,18 @@ import {
   NOTIFICATION_SUCCESS,
   NotificationType,
 } from '~types/notification/notification-object.type';
-import { SurveySelectDTO, SurveySelectListDTO } from '~types/selects/survey-object.type';
+import { ISurveySelectDTO, SurveySelectListDTO } from '~types/selects/survey-object.type';
 import { getDropdownValue, isSubmitting } from '~utils/helpers';
 import { SELECT_ELEMENT } from '../../../constants';
-import { ADD_QUESTION_ROUTE, AVAILABLE_QUESTION_TYPE, LIST_QUESTION_ROUTE } from '../constants';
+import {
+  ADD_QUESTION_ROUTE,
+  AVAILABLE_QUESTION_TYPE,
+  LIST_QUESTION_ROUTE,
+  QUESTIONS_PROPOSES,
+} from '../constants';
 import { ADD_QUESTIONS_TITLE } from './constants';
 import { QuestionsCreateErrorElement } from './questions-create-error.element';
+import { IDropdownOptions } from '~components/inputs/dropdown/types';
 
 export const QuestionsCreateElement = () => {
   const surveyId = useLoaderData() as {
@@ -30,19 +36,27 @@ export const QuestionsCreateElement = () => {
   const navigation = useNavigation();
   const fetcher = useFetcher();
 
-  const [questionType, setQuestionType] = useState(
+  const [questionType, setQuestionType] = useState<IDropdownOptions>(
     getDropdownValue('abierta', AVAILABLE_QUESTION_TYPE),
   );
-  const [survey, setSurvey] = useState<SurveySelectDTO>(SELECT_ELEMENT);
+  const [survey, setSurvey] = useState<ISurveySelectDTO>(SELECT_ELEMENT);
+  const [propose, setPropose] = useState<IDropdownOptions>(
+    getDropdownValue('encuesta', QUESTIONS_PROPOSES),
+  );
+
   const { addNotification } = useNotification();
 
   const { state, data, Form } = fetcher;
   const { error, statusCode, message } = (data || {}) as ApiError;
   const { success } = (data || {}) as ApiSuccess;
 
+  const handleSelectPropose = (key: Key) => setPropose(getDropdownValue(key, QUESTIONS_PROPOSES));
+
+  const handleSelectSurvey = (key: Key) => setSurvey(getDropdownValue(key, surveyId.results || []));
+
   const handleSelectQuestion = (key: Key) =>
     setQuestionType(getDropdownValue(key, AVAILABLE_QUESTION_TYPE));
-  const handleSelect = (key: Key) => setSurvey(getDropdownValue(key, surveyId.results || []));
+
   useEffect(() => {
     if (error && state !== 'submitting') {
       addNotification({
@@ -103,16 +117,16 @@ export const QuestionsCreateElement = () => {
                                   isDisabled={isSubmitting(state)}
                                   type='order'
                                   name='order'
-                                  label='orden'
+                                  label='Orden'
                                   isRequired
                                 />
                               </div>
                             </div>
                             <div className='border-b border-gray-900/10 pb-12'>
-                              <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2'>
+                              <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3'>
                                 <div className='sm:col-span-1'>
                                   <InputDropdown
-                                    handleSelect={handleSelect}
+                                    handleSelect={handleSelectSurvey}
                                     value={survey}
                                     defaultValue={SELECT_ELEMENT}
                                     name='surveyId'
@@ -125,6 +139,14 @@ export const QuestionsCreateElement = () => {
                                     value={questionType}
                                     name='questionType'
                                     options={AVAILABLE_QUESTION_TYPE}
+                                  />
+                                </div>
+                                <div className='sm:col-span-1'>
+                                  <InputDropdown
+                                    handleSelect={handleSelectPropose}
+                                    value={propose}
+                                    name='propose'
+                                    options={QUESTIONS_PROPOSES}
                                   />
                                 </div>
                               </div>

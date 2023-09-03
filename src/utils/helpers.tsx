@@ -57,3 +57,9 @@ export const fileToBase64 = (file: File): Promise<string | ArrayBuffer | null> =
     };
   });
 };
+
+// Helper function to create a data URL from Base64 data.
+export const createDataUrl = (base64Data: string) => {
+  console.log(`data:image/png;base64,${base64Data}`);
+  return `data:image/svg+xml;base64,,${base64Data}`;
+};

@@ -41,7 +41,7 @@
     "setupTest.ts",
     "src/**/*.test.ts",
     "src/**/*.test.tsx",
-    "tailwind.config.backup.js"
+    "tailwind.config.js"
   ],
   "exclude": ["node_modules", "**/__mocks__/*", "vitest/**/*"]
 }

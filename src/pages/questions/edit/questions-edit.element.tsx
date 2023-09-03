@@ -5,7 +5,7 @@ import useNotification from 'src/hooks/useNotification';
 import { LoadingElement } from '~components/app/loading/loading-element.component';
 import { AVAILABLE_ERRORS, IAvailableErrors } from '~types/error/error-object.type';
 import { NotificationType } from '~types/notification/notification-object.type';
-import { SurveySelectDTO } from '~types/selects/survey-object.type';
+import { ISurveySelectDTO } from '~types/selects/survey-object.type';
 import { TitleAction } from '~components/app/title-actions/app-title-page.component';
 import { FormButtons } from '~components/buttons/form-buttons/form-buttons.component';
 import { PageContainer } from '~components/containers/page-container.component';
@@ -33,7 +33,7 @@ export const QuestionsEditElement = () => {
   );
 
   const params = useParams<{ id: string }>();
-  const [survey, setSurvey] = useState<SurveySelectDTO>(SELECT_ELEMENT);
+  const [survey, setSurvey] = useState<ISurveySelectDTO>(SELECT_ELEMENT);
   const { addNotification } = useNotification();
 
   const handleSelectQuestion = (key: Key) =>

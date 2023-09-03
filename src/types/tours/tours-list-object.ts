@@ -8,7 +8,7 @@ export interface ITourApiResponse {
   colony: string;
   cp: string;
   order: string;
-  puntos: IPointsApiResponse[];
+  puntos: ITourPointsApiResponse[];
   user: IUserTourApiResponse;
 }
 
@@ -29,7 +29,7 @@ export interface IUserTourApiResponse {
   celular: string;
 }
 
-export interface IPointsApiResponse {
+export interface ITourPointsApiResponse {
   id: string;
   longitude: string;
   latitude: string;

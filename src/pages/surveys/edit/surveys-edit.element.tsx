@@ -19,7 +19,7 @@ import { ApiError, ApiSuccess } from '~types/api/api-responses.object.type';
 import { SurveyLoaderData } from './types';
 import { LIST_SURVEYS_ROUTE } from '../constants';
 import { IClientSelectDTO } from '~types/selects/clients-object.type';
-import { IRequirementSelectDTO } from '~types/selects/requirements-list-object';
+import { IRequirementSelectDTO } from '~types/selects/requirements-object';
 import { EMPTY_PLACEHOLDER, SELECT_ELEMENT } from 'src/constants';
 import { getDropdownValue, isSubmitting } from '~utils/helpers';
 import { ParentContainer } from '~components/containers/parent-container.component';

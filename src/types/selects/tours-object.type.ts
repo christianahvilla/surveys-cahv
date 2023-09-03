@@ -1,14 +1,17 @@
 import { Nullable } from '~clean/common/types/common';
-export type IUserSelectListApiResponse = Array<UserData>;
-
-export interface UserData {
-  key: string;
-  label: any;
+interface ITourSelectApiResponse {
+  id: string;
+  state: string;
+  city: string;
+  colony: string;
+  cp: string;
+  order: number;
 }
 
-export interface IUserSelectDTO {
+export interface ITourSelectDTO {
   key: Nullable<string>;
   label: string;
 }
 
-export type IUsersSelectDTO = Array<IUserSelectDTO>;
+export type TourSelectDTO = Array<ITourSelectDTO>;
+export type TourSelectApiResponse = Array<ITourSelectApiResponse>;

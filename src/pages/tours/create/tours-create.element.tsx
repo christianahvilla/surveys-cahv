@@ -20,7 +20,7 @@ import { SELECT_ELEMENT } from '../../../constants';
 import { ADD_TOUR_ROUTE, LIST_TOUR_ROUTE } from '../constants';
 import { ADD_TOUR__TITLE } from './constants';
 import { ToursCreateErrorElement } from './tours-create-error.element';
-import { IUserSelectDTO, IUsersSelectDTO } from '../../../types/selects/tours-object.type';
+import { IUserSelectDTO, IUsersSelectDTO } from '../../../types/selects/users-object.type';
 
 export const ToursCreateElement = () => {
   const usersById = useLoaderData() as {

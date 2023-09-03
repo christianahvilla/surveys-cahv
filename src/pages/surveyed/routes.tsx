@@ -14,6 +14,7 @@ export const routes: Array<NonIndexRouteObjectWithNav> = [
     showInNav: false,
     order: 1,
     loader: surveyedRouteLoader,
+    shouldRevalidate: () => false,
     children: [...surveyedListRoutes],
   },
 ];

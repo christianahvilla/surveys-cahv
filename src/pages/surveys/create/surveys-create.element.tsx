@@ -21,10 +21,7 @@ import { getDropdownValue, isSubmitting } from '~utils/helpers';
 import { ADD_SURVEY_TITLE } from './constants';
 import { InputDropdown } from '~components/inputs/dropdown/input-dropdown.component';
 import { EMPTY_PLACEHOLDER, SELECT_ELEMENT } from 'src/constants';
-import {
-  IRequirementSelectDTO,
-  RequirementsSelectDTO,
-} from '~types/selects/requirements-list-object';
+import { IRequirementSelectDTO, RequirementsSelectDTO } from '~types/selects/requirements-object';
 
 export const SurveysCreateElement = () => {
   const results = useLoaderData() as Awaited<{

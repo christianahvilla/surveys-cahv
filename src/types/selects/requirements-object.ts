@@ -1,4 +1,4 @@
-import { Nullable } from './../../clean-core/common/types/common/nullable';
+import { Nullable } from '../../clean-core/common/types/common/nullable';
 export interface IRequirementSelectApiResponse {
   id: string;
   nombre: string;

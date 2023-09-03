@@ -9,7 +9,7 @@ import {
 import {
   RequirementsSelectApiResponse,
   RequirementsSelectDTO,
-} from '~types/selects/requirements-list-object';
+} from '~types/selects/requirements-object';
 
 export const getSurveysLoader = async ({ params }: any) => {
   const urlSurvey = `/encuestas/filter/${params.id}`;

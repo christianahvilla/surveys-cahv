@@ -2,7 +2,7 @@ import { ApiRequestProviderInstance } from '~utils/ApiRequestProvider';
 import { ApiMethods } from '~types/api/api-methods-object.type';
 import { defer } from 'react-router-dom';
 import { ClientsSelectListApiResponse } from '~types/selects/clients-object.type';
-import { RequirementsSelectApiResponse } from '~types/selects/requirements-list-object';
+import { RequirementsSelectApiResponse } from '~types/selects/requirements-object';
 
 export const listClientLoader = async () => {
   const urlClients = '/clientes';

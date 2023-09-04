@@ -82,13 +82,19 @@ export const TABLE_HEADER: Array<ColDef> = [
     },
     cellRenderer: (column: ICellRendererParams) => {
       const { data } = column;
-      const { questions } = data as ISurveyDTO;
+      const { id, questions } = data as ISurveyDTO;
 
       if (!questions) {
         return 'N/A';
       }
 
-      return 'Si tiene';
+      return (
+        <div className='flex h-full space-x-4 justify-center items-center'>
+          <Link className='text-sky-500' to={`/surveys/${id}/questions`}>
+            Ver Preguntas
+          </Link>
+        </div>
+      );
     },
   },
   {

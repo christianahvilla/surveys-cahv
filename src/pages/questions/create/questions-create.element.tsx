@@ -15,7 +15,7 @@ import {
   NOTIFICATION_SUCCESS,
   NotificationType,
 } from '~types/notification/notification-object.type';
-import { SurveySelectDTO, SurveySelectListDTO } from '~types/selects/survey-object.type';
+import { ISurveySelectDTO, SurveySelectListDTO } from '~types/selects/survey-object.type';
 import { getDropdownValue, isSubmitting } from '~utils/helpers';
 import { SELECT_ELEMENT } from '../../../constants';
 import {
@@ -40,6 +40,7 @@ export const QuestionsCreateElement = () => {
     getDropdownValue('abierta', AVAILABLE_QUESTION_TYPE),
   );
   const [survey, setSurvey] = useState<SurveySelectDTO>(SELECT_ELEMENT);
+
   const [propose, setPropose] = useState<IDropdownOptions>(
     getDropdownValue('encuesta', QUESTIONS_PROPOSES),
   );

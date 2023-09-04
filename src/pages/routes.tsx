@@ -17,6 +17,7 @@ import { routes as clientsRoutes } from '~pages/clients/routes';
 import { routes as requirementsRoutes } from '~pages/requirements/routes';
 import { routes as optionsRoutes } from '~pages/options/routes';
 import { routes as toursRoutes } from './tours/routes';
+import { routes as pointsRoutes } from './points/routes';
 import { HomeRouteElement } from './home-route.element';
 
 export const routes: Array<NonIndexRouteObjectWithNav> = [
@@ -44,6 +45,7 @@ export const routes: Array<NonIndexRouteObjectWithNav> = [
       ...requirementsRoutes,
       ...optionsRoutes,
       ...toursRoutes,
+      ...pointsRoutes,
     ],
   },
 ];

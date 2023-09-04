@@ -39,7 +39,8 @@ export const QuestionsCreateElement = () => {
   const [questionType, setQuestionType] = useState<IDropdownOptions>(
     getDropdownValue('abierta', AVAILABLE_QUESTION_TYPE),
   );
-  const [survey, setSurvey] = useState<ISurveySelectDTO>(SELECT_ELEMENT);
+  const [survey, setSurvey] = useState<SurveySelectDTO>(SELECT_ELEMENT);
+
   const [propose, setPropose] = useState<IDropdownOptions>(
     getDropdownValue('encuesta', QUESTIONS_PROPOSES),
   );

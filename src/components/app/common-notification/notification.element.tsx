@@ -1,0 +1,72 @@
+import { NotificationType } from '~types/notification/notification-object.type';
+import { NOTIFICATION_TYPES } from './constants';
+import useNotification from 'src/hooks/useNotification';
+import { useCallback, useEffect } from 'react';
+
+export interface INotificationElement {
+  title: string;
+  information?: string;
+  body: string;
+  type: NotificationType;
+}
+
+export const NotificationElement = () => {
+  const { message, removeNotification } = useNotification();
+
+  const handleHide = useCallback(() => removeNotification(), [removeNotification]);
+
+  useEffect(() => {
+    if (message) {
+      setTimeout(() => handleHide(), 5000);
+    }
+  }, [handleHide, message]);
+
+  if (!message) {
+    return <></>;
+  }
+
+  const { title, information, body, type } = message;
+
+  return (
+    <div
+      className={`absolute m-12 right-12 top-0 ${NOTIFICATION_TYPES[type].mainClass}`}
+      role='alert'
+      aria-live='assertive'
+      aria-atomic='true'
+      data-te-autohide='false'
+      data-te-toast-init
+      data-te-toast-show
+    >
+      <div className={NOTIFICATION_TYPES[type].iconClass}>
+        <p className={NOTIFICATION_TYPES[type].titleClass}>
+          {NOTIFICATION_TYPES[type].icon}
+          {title}
+        </p>
+        <div className='flex items-center'>
+          <p className={NOTIFICATION_TYPES[type].informationClass}>{information}</p>
+          <button
+            type='button'
+            className='ml-2 box-content rounded-none border-none opacity-80 hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none'
+            data-te-toast-dismiss
+            aria-label='Close'
+            onClick={handleHide}
+          >
+            <span className='w-[1em] focus:opacity-100 disabled:pointer-events-none disabled:select-none disabled:opacity-25 [&.disabled]:pointer-events-none [&.disabled]:select-none [&.disabled]:opacity-25'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                strokeWidth={1.5}
+                stroke='currentColor'
+                className='w-6 h-6'
+              >
+                <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+      <div className={NOTIFICATION_TYPES[type].bodyClass}>{body}</div>
+    </div>
+  );
+};
